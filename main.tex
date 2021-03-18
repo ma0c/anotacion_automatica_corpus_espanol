@@ -25,8 +25,38 @@
 
 Los recursos para la investigación de tecnologías del habla son de vital importancia para la generación y validación de nuevo conocimiento en el área. En la actualidad donde la investigación se ha decantado en su mayoría por el aprendizaje de máquina utilizando mecanismos de aprendizaje supervisado, semi supervisado y no supervisado \textcolor{red}{[CITA]}, la calidad de los datos usados para el entrenamiento, validación y pruebas definen en gran medida los resultados de la investigación.
 
-Recursos representativos para realizar tareas comunes como el reconocimiento automático del habla y la síntesis del habla son TIMIT \textcolor{red}{[CITA]}, Switchboard \textcolor{red}{[CITA]}, Fisher \textcolor{red}{[CITA]} y Libri Speech \textcolor{red}{[CITA]}, recursos anotados desde el nivel fonético hasta el nivel de declaración \textcolor{red}{(acá estoy traduciendo utterance pero no me suena del todo)} altamente citados en investigaciones relacionadas con tecnologías del habla para la lengua inglesa.
+Recursos representativos para realizar tareas comunes como el reconocimiento automático del habla y la síntesis del habla son TIMIT \textcolor{red}{[CITA]}, Switchboard \textcolor{red}{[CITA]}, Fisher \textcolor{red}{[CITA]} y Libri Speech \textcolor{red}{[CITA]}, recursos anotados desde el nivel fonético hasta el nivel de declaración \textcolor{red}{(acá estoy traduciendo utterance pero no me suena del todo)} altamente citados en investigaciones relacionadas con tecnologías del habla para la lengua inglesa
 
 
+Aunque se ha probado el uso de recursos multilingues para tareas de reconocimiento de voz, la diferenciación en la articulación de los fonemas hace necesaria el uso de recursos enfocados en el español.
+
+Para la lengua española, los recursos más representativos para realizar tareas relacionadas con procesamiento de voz son Albazyn \textcolor{red}{[CITA]}, Fisher Spanish \textcolor{red}{[CITA]}, Call Friend TIMIT \textcolor{red}{[CITA]}, Call Home \textcolor{red}{[CITA]}, DimeX100 \textcolor{red}{[CITA]}, y mas recientemente Libri Speech español \textcolor{red}{[CITA]}
+
+El presente trabajo realiza una revisión detallada recursos abiertos para la ejecución de tareas de voz y propone la creación un nuevo recurso basado en grabaciones accesibles en la web de licencias abiertas, utilizando algoritmos de segmentación y alineamiento para la anotación a nivel de sentencia de un corpus de larga duración, gran vocabulario y de múltiples locutores.
+
+
+\section{Justificación}
+
+
+Existen múltiples factores importantes que influyen en los resultados de investigación con tareas de voz como el nivel de anotación de los recursos, la relación ruido señal, la variación de locutores, y el tamaño del vocabulario, pero se ha mostrado que el tamaño del corpus es un factor que impacta directamente la precisión de las tareas.
+
+En la tabla \ref{tab:english_corpora} \textcolor{red}{METER COLUMNA DE LICENCIA} se presentan recursos representativos para la lengua inglesa, siendo estos corpus objeto de múltiples investigaciones.
+
+\input{tablas/01_1_corpus_ingles}
+
+Se presenta en contraparte una lista de recursos para la lengua española, donde se ordenan los corpus por duración en horas y se evidencia que el tamaño de estos recursos es significativamente  menor a los de la lengua inglesa.
+
+
+\input{tablas/01_2_cospus_espanol}
+
+Aunque la brecha entre los lenguajes español e inglés es muy amplia, el lenguaje español no se considera un lenguaje con escasos recursos, pues existen múltiples corpus, bancos de árboles, datos anotados y transcritos, diccionarios y gramáticas formales \cite{CavarGlobalGORILLA}. 
+
+Este trabajo utiliza recursos abiertos publicados bajo licencia Creative Commons en la plataforma Libri Vox \cite{LibriVox} donde voluntarios se coordinan para crear audio libros de textos en el dominio público y publicados en el proyecto Gutenberg \cite{gutenberg}. A la fecha existen mas de 600 libros publicados para el español, los cuales se usarán como insumo para la creación de un corpus abierto de larga duración, múltiples locutores anotado a nivel de sentencia.
+
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliographystyle{plain}
+% \bibliographystyle{apacite}
+% \bibliography{bibliography/bibliography}
+\bibliography{referencias_ante_proyecto.bib,custom_references_ante_proyecto.bib}
 
 \end{document}
