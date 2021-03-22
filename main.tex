@@ -78,7 +78,7 @@ Disponibilidad de los recursos para la investigación es un aspecto fundamental 
 \label{tab:resources_by_langauge}
 \begin{tabular}{|l|l|l|l|}
 \hline
-Rank & Language & LDC & ELRA \\ \hline
+Posicion & Lenguaje & LDC & ELRA \\ \hline
 1    & Mandarin & 24  & 6    \\ \hline
 2    & Inglés  & 116 & 23   \\ \hline
 3    & Español  & 20  & 20   \\ \hline
@@ -176,11 +176,19 @@ A medida que el corpus crece día a día y las validaciones las realiza la misma
 
 \chapter{Creación de recursos de prueba}
 
-Para la realización de la segmentación y alineación automática de los recursos abiertos seleccionados, se realizaron experimentaciones y aprovisionamiento de datos para garantizar procesos de segmentación y alineación convenientes para su posterior aplicación sobre todo el conjunto de audio libros.
+Con el objetivo de determinar una línea base para la creación del corpus, se inicia realizando una segmentación de recursos abiertos existentes para medir posteriormente la calidad de las segmentaciones automáticas.
+
+Se define segmentación del audio como el proceso por medio del cual, a partir de una grabación de voz, se identifican las ocurrencias de fonemas, palabras o declaraciones. 
+
+Se realizaron dos anotaciones para el desarrollo de la investigación: una anotación a nivel fonético y otra a nivel de declaración.
+
+Para ambas anotaciones se utilizó el software Praat \cite{Praat} desarrollado por Paul Boersma y David Weenink de la Universidad de Ámsterdam. por medio del cual de manera visual es posible crear archivos de segmentación del audio. Estos archivos usan el formato TextGrid, especificado por la misma herramienta, donde se definen secuencias de elementos que identifican el inicio, finalización y texto encontrado en cada segmento. Estos archivos son almacenados en formato de texto para su facil lectura \cite{TextGrids}
 
 \section{Anotación manual a nivel fonético}
 
-Para esto se realizó una anotación fonética manual sobre grabaciones del Open Speech Corpus \cite{Collazos2015} del subcorpus de palabras aisladas, el cual esta compuesto por 334 palabras distintas grabadas por múltiples locutores con un total de \textcolor{red}{[Cuantas grabaciones tiene este sub corpus y cuantos locutores distintos?]}, seleccioando aleatoriamente 100 palabras distintas y realizando una anotación manual por medio de PRAAT \textcolor{red}{[CITA]}.
+Para esto se realizó una anotación fonética manual sobre grabaciones del Open Speech Corpus \cite{Collazos2015} del subcorpus de palabras aisladas, el cual esta compuesto por 334 palabras distintas grabadas por múltiples locutores con un total de \textcolor{red}{[Cuantas grabaciones tiene este sub corpus y cuantos locutores distintos?]}, seleccioando aleatoriamente 100 palabras distintas y realizando una anotación manual por medio de PRAAT \cite{Praat}.
+
+\include{tablas/03_anotacion_fonetica}
 
 \section{Anotación manual a nivel de sentencia}
 
@@ -189,6 +197,8 @@ También se realizó una anotación a nivel de declaración de los audiolibros d
 \section{Anotación automática a nivel de sentencia usando Libri Vox Spanish}
 
 WIP
+
+
 
 \chapter{Segmentación y Alineación automática}
 
