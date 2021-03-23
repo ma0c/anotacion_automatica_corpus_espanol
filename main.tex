@@ -5,6 +5,10 @@
 \usepackage{svg}
 \usepackage{xcolor}
 \usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+
+\graphicspath{ {./imagenes/} }
 
 \title{Anotación automática de un corpus hablado de licencia abierta y larga duración para el lenguaje Español}
 \author{Mauricio Collazos}
@@ -23,9 +27,9 @@
 
 \section{Definición del problema}
 
-Los recursos para la investigación de tecnologías del habla son de vital importancia para la generación y validación de nuevo conocimiento en el área. En la actualidad donde la investigación se ha decantado en su mayoría por el aprendizaje de máquina utilizando mecanismos de aprendizaje supervisado, semi supervisado y no supervisado \textcolor{red}{[CITA]}, la calidad de los datos usados para el entrenamiento, validación y pruebas definen en gran medida los resultados de la investigación.
+Los recursos para la investigación de tecnologías del habla son de vital importancia para la generación y validación de nuevo conocimiento en el área. En la actualidad donde la investigación se ha decantado en su mayoría por el aprendizaje de máquina utilizando mecanismos de aprendizaje supervisado, semi supervisado y no supervisado \cite{Chiu2018} \cite{AmazonSemiSupervised}  \cite{ZeroResources} , la calidad de los datos usados para el entrenamiento, validación y pruebas definen en gran medida los resultados de la investigación.
 
-Recursos representativos para realizar tareas comunes como el reconocimiento automático del habla y la síntesis del habla son TIMIT \cite{PriceTheRecognition}, Switchboard \cite{Godfrey1992SWITCHBOARD:Development}, Fisher \cite{CieriTheSpeech-to-Text} y Libri Speech \cite{PanayotovLIBRISPEECH:BOOKS}, recursos anotados desde el nivel fonético hasta el nivel de declaración \textcolor{red}{(acá estoy traduciendo utterance pero no me suena del todo)} altamente citados en investigaciones relacionadas con tecnologías del habla para la lengua inglesa
+Recursos representativos para realizar tareas comunes como el reconocimiento automático del habla y la síntesis del habla son TIMIT \cite{PriceTheRecognition}, Switchboard \cite{Godfrey1992SWITCHBOARD:Development}, Fisher \cite{CieriTheSpeech-to-Text} y Libri Speech \cite{PanayotovLIBRISPEECH:BOOKS}, recursos anotados desde el nivel fonético hasta el nivel de declaración altamente citados en investigaciones relacionadas con tecnologías del habla para la lengua inglesa
 
 
 Aunque se ha probado el uso de recursos multilingues para tareas de reconocimiento de voz, la diferenciación en la articulación de los fonemas hace necesaria el uso de recursos enfocados en el español.
@@ -42,7 +46,7 @@ El presente trabajo realiza una revisión detallada recursos abiertos para la ej
 
 Existen múltiples factores importantes que influyen en los resultados de investigación con tareas de voz como el nivel de anotación de los recursos, la relación ruido señal, la variación de locutores, y el tamaño del vocabulario, pero se ha mostrado que el tamaño del corpus es un factor que impacta directamente la precisión de las tareas.
 
-En la tabla \ref{tab:english_corpora} \textcolor{red}{METER COLUMNA DE LICENCIA} se presentan recursos representativos para la lengua inglesa, siendo estos corpus objeto de múltiples investigaciones.
+En la tabla \ref{tab:english_corpora} se presentan recursos representativos para la lengua inglesa, siendo estos corpus objeto de múltiples investigaciones.
 
 \input{tablas/01_1_corpus_ingles}
 
@@ -53,7 +57,7 @@ Se presenta en contraparte una lista de recursos para la lengua española, donde
 
 Aunque la brecha entre los lenguajes español e inglés es muy amplia, el lenguaje español no se considera un lenguaje con escasos recursos, pues existen múltiples corpus, bancos de árboles, datos anotados y transcritos, diccionarios y gramáticas formales \cite{CavarGlobalGORILLA}. 
 
-Se ha mostrado de igual manera que la anotación manual de recursos es una tarea costosa \textcolor{red}{[CITA]]}, y por esta razón propuestas de anotación automáticas son mas atractivas por la reducción de costos y esfuerzos empleadas en para la generación de los recursos.
+Se ha mostrado de igual manera que la anotación manual de recursos es una tarea costosa \cite{googleTTSLatinAmericanSpanishCorpus}, y por esta razón propuestas de anotación automáticas son mas atractivas por la reducción de costos y esfuerzos empleadas en para la generación de los recursos.
 
 Este trabajo utiliza recursos abiertos publicados bajo licencia Creative Commons en la plataforma Libri Vox \cite{LibriVox} donde voluntarios se coordinan para crear audio libros de textos en el dominio público y publicados en el proyecto Gutenberg \cite{gutenberg}. A la fecha existen mas de 600 libros publicados para el español, los cuales se usarán como insumo para la creación de un corpus abierto de larga duración, múltiples locutores anotado a nivel de sentencia.
 
@@ -73,19 +77,7 @@ Estas complicaciones se hacen mas evidentes en lenguas distintas al inglés dond
 
 Disponibilidad de los recursos para la investigación es un aspecto fundamental en el desarrollo de prototipos, algoritmos y técnicas. Comparando los recursos disponibles de licencias abiertas y de pago en los catálogos mas reconocidos de recursos de lenguaje, la diferencia evidenciada es enorme. En la tabla \ref{tab:resources_by_langauge} se muestran los recursos publicados por el Linguistic Data Consortium (LDC) y la European Language Resources Association (ELRA), mostrando que el inglés tiene cinco veces mas recursos que el español y el mandarín
 
-\begin{table}[h]
-\caption{Recursos para los cinco lenguajes más hablados del mundo \cite{HernndezMena2017}}
-\label{tab:resources_by_langauge}
-\begin{tabular}{|l|l|l|l|}
-\hline
-Posicion & Lenguaje & LDC & ELRA \\ \hline
-1    & Mandarin & 24  & 6    \\ \hline
-2    & Inglés  & 116 & 23   \\ \hline
-3    & Español  & 20  & 20   \\ \hline
-4    & Hindi    & 9   & 4    \\ \hline
-5    & Árabe   & 10  & 32   \\ \hline
-\end{tabular}
-\end{table}
+\input{tablas/02_01_corpus_por_lengua}
 
 Este capítulo muestra una revisión de los recursos de licencia abierta para tareas de procesamiento de voz en español, usando como criterios la visibilidad, disponibilidad y el impacto, indicando que existen otros recursos no considerados por falta de los criterios mencionados previamente.
 
@@ -96,7 +88,7 @@ Esta sección menciona los recursos de lenguaje abiertos para la lengua español
 
 En la tabla \ref{tab:open_source_spanish_corpus} se utilizan las siguientes abreviaciones:  CC BY-SA 4.0 Creative Commons Share A Like v4.0 license, LDC Non-Members LDC User LDC User Agreement for Non-Members, para dialectos: MX Mexicano, ES Peninsular, AR Argentino, CH Chileno, PE Peruano, CO Colombiano, PR Puerto Riqueño, VE Venezuelano.
 
-\include{tablas/02_corpus_abiertos_espanol}
+\input{tablas/02_02_corpus_abiertos_espanol}
 
 \subsection{DIMEx100}
 
@@ -186,17 +178,59 @@ Para ambas anotaciones se utilizó el software Praat \cite{Praat} desarrollado p
 
 \section{Anotación manual a nivel fonético}
 
-Para esto se realizó una anotación fonética manual sobre grabaciones del Open Speech Corpus \cite{Collazos2015} del subcorpus de palabras aisladas, el cual esta compuesto por 334 palabras distintas grabadas por múltiples locutores con un total de \textcolor{red}{[Cuantas grabaciones tiene este sub corpus y cuantos locutores distintos?]}, seleccioando aleatoriamente 100 palabras distintas y realizando una anotación manual por medio de PRAAT \cite{Praat}.
+Para esto se realizó una anotación fonética manual sobre grabaciones del Open Speech Corpus \cite{Collazos2015} del subcorpus de palabras aisladas, el cual esta compuesto por 334 palabras distintas grabadas por múltiples locutores con un total de 9441 grabaciones de 39 locutores distintos, seleccionando aleatoriamente 100 palabras distintas y realizando una anotación manual por medio de PRAAT \cite{Praat}.
 
-\include{tablas/03_anotacion_fonetica}
+La anotación se realizo utilizando la convención definida en la tabla \ref{tab:anotacion_fonetia}. esta convención se uso considerando que el Open Speech corpus - words fue grabado en su totalidad por locutores latino americanos, del país Colombia y la región del Valle del Cauca. En esta representación fonética, se usa la palabra especial sil para determinar silencio; también se eliminan fonemas como la z fricativa dado que esta forma de pronunciación no es natural de la región de los hablantes.
+
+
+\input{tablas/03_01_anotacion_fonetica}
+
+La distribución de fonemas en la anotación manual se muestra en la tabla \ref{tab:distribucion_fonetica}
+
+\input{tablas/03_02_distribucion_fonemas}
+
+Las grabaciones seleccionadas se distribuyen entre 22 grabadas por locutores de género femenino, 68 masculinos y 10 no identificado.
+
+En la imagen \ref{img:anotacion_fonetica_praat} se muestra la anotación fonética de realizada en Praat y en el archivo \ref{file:text_grid} el archivo correspondiente a la anotación fonética
+
+
+
+\begin{figure}[H]
+\caption{Anotación fonética con Praat}
+\label{img:anotacion_fonetica_praat}
+\includegraphics[width=\textwidth]{imagenes/03_01_anotacion_fonetica.png}
+\end{figure}
+
+\lstinputlisting[caption={Archivo TextGrid con anotación fonética}, label={file:text_grid}]{archivos/03_01_text_grid_ejemplo.txt}
+
+
 
 \section{Anotación manual a nivel de sentencia}
 
-También se realizó una anotación a nivel de declaración de los audiolibros de Librivox, seleccionando audios correspondientes a 6 horas de grabacion, sobre los cuales se realizó una segmentación manual basada en símbolos de puntuación \textcolor{red}{[Describir el mecanismo de tokenización]}
+También se realizó una anotación a nivel de declaración de los audiolibros de Librivox, seleccionando audios correspondientes a 6 horas de grabación, sobre los cuales se realizó una segmentación manual basada en símbolos de puntuación.
+
+Para la selección de los audio libros, se ordenaron las grabaciones en orden ascendente considerando el tamaño del audio original en segundos, para posteriormente seleccionar 3 horas de locutores de género femenino y 3 horas del género masculino, garantizando de esta manera un balance de género y también la maximización de locutores diferentes. Cada archivo será identificado con un prefijo F o M que significa el género del locutor, separado por una línea baja \_ y el consecutivo asignado.
+
+Los archivos almacenados en Librivox usan el formato de compresión con pérdida MP3, para su tratamiento son transformados a formato sin compresión WAV utilizando el programa Sox \cite{Sox}.
+
+Se realizó de igual manera una descarga manual de los textos correspondientes a los audio libros seleccionados, generando archivos de texto plano cuya primera línea es el título del texto y el resto del archivo.
+
+Como parte del pre-procesamiento del texto, se utilizaron expresiones regulares para segmentar los textos descargados de internet por símbolos de puntuación, y generando un nuevo archivo de texto plano donde cada línea contiene un índice, y la declaración correspondiente al segmento del texto.
+
+Se muestra un ejemplo de texto tokenizado en el archivo \ref{file:texto_tokenizado}
+
+\lstinputlisting[caption={Texto tokenizado}, label={file:texto_tokenizado}]{archivos/03_02_tokenizacion_texto.txt}
+
+Los índices al comienzo de cada línea funcionan como identificadores en el proceso de anotación a nivel de declaración. Esto con el objetivo de facilitar el proceso de anotación al solo indicar en el campo de texto un índice en lugar del texto correspondiente. Posteriormente es posible reconstruir un archivo de anotación, reemplazando los índices por el texto correspondiente almacenado en el archivo de tokenización. El ejemplo de anotación de declaración del texto ejemplo se puede observar en el archivo \ref{file:text_grid_tokenizado}
+
+\lstinputlisting[caption={Texto tokenizado}, label={file:text_grid_tokenizado}]{archivos/03_03_text_grid_tokenizado.txt}
+
 
 \section{Anotación automática a nivel de sentencia usando Libri Vox Spanish}
 
-WIP
+\textcolor{red}{WIP}
+
+Esta sección corresponde a la generación de TextGrids usando los archivos fuentes descargados directamente desde librivox y comparándolos con la segmentación manual de \cite{LibriVox-Spanish}, de momento no tengo nada acá mas que experimentos fallidos usando Onsets y de pronto luego miro si hay tiempo de dejar este capítulo si encuentro alguna luz. De pronto usando DTW pasa algo acá pero no se
 
 
 
