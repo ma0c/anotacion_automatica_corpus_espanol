@@ -7,6 +7,8 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{listings}
+\usepackage{tipa}
+\usepackage{lscape} 
 
 \graphicspath{ {./imagenes/} }
 
@@ -174,13 +176,40 @@ Se define segmentación del audio como el proceso por medio del cual, a partir d
 
 Se realizaron dos anotaciones para el desarrollo de la investigación: una anotación a nivel fonético y otra a nivel de declaración.
 
-Para ambas anotaciones se utilizó el software Praat \cite{Praat} desarrollado por Paul Boersma y David Weenink de la Universidad de Ámsterdam. por medio del cual de manera visual es posible crear archivos de segmentación del audio. Estos archivos usan el formato TextGrid, especificado por la misma herramienta, donde se definen secuencias de elementos que identifican el inicio, finalización y texto encontrado en cada segmento. Estos archivos son almacenados en formato de texto para su facil lectura \cite{TextGrids}
+Para ambas anotaciones se utilizó el software Praat \cite{Praat} desarrollado por Paul Boersma y David Weenink de la Universidad de Ámsterdam. por medio del cual de manera visual es posible crear archivos de segmentación del audio. Estos archivos usan el formato TextGrid, especificado por la misma herramienta, donde se definen secuencias de elementos que identifican el inicio, finalización y texto encontrado en cada segmento. Estos archivos son almacenados en formato de texto para su fácil lectura \cite{TextGrids}
 
 \section{Anotación manual a nivel fonético}
 
+Antes de definir anotación a nivel fonético es útil definir conceptos importantes pertenecientes a la fonoaudiología para extraer información relevante para la anotación.
+
+Se define fonema como la unidad fonológica básica, que describe una interacción específica del aparato fonador. De esta manera las posibles combinaciones finitas que puede ejecutar el ser humano para ejecutar sonidos de voz quedan acotadas por estas representaciones y a su vez son clasificadas en función de la cercanía de las interacciones.
+
+Al ser el lenguaje hablado un subconjunto de las señales auditivas percibas por el oído como variación en la presión del aire, los primeros fonemas que destacan son aquellos que modifican directamente esta presión del aire. El aparato fonador utiliza los pulmones y el diafragma para expulsar aire, luego utiliza las cuerdas vocales, y la boca para modificar esta presión generando variaciones en los sonidos percibidos. Estos sonidos primarios son llamados vocales y se pueden caracterizar por la apertura de la boca y el lugar de resonancia de la señal.
+
+\begin{figure}[H]
+\caption{Aparato Fonador\cite{hableomsDeVoz}}
+\label{img:aparato_fonador}
+\includegraphics[width=\textwidth]{imagenes/03_02_aparato_fonador.png}
+\end{figure}
+
+El Alfabeto Fonético Internacional o IPA por sus siglas en inglés, fue estructurado desde 1888 y representa todas las posibles configuraciones para los fonemas que pueden ser ejecutados por el ser humano y la caracterización e identificación que da a las vocales es la que se puede observar en la tabla \ref{tab:ipa_table_vowels}
+
+
+\input{tablas/03_03_ipa_vocales}
+
+Además de estas alteraciones principales en las perturbaciones del aire, existen otros sonidos que interrumpen el flujo de aire emitido por el diafragma. Estos sonidos son denominados consonantes y son clasificados por su lugar de articulación y el tipo de articulación. El IPA también define una clasificación para las consonantes, la cual puede observarse en la tabla \ref{tab:ipa_table_pulmonic_consonants} y la tabla \ref{tab:ipa_table_non_pulmonic_consonants}
+
+\input{tablas/03_04_pulmonares}
+
+\input{tablas/03_05_ipa_no_pulmonares}
+
+El español utiliza solamente ciertos fonemas del IPA, y la representación de estos define los conocidos alfabetos fonéticos para el español. Entre los más conocidos se encuentran el SAMPA \textcolor{red}{CITA}, y el Mexbet, el cual se representa en la tabla \ref{tab:mexbet}  \textcolor{red}{CITA}.
+
+\input{tablas/03_06_mexbet}
+
 Para esto se realizó una anotación fonética manual sobre grabaciones del Open Speech Corpus \cite{Collazos2015} del subcorpus de palabras aisladas, el cual esta compuesto por 334 palabras distintas grabadas por múltiples locutores con un total de 9441 grabaciones de 39 locutores distintos, seleccionando aleatoriamente 100 palabras distintas y realizando una anotación manual por medio de PRAAT \cite{Praat}.
 
-La anotación se realizo utilizando la convención definida en la tabla \ref{tab:anotacion_fonetia}. esta convención se uso considerando que el Open Speech corpus - words fue grabado en su totalidad por locutores latino americanos, del país Colombia y la región del Valle del Cauca. En esta representación fonética, se usa la palabra especial sil para determinar silencio; también se eliminan fonemas como la z fricativa dado que esta forma de pronunciación no es natural de la región de los hablantes.
+La anotación se realizo utilizando la convención definida en la tabla \ref{tab:anotacion_fonetica}. esta convención se uso considerando que el Open Speech corpus - words fue grabado en su totalidad por locutores latino americanos, del país Colombia y la región del Valle del Cauca. En esta representación fonética, se usa la palabra especial sil para determinar silencio; también se eliminan fonemas como la z fricativa dado que esta forma de pronunciación no es natural de la región de los hablantes.
 
 
 \input{tablas/03_01_anotacion_fonetica}
@@ -230,13 +259,49 @@ Los índices al comienzo de cada línea funcionan como identificadores en el pro
 
 \textcolor{red}{WIP}
 
-Esta sección corresponde a la generación de TextGrids usando los archivos fuentes descargados directamente desde librivox y comparándolos con la segmentación manual de \cite{LibriVox-Spanish}, de momento no tengo nada acá mas que experimentos fallidos usando Onsets y de pronto luego miro si hay tiempo de dejar este capítulo si encuentro alguna luz. De pronto usando DTW pasa algo acá pero no se
+Esta sección corresponde a la generación de TextGrids usando los archivos fuentes descargados directamente desde librivox y comparándolos con la segmentación manual de \cite{LibriVox-Spanish}, de momento no tengo nada acá mas que experimentos fallidos usando Onsets y de pronto luego miro si hay tiempo de dejar este capítulo si encuentro alguna luz. De pronto usando DTW pasa algo acá pero no se.
 
 
 
 \chapter{Segmentación y Alineación automática}
 
+Como la creación de recursos de manera manual es costosa, y los requerimientos de volúmen de información son altos, la generación automática o semi automática de recursos de habla toma gran relevancia en la investigación actual.
+
+Dado que existen recursos abiertos y disponibles, pero no aptos para la invetigación, el procesamiento de estos de manera automática o semi automática debe garantizar nuevos recursos aptos para la investigación. Las tareas relacionadas con este problema son las de segmentación, la cual toma una señal de audio y extrae segmentos relevantes dentro de esta; la anotación, que toma una señal e identifica componentes de lenguaje dentro de esta y la alineación, que toma una señal e indica los lugares exactos en los cuales existe información de lenguaje.
+
+El problema de la segmentación puede abordarse a nivel de declaración, palabra o fonema, y se presentan dos aproximaciones para realizar segmentación de audios.
+
 \section{Segmentación basada en silencio}
+
+Las segmentación basada en silencio es una respuesta natural al problema de como segmentar señales de voz, pues existe una correspondencia directa entre símbolos de puntuación y pausas en la voz. De igual manera en una señal de voz, los locutores requieren pausas para tomar aire, lo que permite que exista una cadencia en la señal y espacios donde realizar los cortes.
+
+Para identificar el proceso de segmentación por silencios, es necesario entender como se almacenan las señales de voz digitalmente y como se puede procesar este tipo de datos.
+
+La manera mas sencilla de representar digitalmente una señal de voz es haciendo el uso de la Modulación por Impulsos Codificados o PCM por sus siglas en inglés, donde por medio de un transductor análogo, se capturan las variaciones en la presión del aire y se registran como un rango de valores normalizado. El senso de la señal se hace periódicamente a una frecuencia determinada generando de esta manera una secuencia de valores que representa la señal. El proceso de representar la presión del aire en un segmento de tiempo se denomina cuantización, y para señales de audio se utilizan valores normalizados entre -127 y 128 a 16000 Hz de frecuencia.
+
+En al figura \ref{img:pcm} se muestra la visualización de una grabación correspondiente a la palabra agua, en su longitud original y aumentada en un 500\% y 1000\% usando Audacity \cite{audacity}
+\begin{figure}[H]
+\caption{Representación visual de una señal de voz \cite{hableomsDeVoz}}
+\label{img:pcm}
+\includegraphics[width=\textwidth]{imagenes/04_01_pcm.png}
+\end{figure}
+
+Al hablar de silencio, nos referimos a ausencia total o parcial de sonido, lo cual se puede relacionar directamente con la intensidad de la señal en un segmento de tiempo.
+
+Definiremos intensidad como la sumatoria de las energías en un periodo de tiempo  \cite{Jurafsky2000SpeechRecognition}    
+
+\begin{equation}
+\label{eq:energy}
+I = \sum{x^2}  
+\end{equation}
+
+Esto nos daría un indicador de la toda la señal, sin embargo, es útil realizar este análisis por pequeños segmentos del audio para identificar en conjunto cuales son los puntos donde la intensidad baja representa un espacio de silencio. Estos segmentos por lo general se definen en espacios de 250ms solapados cada 100ms, aunque este solapamiento no es necesario para el proceso de identificación de intensidad, da la idea de que la señal es continua y que cada segmento comparte información con el anterior.
+
+Utilizando esta idea es posible tomar cualquier señal de voz, segmentarla cada 250ms y encontrar los segmentos consecutivos donde la intensidad sea baja o cercana a cero y estos segmentos consecutivos representarían pausas de silencio.
+
+Algunas consideraciones a tomar al usar esta aproximación es que incluso en medio de las señales de voz, existen subsegmentos donde la intensidad es baja, por ejemplo en la pronunciación 
+
+
 
 Cálculo de formantes e intensidad de la señal.
 
