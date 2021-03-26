@@ -10,6 +10,11 @@
 \usepackage{tipa}
 \usepackage{lscape} 
 
+
+\usepackage{xcolor}
+\usepackage{soul}
+\newcommand{\macb}{\textcolor{red}}
+
 \graphicspath{ {./imagenes/} }
 
 \title{Anotación automática de un corpus hablado de licencia abierta y larga duración para el lenguaje Español}
@@ -34,21 +39,21 @@ Los recursos para la investigación de tecnologías del habla son de vital impor
 Recursos representativos para realizar tareas comunes como el reconocimiento automático del habla y la síntesis del habla son TIMIT \cite{PriceTheRecognition}, Switchboard \cite{Godfrey1992SWITCHBOARD:Development}, Fisher \cite{CieriTheSpeech-to-Text} y Libri Speech \cite{PanayotovLIBRISPEECH:BOOKS}, recursos anotados desde el nivel fonético hasta el nivel de declaración altamente citados en investigaciones relacionadas con tecnologías del habla para la lengua inglesa
 
 
-Aunque se ha probado el uso de recursos multilingues para tareas de reconocimiento de voz, la diferenciación en la articulación de los fonemas hace necesaria el uso de recursos enfocados en el español.
+Aunque se ha probado el uso de recursos multilingues para tareas de reconocimiento de voz, la diferenciación en la articulación de los fonemas hace necesaria el uso de recursos enfocados en el español. \macb{Cu\'ales son los recursos multilingues? es sólo la fonolog\'ia lo que hace \'util tener recursos en espa\~nol?}
 
 Para la lengua española, los recursos más representativos para realizar tareas relacionadas con procesamiento de voz son Albazyn \cite{CampilloAlbayzinEvaluation}, Fisher Spanish \cite{FischerSpa}, Call Friend \cite{CALLFRIENDSpa}, Call Home \cite{CALLHOMESpa}, DIMEx100\cite{Pineda2004DIMEx100:Spanish}, y mas recientemente Libri Speech español \cite{LibriVox-Spanish}.
 
 
 
-El presente trabajo realiza una revisión detallada recursos abiertos para la ejecución de tareas de voz y propone la creación un nuevo recurso basado en grabaciones accesibles en la web de licencias abiertas, utilizando algoritmos de segmentación y alineamiento para la anotación a nivel de sentencia de un corpus de larga duración, gran vocabulario y de múltiples locutores.
+El presente trabajo realiza una revisión detallada \macb{de} recursos abiertos para la ejecución de tareas de voz y propone la creación \macb{de} un nuevo recurso basado en grabaciones accesibles en la web de licencias abiertas\macb{\st{, utilizando}. Para ello se emplea} algoritmos de segmentación y alineamiento para la anotación a nivel de sentencia de un corpus de larga duración, gran vocabulario y de múltiples locutores.
 
 
 \section{Justificación}
 
 
-Existen múltiples factores importantes que influyen en los resultados de investigación con tareas de voz como el nivel de anotación de los recursos, la relación ruido señal, la variación de locutores, y el tamaño del vocabulario, pero se ha mostrado que el tamaño del corpus es un factor que impacta directamente la precisión de las tareas.
+Existen múltiples factores importantes que influyen en los resultados de investigación con tareas de voz como el nivel de anotación de los recursos, la relación ruido señal, la variación de locutores, y el tamaño del vocabulario\macb{\st{, pero}. Sin embargo, } se ha mostrado que el tamaño del corpus es un factor que impacta directamente la precisión de las tareas. \macb{D\'nde se ha demostrado? Cu\'ales son los estudios, o estudios que muestren este efecto?. Citar ejemplos}
 
-En la tabla \ref{tab:english_corpora} se presentan recursos representativos para la lengua inglesa, siendo estos corpus objeto de múltiples investigaciones.
+En la tabla \ref{tab:english_corpora} se presentan recursos representativos para la lengua inglesa, siendo estos corpus objeto de múltiples investigaciones. \macb{Sugiero que si no se tiene el n\'umero de palabras del vocabulario, es mejor retirar esa columna.}
 
 \input{tablas/01_1_corpus_ingles}
 
@@ -57,9 +62,9 @@ Se presenta en contraparte una lista de recursos para la lengua española, donde
 
 \input{tablas/01_2_cospus_espanol}
 
-Aunque la brecha entre los lenguajes español e inglés es muy amplia, el lenguaje español no se considera un lenguaje con escasos recursos, pues existen múltiples corpus, bancos de árboles, datos anotados y transcritos, diccionarios y gramáticas formales \cite{CavarGlobalGORILLA}. 
+Aunque \macb{\st{la brecha entre los lenguajes espa\~nol e ingl\'es es muy amplia} existen notables diferencias entre los corpus del espa\~nol y del ingl\'es}, el lenguaje español no se considera un lenguaje con escasos recursos\macb{\st{, pues e}. E}xisten múltiples corpus, bancos de árboles, datos anotados y transcritos, diccionarios y gramáticas formales \cite{CavarGlobalGORILLA}. 
 
-Se ha mostrado de igual manera que la anotación manual de recursos es una tarea costosa \cite{googleTTSLatinAmericanSpanishCorpus}, y por esta razón propuestas de anotación automáticas son mas atractivas por la reducción de costos y esfuerzos empleadas en para la generación de los recursos.
+Se ha mostrado de igual manera que la anotación manual de recursos es una tarea costosa \cite{googleTTSLatinAmericanSpanishCorpus}, y por esta razón propuestas de anotación automáticas son mas atractivas por la reducción de costos y esfuerzos empleadas en \macb{\st{para}} la generación de los recursos.
 
 Este trabajo utiliza recursos abiertos publicados bajo licencia Creative Commons en la plataforma Libri Vox \cite{LibriVox} donde voluntarios se coordinan para crear audio libros de textos en el dominio público y publicados en el proyecto Gutenberg \cite{gutenberg}. A la fecha existen mas de 600 libros publicados para el español, los cuales se usarán como insumo para la creación de un corpus abierto de larga duración, múltiples locutores anotado a nivel de sentencia.
 
@@ -67,42 +72,44 @@ Este trabajo utiliza recursos abiertos publicados bajo licencia Creative Commons
 
 La investigación en tecnologías del habla depende fuertemente en recursos de lenguaje de alta calidad y gran tamaño diseñados para la lengua específica. Los recursos abiertos de este tipo son más escasos en comparación con recursos de pago y la creación de dichos recursos para tareas como reconocimiento y síntesis de voz es costosa, por lo que muchos investigadores optan por crear conjuntos de datos pequeños y enfocados a su investigación.
 
-Para lenguajes diferentes al inglés, la diferencia en disponibilidad de dichos recursos es aún mayor. Este capítulo presenta una compilación de recursos abiertos para tareas relacionados con tecnologías de voz para la lengua española, describiendo cada recurso y proponiendo posibles aplicaciones para cada corpus.
+Para lenguajes diferentes al inglés, la diferencia en disponibilidad de dichos recursos es aún mayor. Este capítulo presenta una compilación de recursos abiertos para tareas relacionados con tecnologías de voz para la lengua española, describiendo cada recurso y proponiendo posibles aplicaciones para cada corpus. \macb{Para seleccionar los recursos aqu\'i inclu\'idos se usaron como criterios la visibilidad, disponibilidad y el impacto.}
 
-\section{Preámbulo}
+% Veo que todo hace parte de la introducción del capítulo. MACB
+% \section{Preámbulo}
 
-Los modelos utilizados regularmente para procesamiento de voz, son considerados dependientes de datos y hambrientos, significando que se requieren cantidades masivas de datos para lograr buenos resultados. En reconocimiento de voz, sistemas como Listen-Attend-Spell de Google \cite{Chiu2018} fue entrenado utilizando mas de 12500 horas de inglés. Adicionalmente estos recursos deben estar anotados finamente, como TIMIT \cite{TIMIT} o Swichboard \cite{Switchboard}; sin embargo, las anotaciones manuales son costosas en esfuerzo y tiempo.
+Los modelos utilizados regularmente para procesamiento de voz\macb{\st{, son considerados dependientes de datos y hambrientos, significando que se}} requieren cantidades masivas de datos para lograr buenos resultados. En reconocimiento de voz, sistemas como Listen-Attend-Spell de Google \cite{Chiu2018} fue entrenado utilizando mas de 12500\macb{(2000 horas con data-augmentation incrementando a 40000 horas, transcripciones a mano (a nivel palabra))} horas de inglés. Adicionalmente estos recursos \macb{\st{deben} suelen} estar anotados \macb{\st{finamente} al nivel de palabras o incluso f\'onemas}, como TIMIT \cite{TIMIT} o Swichboard \cite{Switchboard}; sin embargo, las anotaciones manuales son costosas en esfuerzo y tiempo.
 
-Aunque los esfuerzos para reducir los requerimientos por grandes volúmenes de datos anotados usando aprendizaje semi supervisado \cite{AmazonSemiSupervised} y no supervisado \cite{ZeroResources}, estas aproximaciones requieren una cantidad alta de datos no supervisados.
+Aunque los esfuerzos para reducir los requerimientos por grandes volúmenes de datos anotados usando aprendizaje semi supervisado \cite{AmazonSemiSupervised} y no supervisado \cite{ZeroResources}, estas aproximaciones requieren una \macb{gran} cantidad \macb{\st{alta}} de datos no supervisados.
 
-Estas complicaciones se hacen mas evidentes en lenguas distintas al inglés donde en lenguas como la española, los recursos son limitados en tamaño, variedad y nivel de anotación \cite{HernndezMena2017}. De igual manera, en comparación con el inglés que  tiene lineas base de investigación desde hace mas de dos décadas con corpus como TIMIT \cite{TIMIT}, Switchboard \cite{Switchboard} o Fisher \cite{Fisher}, para el español las líneas bases para investigación no están claramente definidas.
+Estas complicaciones se hacen mas evidentes en lenguas distintas al inglés donde \macb{\st{en lenguas como la espa\~nola,}} los recursos son limitados en tamaño, variedad y nivel de anotación \cite{HernndezMena2017}. De igual manera, en comparación con el inglés que  tiene lineas base de investigación desde hace mas de dos décadas con corpus como TIMIT \cite{TIMIT}, Switchboard \cite{Switchboard} o Fisher \cite{Fisher}, para el español las líneas bases para investigación no están claramente definidas\macb{a qu\'e te refieres aqu\'i?}.
 
-Disponibilidad de los recursos para la investigación es un aspecto fundamental en el desarrollo de prototipos, algoritmos y técnicas. Comparando los recursos disponibles de licencias abiertas y de pago en los catálogos mas reconocidos de recursos de lenguaje, la diferencia evidenciada es enorme. En la tabla \ref{tab:resources_by_langauge} se muestran los recursos publicados por el Linguistic Data Consortium (LDC) y la European Language Resources Association (ELRA), mostrando que el inglés tiene cinco veces mas recursos que el español y el mandarín
+\macb{La \st{D}d}isponibilidad de los recursos para la investigación es un aspecto fundamental en el desarrollo de prototipos, algoritmos y técnicas. \macb{\st{Comparando los recursos disponibles de licencias abiertas y de pago en los cat\'alogos mas reconocidos de recursos de lenguaje, la diferencia evidenciada es enorme. En la tabla -- se muestran los recursos publicados por el Linguistic Data Consortium (LDC) y la European Language Resources Association (ELRA), mostrando que el ingl\'es tiene cinco veces mas recursos que el espa\~nol y el mandar\'in} La tabla \ref{tab:resources_by_langauge} compara el n\'umero de recursos de licencias abiertas y de pago en los dos cat\'alogos m\'as comunes de recursos de lenguaje, el Linguistic Data Consortium (LDC) y la European Language Resources Association (ELRA), respectivamente. Podemos ver que el ingl\'es tiene cinco veces m\'as recursos que el espa\~nol y el mandar\'in.}
 
 \input{tablas/02_01_corpus_por_lengua}
 
-Este capítulo muestra una revisión de los recursos de licencia abierta para tareas de procesamiento de voz en español, usando como criterios la visibilidad, disponibilidad y el impacto, indicando que existen otros recursos no considerados por falta de los criterios mencionados previamente.
+% Moví este párrafo arriba. MACB
+%Este capítulo muestra una revisión de los recursos de licencia abierta para tareas de procesamiento de voz en español, usando como criterios la visibilidad, disponibilidad y el impacto, indicando que existen otros recursos no considerados por falta de los criterios mencionados previamente.
 
 
 \section{Recursos abiertos para el español}
 
 Esta sección menciona los recursos de lenguaje abiertos para la lengua española con licencias abiertas y distribuidos abiertamente en la web. Un resumen se presenta en la tabla \ref{tab:open_source_spanish_corpus} organizada por fecha de publicación; mostrando características importantes de cada conjunto de datos, como la licencia de distribución, el nivel de anotación, la duración, las condiciones de grabación, el dialecto y la fuente de las grabaciones.
 
-En la tabla \ref{tab:open_source_spanish_corpus} se utilizan las siguientes abreviaciones:  CC BY-SA 4.0 Creative Commons Share A Like v4.0 license, LDC Non-Members LDC User LDC User Agreement for Non-Members, para dialectos: MX Mexicano, ES Peninsular, AR Argentino, CH Chileno, PE Peruano, CO Colombiano, PR Puerto Riqueño, VE Venezuelano.
+En la tabla \ref{tab:open_source_spanish_corpus} se utilizan las siguientes abreviaciones:  CC BY-SA 4.0 Creative Commons Share A Like v4.0 license, LDC Non-Members LDC User LDC User Agreement for Non-Members, para dialectos: MX Mexicano, ES Peninsular, AR Argentino, CH Chileno, PE Peruano, CO Colombiano, PR Puerto Riqueño, VE Venezuelano. \macb{Ser\'ia bueno poner las abreviaciones en par\'entesis. Ahora es un poco confuso.}
 
 \input{tablas/02_02_corpus_abiertos_espanol}
 
 \subsection{DIMEx100}
 
-DIMEx100 es un corpus oral diseñado y grabado por el Instituto de Investigaciones en Matematicas Aplicadas y en Sistemas IIMAS de la Universidad Nacional Autónoma de México UNAM en 2004, utilizando textos del Corpus 230 \cite{Corpus230}, un corpus escrito fonéticamente equilibrado para el español. idioma. Este proyecto fue anotado usando un nuevo diccionario fonético para el español mexicano llamado MEXBET, que mejora la representación de los alófonos del español mexicano en comparación con otros alfabetos fonéticos multilingües como SAMPA y WordNET \cite{mexbet}. El proceso de grabación para DIMEx100 se realizó en un estudio de grabación, con bajo nivel de ruido, con el micrófono ubicado a una distancia homogénea de los altavoces. Se seleccionaron 100 hablantes entre 16 y 36 años siendo 50 hombres y 50 mujeres. La edad media de los hablantes fue de 23 años y todos los hablantes hablan el dialecto mexicano.
+DIMEx100 es un corpus oral diseñado y grabado por el Instituto de Investigaciones en Matematicas Aplicadas y en Sistemas IIMAS de la Universidad Nacional Autónoma de México UNAM en 2004\macb{\st{, utilizando}. DIMEx100 utiliza} textos del Corpus 230 \cite{Corpus230}, un corpus escrito fonéticamente equilibrado para el español. \macb{\st{idioma.}} Este proyecto fue anotado usando un nuevo diccionario fonético para el español mexicano llamado MEXBET, que mejora la representación de los alófonos del español mexicano en comparación con otros alfabetos fonéticos multilingües como SAMPA y WordNET \cite{mexbet}. El proceso de grabación para DIMEx100 se realizó en un estudio de grabación, con bajo nivel de ruido, con el micrófono ubicado a una distancia homogénea de los altavoces. Se seleccionaron 100 hablantes entre 16 y 36 años siendo 50 hombres y 50 mujeres. La edad media de los hablantes fue de 23 años y todos los hablantes hablan el dialecto mexicano.
 
-Este es un pequeño corpus con equilibrio fonético y de género con un pequeño vocabulario con anotaciones fonéticas, que se puede usar para el reconocimiento de palabras aisladas o bootstrapping para recursos más grandes; sin embargo, todos los hablantes usan el dialecto mexicano, lo que lo hace inclinado para otros dialectos.
+Este es un pequeño corpus \macb{(5.6 horas), } con equilibrio fonético y de género\macb{, y} con un pequeño vocabulario \macb{(x palabras)} con anotaciones fonéticas\macb{\st{, que se }. Este corpus se }puede usar para el reconocimiento de palabras aisladas o \macb{\st{bootstrapping} como recurso inicial} para recursos más grandes\macb{\st{; s}. S}in embargo, todos los hablantes usan el dialecto mexicano, lo que lo hace inclinado para otros dialectos.\macb{Qu\'e quiere decir esta \'ultima frase?}
 
 \subsection{Heroico}
 
-Heroico es un corpus hablado publicado en 2006 por John Morgan en el Departamento de Lenguas Extranjeras (DFL) y el Centro para el Aprendizaje de Idiomas Mejorado por la Tecnología (CTELL), todas las grabaciones fueron grabadas en El Heroico Colegio Militar y la Academia Militar Mexicana en México. Este corpus tiene un desequilibrio de género y se anota a nivel de enunciado. El corpus de HEROICO está compuesto por 102 hablantes que responden abiertamente a un conjunto de 143 preguntas y leen 75 expresiones de un conjunto de datos compuesto por 205 frases cortas y 519 oraciones simples de notas académicas de la escuela secundaria.
+Heroico es un corpus hablado publicado en 2006 por John Morgan en el Departamento de Lenguas Extranjeras (DFL) y el Centro para el Aprendizaje de Idiomas Mejorado por la Tecnología (CTELL)\macb{\st{, t}. T}odas las grabaciones \macb{\st{fueron grabadas} se llevaron acabo} en El Heroico Colegio Militar y la Academia Militar Mexicana en México. Este corpus tiene un desequilibrio de género y se anota a nivel de enunciado\macb{, es decir no hay alineamiento por palabras}. El corpus de HEROICO está compuesto por 102 hablantes que responden abiertamente a un conjunto de 143 preguntas y leen 75 expresiones de un conjunto de datos compuesto por 205 frases cortas y 519 oraciones simples de notas académicas de la escuela secundaria.
 
-La distribución del corpus Heroico también incluye el subcorpus USMA, registrado en 1997 en el que está compuesto por 206 expresiones fijas leídas por 18 hablantes nativos y no nativos diferentes. La duración total del corpus es de 13 horas. Todas las grabaciones se realizaron con computadoras de escritorio, el ruido está presente en varias grabaciones \cite{heroico}.
+La distribución del corpus Heroico también incluye el subcorpus USMA, registrado en 1997\macb{, \st{ en el}} que está compuesto por 206 expresiones fijas leídas por 18 hablantes nativos y no nativos diferentes. La duración total del corpus es de 13 horas. Todas las grabaciones se realizaron con computadoras de escritorio, el ruido está presente en varias grabaciones \cite{heroico}.
 
 Los corpus Heroico y USMA combinados tienen 13 horas de audio, y parte del corpus es habla espontánea en entornos ruidosos y diferentes potencias de señal, lo que permite que este corpus entrene modelos para un reconocimiento de voz robusto. Además, algunos hablantes en el corpus de la USMA no son hablantes nativos de español y hay diferentes dialectos de español que también dan variabilidad para los modelos independientes del hablante.
 
@@ -203,7 +210,7 @@ Además de estas alteraciones principales en las perturbaciones del aire, existe
 
 \input{tablas/03_05_ipa_no_pulmonares}
 
-El español utiliza solamente ciertos fonemas del IPA, y la representación de estos define los conocidos alfabetos fonéticos para el español. Entre los más conocidos se encuentran el SAMPA \textcolor{red}{CITA}, y el Mexbet, el cual se representa en la tabla \ref{tab:mexbet}  \textcolor{red}{CITA}.
+El español utiliza solamente ciertos fonemas del IPA, y la representación de estos define los conocidos alfabetos fonéticos para el español. Entre los más conocidos se encuentran el SAMPA \cite{SAMPA}, y el Mexbet, el cual se representa en la tabla \ref{tab:mexbet} \cite{mexbet}.
 
 \input{tablas/03_06_mexbet}
 
@@ -299,21 +306,30 @@ Esto nos daría un indicador de la toda la señal, sin embargo, es útil realiza
 
 Utilizando esta idea es posible tomar cualquier señal de voz, segmentarla cada 250ms y encontrar los segmentos consecutivos donde la intensidad sea baja o cercana a cero y estos segmentos consecutivos representarían pausas de silencio.
 
-Algunas consideraciones a tomar al usar esta aproximación es que incluso en medio de las señales de voz, existen subsegmentos donde la intensidad es baja, por ejemplo en la pronunciación 
+Algunas consideraciones a tomar al usar esta aproximación es que incluso en medio de las señales de voz, existen subsegmentos donde la intensidad es baja, por ejemplo en la pronunciación de consonantes plosivas, como la b, c, d, g, p y t existe una interrupción momentánea y completa del flujo de aire, causando momentáneamente segmentos de silencio.
 
+Usando las anotaciones fonéticas se determinó que la duración promedio de cada consonante plosiva es inferior a los 100ms, también realizando una anotación manual de sonidos y silencios sobre múltiples grabaciones de la anotación por declaración se determinó que los espacios de silencio entre frases eran de mínimo 500ms. De esta manera, utilizando segmentación de 250ms de longitud y desplazamiento de 100ms, se determinan como silencios los conjuntos de segmentos consecutivos de tamaño superior a cinco. 
 
+Entendiendo la condición necesaria para determinar los silencios en una grabación de voz, es posible ejecutar el proceso asumiendo el silencio como ausencia completa de señal, sin embargo, salvo en condiciones muy especiales, donde exista un ambiente libre de ruido, como en un estudio de grabación con filtros físicos, análogos o digitales, en los espacios de silencio la intensidad no es estrictamente cero.
 
-Cálculo de formantes e intensidad de la señal.
+Mas aún, dependiendo de las condiciones y ambiente de grabación, los valores de intensidad en segmentos de silencio varían.
 
-Análisis espectral sin el uso de vectores especiales
+Considerando esto, se propusieron dos aproximaciones para determinar los segmentos de silencio, la primera normalizando los valores de la señal y definiendo un umbral fijo de intensidad en proporción al valor mas alto de la grabación, considerando valores de 0.3, 0.15 y 0.15 que representan umbrales de intensidad del 30\%, 15\%, y 5\%. También se experimentó utilizando algoritmos de agrupamiento con dos centroides iniciales en 0 y la intensidad máxima.
 
-Cálculo de threshold de ruido utilizando valores fijos, valores proporcionales a intensidad máxima de la señal y clusters de señal/ruido
+Los resultados se presentan en la tabla \ref{tab:resultados_segmentacion_silencios}
+
+\input{tablas/04_01_resultados_segmentacion_silencio}
+
 
 \section{Alineación basada en duración de fonemas}
 
-Cálculo de duración promedio de fonemas
+\textcolor{red}{WIP}
 
+Utilizando la segmentación basada en silencios, para determinar cuales son los textos correspondientes se realiza una alineación basada en la duración estimada de un segmento de texto y la duración de los segmentos calculados. Para esto se tomó la anotación fonética para determinar la duración promedio y la desviación estándar de la duración de cada fonema.
 
+Dicha información se puede ver en la tabla \ref{tab:duracion_promedio_fonemas}
+
+\input{tablas/04_02_duracion_promedio_fonemas}
 
 \section{Segmentación basada en información fonética de formantes en vocales}
 
