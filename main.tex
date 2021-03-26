@@ -26,13 +26,17 @@
 \maketitle
 
 \begin{abstract}
-    Los recursos abiertos para el procesamiento, reconocimiento, generación y demás tareas relacionadas con las tecnologías del lenguaje hablado son parte fundamental del proceso académico e investigativo. Estos recursos deben contener características muy específicas para la ejecución adecuada de la tarea relacionada, donde los niveles de anotación, duración de las grabaciones, variedad de locutores, balance de género, tamaño del vocabulario, relación de señal/ruido y conjunto de datos para pruebas son fundamentales. A pesar de existir diversos recursos disponibles para realizar las tareas mencionadas, los recursos abiertos para trabajar las tecnologías del hablada en la lengua española son escasos y en muchos casos insuficientes para realizar comparaciones con investigaciones del estado del arte propuestas para otros lenguajes. Este trabajo realiza una exploración de los recursos abiertos para el español y propone mecanismos para segmentar audio libros publicados por voluntarios bajo licencias abiertas en recursos apropiados para el procesamiento de voz.
+    Los recursos abiertos para el procesamiento, reconocimiento, generación y demás tareas relacionadas con las tecnologías del lenguaje hablado son parte fundamental del proceso académico e investigativo. Estos recursos deben contener características muy específicas para la ejecución adecuada de la tarea relacionada, donde los niveles de anotación, duración de las grabaciones, variedad de locutores, balance de género, tamaño del vocabulario, relación de señal/ruido y conjunto de datos para pruebas son fundamentales. A pesar de existir diversos recursos disponibles para realizar las tareas mencionadas, los recursos abiertos para trabajar las tecnologías del habla en la lengua española son escasos y en muchos casos insuficientes para realizar comparaciones con investigaciones del estado del arte propuestas para otros lenguajes. Este trabajo realiza una exploración de los recursos abiertos para el español y propone mecanismos para segmentar audio libros publicados por voluntarios bajo licencias abiertas en recursos apropiados para el procesamiento de voz.
 \end{abstract}
 
 
 \chapter{Introducción}
 
+\textcolor{red}{poner un textico acá de todo el viaje con esta tesis}
+
 \section{Definición del problema}
+
+\textcolor{red}{Frasear mejor aca para dummies}
 
 Los recursos para la investigación de tecnologías del habla son de vital importancia para la generación y validación de nuevo conocimiento en el área. En la actualidad donde la investigación se ha decantado en su mayoría por el aprendizaje de máquina utilizando mecanismos de aprendizaje supervisado, semi supervisado y no supervisado \cite{Chiu2018} \cite{AmazonSemiSupervised}  \cite{ZeroResources} , la calidad de los datos usados para el entrenamiento, validación y pruebas definen en gran medida los resultados de la investigación.
 
@@ -55,10 +59,15 @@ Existen múltiples factores importantes que influyen en los resultados de invest
 
 En la tabla \ref{tab:english_corpora} se presentan recursos representativos para la lengua inglesa, siendo estos corpus objeto de múltiples investigaciones. \macb{Sugiero que si no se tiene el n\'umero de palabras del vocabulario, es mejor retirar esa columna.}
 
+\textcolor{red}{PONER QUE AQUI HAy ABIERTOS Y CERRADOS}
+
 \input{tablas/01_1_corpus_ingles}
 
 Se presenta en contraparte una lista de recursos para la lengua española, donde se ordenan los corpus por duración en horas y se evidencia que el tamaño de estos recursos es significativamente  menor a los de la lengua inglesa.
 
+\textcolor{red}{COLOCAR OBJETIVOS Y ALCANCE}
+
+\textcolor{red}{colocar que hay en cada capítulo}
 
 \input{tablas/01_2_cospus_espanol}
 
@@ -332,6 +341,29 @@ Dicha información se puede ver en la tabla \ref{tab:duracion_promedio_fonemas}
 \input{tablas/04_02_duracion_promedio_fonemas}
 
 \section{Segmentación basada en información fonética de formantes en vocales}
+
+\textcolor{red}{WIP}
+
+La manera de entender los sonidos del lenguaje hablado ocurre por por la similaridad de los sonidos emitidos por cualquier locutor. Estas maneras de articular cada fonema permite que todos ellos tengan la misma una composición acústica similar.
+
+Las vocales por ser sonidos de duración promedio mas alta y donde las características que las definen son pocas, unicamente la apertura de cuerdas bocales y la apertura de la boca, permiten que se caractericen utilizando una descomposición acústica.
+
+Al descomponer cualquier señal utilizando la transformada de Fourier
+
+\begin{equation}
+\label{eq:fourier}    
+f(x) = \frac{1}{2} \, a_{0} + \sum_{n=1}^{\infty} \left[
+   a_{n}\,\boldsymbol{\cos} (n\,x) + b_{n} \,\boldsymbol{\sin} (n\,x) \right]
+\end{equation}
+
+Se obtienen señales raiz de cada onda compleja. Con las señales de voz, los coeficientes máximos  en el orden ascendente de la frecuencia se denominan formantes, y el formante 1 f1 y el formante 2 f2 representan efectivamente el fenómeno efectuado por las cuerda vocales vibrando y la resonancia dad por la cavidad bucal.
+
+Para el idioma español los formantes teóricos par
+
+
+\input{tablas/04_03_formantes_vocales_teoricas}
+
+\input{tablas/04_04_formantes_observados}
 
 Base teórica de los formantes 1 y 2 para vocales en español
 
