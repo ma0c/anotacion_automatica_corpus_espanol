@@ -1,0 +1,108 @@
+
+
+\chapter{Revisión de recursos abiertos para el español}
+
+La investigación en tecnologías del habla depende fuertemente en recursos de lenguaje de alta calidad y gran tamaño diseñados para la lengua específica. Los recursos abiertos de este tipo son más escasos en comparación con recursos de pago y la creación de dichos recursos para tareas como reconocimiento y síntesis de voz es costosa, por lo que muchos investigadores optan por crear conjuntos de datos pequeños y enfocados a su investigación.
+
+Para lenguajes diferentes al inglés, la diferencia en disponibilidad de dichos recursos es aún mayor. Este capítulo presenta una compilación de recursos abiertos para tareas relacionados con tecnologías de voz para la lengua española, describiendo cada recurso y proponiendo posibles aplicaciones para cada corpus. \macb{Para seleccionar los recursos aqu\'i inclu\'idos se usaron como criterios la visibilidad, disponibilidad y el impacto.}
+
+% Veo que todo hace parte de la introducción del capítulo. MACB
+% \section{Preámbulo}
+
+Los modelos utilizados regularmente para procesamiento de voz\macb{\st{, son considerados dependientes de datos y hambrientos, significando que se}} requieren cantidades masivas de datos para lograr buenos resultados. En reconocimiento de voz, sistemas como Listen-Attend-Spell de Google \cite{Chiu2018} fue entrenado utilizando mas de 12500\macb{(2000 horas con data-augmentation incrementando a 40000 horas, transcripciones a mano (a nivel palabra))} horas de inglés. Adicionalmente estos recursos \macb{\st{deben} suelen} estar anotados \macb{\st{finamente} al nivel de palabras o incluso f\'onemas}, como TIMIT \cite{TIMIT} o Swichboard \cite{Switchboard}; sin embargo, las anotaciones manuales son costosas en esfuerzo y tiempo.
+
+Aunque los esfuerzos para reducir los requerimientos por grandes volúmenes de datos anotados usando aprendizaje semi supervisado \cite{AmazonSemiSupervised} y no supervisado \cite{ZeroResources}, estas aproximaciones requieren una \macb{gran} cantidad \macb{\st{alta}} de datos no supervisados.
+
+Estas complicaciones se hacen mas evidentes en lenguas distintas al inglés donde \macb{\st{en lenguas como la espa\~nola,}} los recursos son limitados en tamaño, variedad y nivel de anotación \cite{HernndezMena2017}. De igual manera, en comparación con el inglés que  tiene lineas base de investigación desde hace mas de dos décadas con corpus como TIMIT \cite{TIMIT}, Switchboard \cite{Switchboard} o Fisher \cite{Fisher}, para el español las líneas bases para investigación no están claramente definidas\macb{a qu\'e te refieres aqu\'i?}.
+
+\macb{La \st{D}d}isponibilidad de los recursos para la investigación es un aspecto fundamental en el desarrollo de prototipos, algoritmos y técnicas. \macb{\st{Comparando los recursos disponibles de licencias abiertas y de pago en los cat\'alogos mas reconocidos de recursos de lenguaje, la diferencia evidenciada es enorme. En la tabla -- se muestran los recursos publicados por el Linguistic Data Consortium (LDC) y la European Language Resources Association (ELRA), mostrando que el ingl\'es tiene cinco veces mas recursos que el espa\~nol y el mandar\'in} La tabla \ref{tab:resources_by_langauge} compara el n\'umero de recursos de licencias abiertas y de pago en los dos cat\'alogos m\'as comunes de recursos de lenguaje, el Linguistic Data Consortium (LDC) y la European Language Resources Association (ELRA), respectivamente. Podemos ver que el ingl\'es tiene cinco veces m\'as recursos que el espa\~nol y el mandar\'in.}
+
+\input{tablas/02_01_corpus_por_lengua}
+
+% Moví este párrafo arriba. MACB
+%Este capítulo muestra una revisión de los recursos de licencia abierta para tareas de procesamiento de voz en español, usando como criterios la visibilidad, disponibilidad y el impacto, indicando que existen otros recursos no considerados por falta de los criterios mencionados previamente.
+
+
+\section{Recursos abiertos para el español}
+
+Esta sección menciona los recursos de lenguaje abiertos para la lengua española con licencias abiertas y distribuidos abiertamente en la web. Un resumen se presenta en la tabla \ref{tab:open_source_spanish_corpus} organizada por fecha de publicación; mostrando características importantes de cada conjunto de datos, como la licencia de distribución, el nivel de anotación, la duración, las condiciones de grabación, el dialecto y la fuente de las grabaciones.
+
+En la tabla \ref{tab:open_source_spanish_corpus} se utilizan las siguientes abreviaciones:  CC BY-SA 4.0 Creative Commons Share A Like v4.0 license, LDC Non-Members LDC User LDC User Agreement for Non-Members, para dialectos: MX Mexicano, ES Peninsular, AR Argentino, CH Chileno, PE Peruano, CO Colombiano, PR Puerto Riqueño, VE Venezuelano. \macb{Ser\'ia bueno poner las abreviaciones en par\'entesis. Ahora es un poco confuso.}
+
+\input{tablas/02_02_corpus_abiertos_espanol}
+
+\subsection{DIMEx100}
+
+DIMEx100 es un corpus oral diseñado y grabado por el Instituto de Investigaciones en Matematicas Aplicadas y en Sistemas IIMAS de la Universidad Nacional Autónoma de México UNAM en 2004\macb{\st{, utilizando}. DIMEx100 utiliza} textos del Corpus 230 \cite{Corpus230}, un corpus escrito fonéticamente equilibrado para el español. \macb{\st{idioma.}} Este proyecto fue anotado usando un nuevo diccionario fonético para el español mexicano llamado MEXBET, que mejora la representación de los alófonos del español mexicano en comparación con otros alfabetos fonéticos multilingües como SAMPA y WordNET \cite{mexbet}. El proceso de grabación para DIMEx100 se realizó en un estudio de grabación, con bajo nivel de ruido, con el micrófono ubicado a una distancia homogénea de los altavoces. Se seleccionaron 100 hablantes entre 16 y 36 años siendo 50 hombres y 50 mujeres. La edad media de los hablantes fue de 23 años y todos los hablantes hablan el dialecto mexicano.
+
+Este es un pequeño corpus \macb{(5.6 horas), } con equilibrio fonético y de género\macb{, y} con un pequeño vocabulario \macb{(x palabras)} con anotaciones fonéticas\macb{\st{, que se }. Este corpus se }puede usar para el reconocimiento de palabras aisladas o \macb{\st{bootstrapping} como recurso inicial} para recursos más grandes\macb{\st{; s}. S}in embargo, todos los hablantes usan el dialecto mexicano, lo que lo hace inclinado para otros dialectos.\macb{Qu\'e quiere decir esta \'ultima frase?}
+
+\subsection{Heroico}
+
+Heroico es un corpus hablado publicado en 2006 por John Morgan en el Departamento de Lenguas Extranjeras (DFL) y el Centro para el Aprendizaje de Idiomas Mejorado por la Tecnología (CTELL)\macb{\st{, t}. T}odas las grabaciones \macb{\st{fueron grabadas} se llevaron acabo} en El Heroico Colegio Militar y la Academia Militar Mexicana en México. Este corpus tiene un desequilibrio de género y se anota a nivel de enunciado\macb{, es decir no hay alineamiento por palabras}. El corpus de HEROICO está compuesto por 102 hablantes que responden abiertamente a un conjunto de 143 preguntas y leen 75 expresiones de un conjunto de datos compuesto por 205 frases cortas y 519 oraciones simples de notas académicas de la escuela secundaria.
+
+La distribución del corpus Heroico también incluye el subcorpus USMA, registrado en 1997\macb{, \st{ en el}} que está compuesto por 206 expresiones fijas leídas por 18 hablantes nativos y no nativos diferentes. La duración total del corpus es de 13 horas. Todas las grabaciones se realizaron con computadoras de escritorio, el ruido está presente en varias grabaciones \cite{heroico}.
+
+Los corpus Heroico y USMA combinados tienen 13 horas de audio, y parte del corpus es habla espontánea en entornos ruidosos y diferentes potencias de señal, lo que permite que este corpus entrene modelos para un reconocimiento de voz robusto. Además, algunos hablantes en el corpus de la USMA no son hablantes nativos de español y hay diferentes dialectos de español que también dan variabilidad para los modelos independientes del hablante.
+
+\subsection{Proyecto CIEMPIESS}
+
+El Corpus de Investigación en Español de México del Posgrado de Ingeniería Eléctrica y Servicio Social de la Universidad Nacional Autónoma de México CIEMPIES-UNAM es un proyecto iniciado en 2012 con el objetivo de desarrollar y compartir herramientas gratuitas y de código abierto para el procesamiento del habla en el idioma español. El proyecto no se limita a la creación de corpus sino a la investigación en tecnologías de habla aplicadas al idioma español \cite{CIEMPIESS-Webpage}. Para la anotación de corpus, el proyecto CIEMPIESS utiliza estudiantes de pregrado para realizar anotaciones manuales, como parte de un requisito para recibir un diploma. Toda la segmentación y anotación se realiza utilizando herramientas de código abierto y corpus final distribuido bajo licencias abiertas. Este proyecto ha publicado varios corpus a lo largo de los años, incluido el corpus original de CIEMPIESS \cite {CIEMPIESS}, CIEMPIESS Light \cite {CIEMPIESS-LIGHT}, CIEMPIESS Balance \cite {CIEMPIESS-BALANCE}, CIEMPIESS Experimentation \cite {CIEMPIESS-Experimentation} y LibriVoxSpanish \cite {LibriVox-Spanish} que se describirán a continuación.
+
+\subsubsection{CIEMPIESS}
+
+El Corpus de Investigación en Español de México del Posgrado de Ingeniería Eléctrica y Servicio Social fue publicado en 2014 por el Departamento de Procesamiento Digital de Señales de la Universidad Nacional Autónoma de México, con el objetivo de crear un corpus hablado para el reconocimiento automático de voz. Todas las grabaciones fueron extraídas de diversos programas de radio emitidos por la Universidad, en total se grabaron 43 programas de una hora, segmentados manualmente y solo las grabaciones fueron de un solo locutor y no se seleccionaron otros sonidos de fondo como música o interferencias. Dando la naturaleza del programa de radio, este corpus contiene discurso continuo y es desequilibrado de género, con 77,86 grabaciones masculinas y solo 22,14 grabaciones femeninas. El corpus completo tiene 16717 grabaciones y tiene una duración total de 17 horas. El proceso de anotación se realizó usando MEXBET y vocales tónicas, además todas las expresiones se alinean por palabra.
+
+\subsubsection{CIEMPIESS Light}
+
+CIEMPIES Light se publicó después de dos años de experimentación con el CIEMPIESS Corpus, el equipo de CIEMPIESS recibió muchos comentarios y se lanzó una nueva versión del corpus original, cambiando el formato de distribución de archivos SPH a archivos WAV, también modificando algunas grabaciones y agregando casi una nueva hora de audio. Esta nueva distribución es compatible con herramientas ASR modernas como Kaldi y CMU Sphinx. La mayoría de las grabaciones originales se conservaron, pero otras se reemplazaron. Este corpus tiene casi 1 hora más de grabaciones.
+
+Este corpus puede considerarse como la versión dos del corpus original de CIEMPIESS, pero mejorado para trabajar con sistemas ASR modernos; y sin utilizar ninguna transcripción fonética, también se discriminan las grabaciones por género y hablante. Este corpus incluye grabaciones de 53 hablantes masculinos y 34 hablantes femeninos. Cada hablante se identifica con un prefijo que indica el género M para masculino y F para femenino y un número consecutivo.
+
+\subsubsection{CIEMPIESS Balance}
+
+Dado que el corpus de CIEMPIESS tiene un desequilibrio de género, se creó un corpus de nueva creación a partir de la misma fuente para equilibrar el corpus de CIEMPIESS LIGHT para tener juntos un corpus combinado de género equilibrado. Este corpus está compuesto por 18 horas y 20 minutos donde 12 horas y 40 segundos son de hablantes mujeres y 5 horas y 40 minutos son de hablantes masculinos.
+
+La distribución de este corpus es similar al corpus CIEMPIES Light, donde las grabaciones se almacenan en formato WAV y discriminadas por género y, como este corpus es una contraparte del corpus CIEMPIESS Light, el corpus CIEMPIES Balance cuenta con 53 Locutoras y 34 locutores masculinos identificado por un prefijo que indica el género M para masculino y F para femenino y un número consecutivo. La duración de la grabación para cada hablante en el corpus de CIEMPIESS Light es similar a la contraparte del género opuesto en el Corpus de equilibrio de CIEMPIESS.
+
+Se recomienda el uso de este corpus junto con el corpus CIEMPIESS Light para tener un corpus más largo con equilibrio de género de casi 36 horas de habla continua.
+
+\ subsubsection {CIEMPIES EXPERIMENTATION }
+
+CIEMPIES Experimentación es un conjunto de tres corpus distribuidos en uno solo, con un corpus para alófonos de equilibrio fonético para el español mexicano, un corpus con solo mujeres hablantes y uno diseñado para ser un corpus de prueba estándar.
+
+CIEMPIESS EXPERIMENTATION - COMPLEMENTARY es un corpus fonéticamente equilibrado para palabras aisladas que contiene una hora de audio anotado usando MEXBET 29 y MEXBET 66, dos anotaciones fonéticas que consideran diferentes alófonos para el idioma español. Este corpus contiene grabaciones de 10 locutores masculinos y 10 locutores femeninos y fue creado para mejorar los motores de reconocimiento de voz que no encontraron ocurrencias de alófonos específicos al entrenar modelos acústicos.
+
+CIEMPIES EXPERIMENTATION  - FEM es un corpus con solo hablantes femeninas, que contiene 13 horas y 54 minutos de grabaciones, 16 de las hablantes femeninas en el corpus son hablantes nativos de México y 5 más son otros dialectos del español, incluidos el venezolano, el argentino y el español de El Salvador. , Español de República Dominicana y otros dialectos clasificados como desconocidos.
+
+CIEMPIES EXPERIMENTATION  - TEST es un corpus con equilibrio de género diseñado para probar aplicaciones de habla, con un total de 8 horas y 8 minutos de grabaciones de 10 hablantes mujeres y 10 hablantes masculinos de 4 horas y 4 minutos cada una.
+
+\subsubsection {Librivox Spanish}
+
+Librivox Spanish es un corpus en español basado en grabaciones abiertas subidas al sitio Librivox \cite{LibriVox}, todos los audiolibros en el dominio público y parte del Proyecto Guttenberg \cite{gutenberg} o liberados al dominio público. El corpus fue anotado manualmente por estudiantes de pregrado como parte de su requerimiento de servicio social en la Universidad Nacional Autónoma de México, tiene un total de 73 horas de audio, balanceado por género con 60 horas de hablantes nativos de español y el resto de hablantes no nativos. . Como este corpus es de colaboración colectiva, las grabaciones tienen una calidad diferente; en la mayoría de los casos, las grabaciones se realizaron en un entorno silencioso y utilizando micrófonos de computadora normales.
+
+Como este corpus se anota manualmente y las grabaciones de audio originales son de dominio público, el corpus en sí se puede utilizar como un corpus de prueba para la segmentación automática de las grabaciones originales. Además, el corpus tiene hablantes con diferentes dialectos, lo que hace que sea apropiado crear sistemas de reconocimiento de voz independientes del hablante.
+
+\subsection{M-AILABS}
+
+M-AILABS Speech Dataset es un corpus hablado creado por Imdat Solak utilizando recursos disponibles abiertamente de LibriVox y Project Guttenberg. El corpus era multilingüe, incluido alemán, inglés estadounidense e inglés británico, español, italiano, ruso ucraniano, francés y polaco.
+
+El subcorpus en español tiene 108 horas de duración y está grabado dividido en tres subcorpus, un corpus femenino de 10 horas, grabado por una hablante mexicana, un corpus masculino de 72 horas, grabado por un argentino y un hispanohablante, y un corpus mixto de 25 horas, grabado por varios hablantes no identificados. . Todas las grabaciones incluidas en este corpus también pertenecen al proyecto LibriVox.
+
+Para anotar a nivel de enunciado las grabaciones de Librivox fuente se utilizó un guión automático para segmentar capítulos, luego se utilizó un servicio en línea Speech To Text para dar una anotación para la señal, posteriormente se comparó el texto fuente con la anotación para la señal proporcionada por el servicio en línea y se realizó una verificación manual para descartar el audio o adaptar la anotación a la señal.
+
+El corpus M-AILABS también tiene diferentes dialectos para el idioma español y fue diseñado originalmente para mejorar los sistemas de reconocimiento automático de voz \cite{M-AILABS}.
+
+\subsection{Google TTS Latin American}
+
+El corpus de Crowdsourcing Latin American Spanish for Low-Resource Text-to-Speech fue creado por Google Research y el Laboratoire de Sciences Cognitives et Psycholinguistique y Graduate School of Engineering de la Universidad de Tokio. El corpus se diseñó para tener un corpus de varios dialectos de alta calidad para los sistemas de texto a voz de América Latina. Este corpus incluye 6 subcorpus para dialectos argentino, chileno, colombiano, peruano, puertorriqueño y venezolano, y un total de 174 hablantes y 37,7 horas de audio. Las oraciones se seleccionaron con base en un sistema de conversación para el español mexicano, pero luego se adaptó eliminando las oraciones específicas del español mexicano. Las oraciones se adaptaron a cada dialecto en particular y solo 30 se mantuvieron como canónicas.
+
+Las grabaciones se realizaron en una cabina vocal portátil con un micrófono de condensador en un entorno cercano al silencio. Este corpus fue diseñado para crear sistemas de síntesis de voz para varios dialectos del español latinoamericano \cite{googleTTSLatinAmericanSpanishCorpus}.
+
+\subsection{Common Voice}
+
+La fundación de software Mozilla, creó a mediados de 2017 una plataforma de recopilación de voz de crowdsourcing para recopilar recursos de voz para crear modelos para su Deep Speech Project, basado en la propuesta de Baidu Deep Speech \cite{deepspeeh}. Usando una plataforma web, los usuarios registran frases cortas y también validan otras grabaciones, teniendo una cantidad cada vez mayor de grabaciones. La última versión fue 5.1 e incluyó 54 idiomas, incluidos inglés, kinyarwanda, alemán, francés, catalán y cabilio con más de 500 horas, español, persa, italiano, ruso, polaco con más de 100 horas y los idiomas restantes con menos de 100 horas.
+
+El conjunto de datos español está compuesto por 521 horas de grabaciones y 290 grabaciones validadas.
+
+A medida que el corpus crece día a día y las validaciones las realiza la misma comunidad, es posible que haya errores en los corpus y también en diferentes condiciones del habla. La idea de este corpus es crear un vocabulario extenso, corpus de múltiples hablantes para alimentar modelos hambrientos de datos para el reconocimiento de voz \cite{Common-Voice}.

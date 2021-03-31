@@ -1,0 +1,46 @@
+\chapter{Introducción}
+
+\textcolor{red}{poner un textico acá de todo el viaje con esta tesis}
+
+\section{Definición del problema}
+
+\textcolor{red}{Frasear mejor aca para dummies}
+
+Los recursos para la investigación de tecnologías del habla son de vital importancia para la generación y validación de nuevo conocimiento en el área. En la actualidad donde la investigación se ha decantado en su mayoría por el aprendizaje de máquina utilizando mecanismos de aprendizaje supervisado, semi supervisado y no supervisado \cite{Chiu2018} \cite{AmazonSemiSupervised}  \cite{ZeroResources} , la calidad de los datos usados para el entrenamiento, validación y pruebas definen en gran medida los resultados de la investigación.
+
+Recursos representativos para realizar tareas comunes como el reconocimiento automático del habla y la síntesis del habla son TIMIT \cite{PriceTheRecognition}, Switchboard \cite{Godfrey1992SWITCHBOARD:Development}, Fisher \cite{CieriTheSpeech-to-Text} y Libri Speech \cite{PanayotovLIBRISPEECH:BOOKS}, recursos anotados desde el nivel fonético hasta el nivel de declaración altamente citados en investigaciones relacionadas con tecnologías del habla para la lengua inglesa
+
+
+Aunque se ha probado el uso de recursos multilingues para tareas de reconocimiento de voz, la diferenciación en la articulación de los fonemas hace necesaria el uso de recursos enfocados en el español. \macb{Cu\'ales son los recursos multilingues? es sólo la fonolog\'ia lo que hace \'util tener recursos en espa\~nol?}
+
+Para la lengua española, los recursos más representativos para realizar tareas relacionadas con procesamiento de voz son Albazyn \cite{CampilloAlbayzinEvaluation}, Fisher Spanish \cite{FischerSpa}, Call Friend \cite{CALLFRIENDSpa}, Call Home \cite{CALLHOMESpa}, DIMEx100\cite{Pineda2004DIMEx100:Spanish}, y mas recientemente Libri Speech español \cite{LibriVox-Spanish}.
+
+
+
+El presente trabajo realiza una revisión detallada \macb{de} recursos abiertos para la ejecución de tareas de voz y propone la creación \macb{de} un nuevo recurso basado en grabaciones accesibles en la web de licencias abiertas\macb{\st{, utilizando}. Para ello se emplea} algoritmos de segmentación y alineamiento para la anotación a nivel de sentencia de un corpus de larga duración, gran vocabulario y de múltiples locutores.
+
+
+\section{Justificación}
+
+
+Existen múltiples factores importantes que influyen en los resultados de investigación con tareas de voz como el nivel de anotación de los recursos, la relación ruido señal, la variación de locutores, y el tamaño del vocabulario\macb{\st{, pero}. Sin embargo, } se ha mostrado que el tamaño del corpus es un factor que impacta directamente la precisión de las tareas. \macb{D\'nde se ha demostrado? Cu\'ales son los estudios, o estudios que muestren este efecto?. Citar ejemplos}
+
+En la tabla \ref{tab:english_corpora} se presentan recursos representativos para la lengua inglesa, siendo estos corpus objeto de múltiples investigaciones. \macb{Sugiero que si no se tiene el n\'umero de palabras del vocabulario, es mejor retirar esa columna.}
+
+\textcolor{red}{PONER QUE AQUI HAy ABIERTOS Y CERRADOS}
+
+\input{tablas/01_1_corpus_ingles}
+
+Se presenta en contraparte una lista de recursos para la lengua española, donde se ordenan los corpus por duración en horas y se evidencia que el tamaño de estos recursos es significativamente  menor a los de la lengua inglesa.
+
+\textcolor{red}{COLOCAR OBJETIVOS Y ALCANCE}
+
+\textcolor{red}{colocar que hay en cada capítulo}
+
+\input{tablas/01_2_cospus_espanol}
+
+Aunque \macb{\st{la brecha entre los lenguajes espa\~nol e ingl\'es es muy amplia} existen notables diferencias entre los corpus del espa\~nol y del ingl\'es}, el lenguaje español no se considera un lenguaje con escasos recursos\macb{\st{, pues e}. E}xisten múltiples corpus, bancos de árboles, datos anotados y transcritos, diccionarios y gramáticas formales \cite{CavarGlobalGORILLA}. 
+
+Se ha mostrado de igual manera que la anotación manual de recursos es una tarea costosa \cite{googleTTSLatinAmericanSpanishCorpus}, y por esta razón propuestas de anotación automáticas son mas atractivas por la reducción de costos y esfuerzos empleadas en \macb{\st{para}} la generación de los recursos.
+
+Este trabajo utiliza recursos abiertos publicados bajo licencia Creative Commons en la plataforma Libri Vox \cite{LibriVox} donde voluntarios se coordinan para crear audio libros de textos en el dominio público y publicados en el proyecto Gutenberg \cite{gutenberg}. A la fecha existen mas de 600 libros publicados para el español, los cuales se usarán como insumo para la creación de un corpus abierto de larga duración, múltiples locutores anotado a nivel de sentencia.
