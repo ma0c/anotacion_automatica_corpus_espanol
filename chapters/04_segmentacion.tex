@@ -65,7 +65,7 @@ Dicha información se puede ver en la tabla \ref{tab:duracion_promedio_fonemas}
 
 La manera de entender los sonidos del lenguaje hablado ocurre por por la similaridad de los sonidos emitidos por cualquier locutor. Estas maneras de articular cada fonema permite que todos ellos tengan la misma una composición acústica similar.
 
-Las vocales por ser sonidos de duración promedio mas alta y donde las características que las definen son pocas, unicamente la apertura de cuerdas bocales y la apertura de la boca, permiten que se caractericen utilizando una descomposición acústica.
+Las vocales por ser sonidos de duración promedio mas alta y donde las características que las definen son pocas, únicamente la apertura de cuerdas bocales y la apertura de la boca, permiten que se caractericen utilizando una descomposición acústica.
 
 Al descomponer cualquier señal utilizando la transformada de Fourier
 
@@ -75,23 +75,35 @@ f(x) = \frac{1}{2} \, a_{0} + \sum_{n=1}^{\infty} \left[
    a_{n}\,\boldsymbol{\cos} (n\,x) + b_{n} \,\boldsymbol{\sin} (n\,x) \right]
 \end{equation}
 
-Se obtienen señales raiz de cada onda compleja. Con las señales de voz, los coeficientes máximos  en el orden ascendente de la frecuencia se denominan formantes, y el formante 1 f1 y el formante 2 f2 representan efectivamente el fenómeno efectuado por las cuerda vocales vibrando y la resonancia dad por la cavidad bucal.
+Se obtienen señales raíz de cada onda compleja. Con las señales de voz, los coeficientes máximos  en el orden ascendente de la frecuencia se denominan formantes, y el formante 1 (f1) y el formante 2 (f2) representan efectivamente el fenómeno efectuado por las cuerda vocales vibrando y la resonancia dad por la cavidad bucal.
 
-Para el idioma español los formantes teóricos par
-
+Para el idioma español los formantes teóricos para el español se muestra en la tabla \ref{tab:formantes_teoricos}, los cuales fueron tomados a partir locutores con dialecto peninsular y donde se muestra la distribución vocálica incluyendo los dos primeros formantes \cite{Bradlow1995}.
 
 \input{tablas/04_03_formantes_vocales_teoricas}
 
+También se realizó una observación de las vocales calculando sus formantes basados en la información extraida de las palabras anotadas fonéticamente. Esta información se encuentra en la tabla \ref{tab:formantes_observador} 
+
 \input{tablas/04_04_formantes_observados}
 
-Base teórica de los formantes 1 y 2 para vocales en español
+A partir de esta información se realizaron experimentos buscando la precisión en la identificación de las vocales, tomando una distancia L1 de los dos primeros formantes y aumentando un umbral definido fijo y también utilizando la desviación estándar sobre los formantes observados. Adicionalmente a esto se entrenó un algoritmo de agrupación no supervizado K-means inicializando los centroides en los formantes observados. Los resultados se reportan en la tabla \ref{tab:resultados_vocales}
 
-Cálculo observado para formantes 
+\input{tablas/04_05_segmentación_vocalica}
 
-Gráfica de formante promedio +- desviación estandar sobre grabación vocálica
 
-\addcontentsline{toc}{chapter}{Bibliography}
-\bibliographystyle{plain}
-% \bibliographystyle{apacite}
-% \bibliography{bibliography/bibliography}
-\bibliography{referencias_ante_proyecto.bib,custom_references_ante_proyecto.bib,references_chapter_1.bib}
+Para entender los bajos resultados presentados por la aproximación basada en los formantes observados y su desviación, se graficó sobre grabaciones con contenído de solo las vocales, graficando los formantes 1 y 2 en espacios donde la intensidad superaba los 60 decibeles y graficando también los formantes observados y su desviación estándar de las vocales a en la figura \ref{img:formantes_a} y e en la figura \ref{img:formantes_e}
+
+\begin{figure}[H]
+\caption{Formantes de vocal A}
+\label{img:formantes_a}
+\includegraphics[width=\textwidth]{imagenes/04_02_a.png}
+\end{figure}
+
+\begin{figure}[H]
+\caption{Formantes de vocal E}
+\label{img:formantes_e}
+\includegraphics[width=\textwidth]{imagenes/04_02_e.png}
+\end{figure}
+
+En ambas figuras se muestra en verde la onda, en azul el formante 1 en rojo el formante dos, en amarillo la intensidad cuyo valor se encuentra en el eje derecho y en rojo y azul claro los rangos esperados siendo la línea centra el formante observado promedio y las lineas adyacentes los valores de sumar y restar la desviación entándar.
+
+Como se observa en la grabación de la letra e, hay un ambiente mas ruidoso, lo que hace que se capturen valores de formantes en lugares donde aún no hay señal de voz y aunque en los momentos donde la señal se estabiliza, los formantes tienden a acercarse a las bandas de frecuencia esperadas, esto no ocurre en todos los casos.
