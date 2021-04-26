@@ -2,20 +2,21 @@
 
 Con el objetivo de determinar una línea base para la creación del corpus, se inicia realizando una segmentación de recursos abiertos existentes para medir posteriormente la calidad de las segmentaciones automáticas.
 
-Se define segmentación del audio como el proceso por medio del cual, a partir de una grabación de voz, se identifican las ocurrencias de fonemas, palabras o declaraciones. 
+Se define segmentación del audio como el proceso por \macb{\st{medio d}}el cual, a partir de una grabación de voz, se identifican las ocurrencias de fonemas, palabras o declaraciones. \macb{Realmente esto es segmentaci\'on o reconococimeinto? No es segmentaci\'on, en este contexto, dividir/separar el audio en segmentos m\'as cortos?}
 
 Se realizaron dos anotaciones para el desarrollo de la investigación: una anotación a nivel fonético y otra a nivel de declaración.
 
-Para ambas anotaciones se utilizó el software Praat \cite{Praat} desarrollado por Paul Boersma y David Weenink de la Universidad de Ámsterdam. por medio del cual de manera visual es posible crear archivos de segmentación del audio. Estos archivos usan el formato TextGrid, especificado por la misma herramienta, donde se definen secuencias de elementos que identifican el inicio, finalización y texto encontrado en cada segmento. Estos archivos son almacenados en formato de texto para su fácil lectura \cite{TextGrids}
+Para ambas anotaciones se utilizó el software Praat \cite{Praat} desarrollado por Paul Boersma y David Weenink de la Universidad de Ámsterdam. \macb{\st{por medio d} con }el cual de manera visual es posible crear archivos de \macb{\st{segmentaci\'on}anotaci\'on} del audio. Estos archivos usan el formato TextGrid, especificado por la misma herramienta, donde se definen secuencias de elementos que identifican el inicio, finalización y texto encontrado en cada segmento. Estos archivos son almacenados en formato de texto para su fácil lectura \cite{TextGrids}
 
 \section{Anotación manual a nivel fonético}
 
-Antes de definir anotación a nivel fonético es útil definir conceptos importantes pertenecientes a la fonoaudiología para extraer información relevante para la anotación.
+Antes de definir \macb{la} anotación a nivel fonético es \macb{\st{\'util definir conceptos importantes pertenecientes a la fonoaudiolog\'ia para extraer informaci\'on relevante para la anotaci\'on.} importante empezar por algunos los conceptos b\'asicos, como qu\'e es un fonema.}
 
-Se define fonema como la unidad fonológica básica, que describe una interacción específica del aparato fonador. De esta manera las posibles combinaciones finitas que puede ejecutar el ser humano para ejecutar sonidos de voz quedan acotadas por estas representaciones y a su vez son clasificadas en función de la cercanía de las interacciones.
+Se define fonema como la unidad fonológica básica, que describe una interacción específica del aparato fonador. De esta manera las posibles combinaciones finitas que puede ejecutar el ser humano para \macb{\st{ejecutar}emitir} sonidos de voz quedan acotadas por estas representaciones\macb{,} y a su vez son clasificadas en función de la cercanía de las interacciones.
 
 Al ser el lenguaje hablado un subconjunto de las señales auditivas percibas por el oído como variación en la presión del aire, los primeros fonemas que destacan son aquellos que modifican directamente esta presión del aire. El aparato fonador utiliza los pulmones y el diafragma para expulsar aire, luego utiliza las cuerdas vocales, y la boca para modificar esta presión generando variaciones en los sonidos percibidos. Estos sonidos primarios son llamados vocales y se pueden caracterizar por la apertura de la boca y el lugar de resonancia de la señal.
 
+\macb{D\'onde est\'a referenciada la imagen en el texto?}
 \begin{figure}[H]
 \caption{Aparato Fonador\cite{hableomsDeVoz}}
 \label{img:aparato_fonador}
@@ -33,13 +34,14 @@ Además de estas alteraciones principales en las perturbaciones del aire, existe
 
 \input{tablas/03_05_ipa_no_pulmonares}
 
-El español utiliza solamente ciertos fonemas del IPA, y la representación de estos define los conocidos alfabetos fonéticos para el español. Entre los más conocidos se encuentran el SAMPA \cite{SAMPA}, y el Mexbet, el cual se representa en la tabla \ref{tab:mexbet} \cite{mexbet}.
+El español utiliza solamente ciertos fonemas del IPA, y la representación de estos define los conocidos alfabetos fonéticos para el español. Entre los más conocidos se encuentran el SAMPA \cite{SAMPA}, y el Mexbet, el cual se representa en la tabla \ref{tab:mexbet} \cite{mexbet}. \macb{SAMPA no es un alfabeto fon\'etico del espa\~nol, sino un est\'andar como el IPA pero que tiene en cuenta unicode. Con SAMPA se pueden describir los repertorios fon\'eticos de cualquier idioma, as\'i como con el IPA.}
 
+\macb{Es neceario poner el s\'imbolo IPA en parentesis o de alguna otra forma, para mostrar el mapeo de IPA a Mexbet. Por ejemplo, cu\'al s\'imbolo IPA es Z?}
 \input{tablas/03_06_mexbet}
 
-Para esto se realizó una anotación fonética manual sobre grabaciones del Open Speech Corpus \cite{Collazos2015} del subcorpus de palabras aisladas, el cual esta compuesto por 334 palabras distintas grabadas por múltiples locutores con un total de 9441 grabaciones de 39 locutores distintos, seleccionando aleatoriamente 100 palabras distintas y realizando una anotación manual por medio de PRAAT \cite{Praat}.
+Para esto \macb{(Qu\'e es esto?)} se realizó una anotación fonética manual sobre grabaciones del Open Speech Corpus \cite{Collazos2015} del subcorpus de palabras aisladas, el cual esta compuesto por 334 palabras distintas grabadas por múltiples locutores con un total de 9441 grabaciones de 39 locutores distintos, seleccionando aleatoriamente 100 palabras distintas y realizando una anotación manual por medio de PRAAT \cite{Praat}.
 
-La anotación se realizo utilizando la convención definida en la tabla \ref{tab:anotacion_fonetica}. esta convención se uso considerando que el Open Speech corpus - words fue grabado en su totalidad por locutores latino americanos, del país Colombia y la región del Valle del Cauca. En esta representación fonética, se usa la palabra especial sil para determinar silencio; también se eliminan fonemas como la z fricativa dado que esta forma de pronunciación no es natural de la región de los hablantes.
+La anotación se realizo utilizando la convención definida en la tabla \ref{tab:anotacion_fonetica}. esta convención se uso considerando que el Open Speech corpus - words fue grabado en su totalidad por locutores latino americanos, del país Colombia y la región del Valle del Cauca. En esta representación fonética, se usa la palabra especial sil para determinar silencio; también se eliminan fonemas como la z fricativa \macb{(Los fonemas se escriben en // y con el s\'imbolo del IPA adecuado. Por ejemplo, /\texttheta/)} dado que esta forma de pronunciación no es natural de la región de los hablantes.
 
 
 \input{tablas/03_01_anotacion_fonetica}
@@ -50,8 +52,10 @@ La distribución de fonemas en la anotación manual se muestra en la tabla \ref{
 
 Las grabaciones seleccionadas se distribuyen entre 22 grabadas por locutores de género femenino, 68 masculinos y 10 no identificado.
 
-En la imagen \ref{img:anotacion_fonetica_praat} se muestra la anotación fonética de realizada en Praat y en el archivo \ref{file:text_grid} el archivo correspondiente a la anotación fonética
+En la imagen \ref{img:anotacion_fonetica_praat} se muestra la anotación fonética de \macb{Cu\'al palabra?} realizada en Praat y en el archivo \ref{file:text_grid} el archivo correspondiente a la anotación fonética\macb{.}
 
+
+\macb{Se debe cambiar el t\'itulo de Listing a archivo.}
 
 
 \begin{figure}[H]
@@ -66,13 +70,13 @@ En la imagen \ref{img:anotacion_fonetica_praat} se muestra la anotación fonéti
 
 \section{Anotación manual a nivel de sentencia}
 
-También se realizó una anotación a nivel de declaración de los audiolibros de Librivox, seleccionando audios correspondientes a 6 horas de grabación, sobre los cuales se realizó una segmentación manual basada en símbolos de puntuación.
+También se realizó una anotación a nivel de declaración de los audiolibros de Librivox\macb{\st{,}. Para ello se seleccionaron audios correspondiendo al 10\% del corpus, es decir, 6 horas.} \macb{\st{seleccionando audios correspondientes a 6 horas de grabaci\'on, s}S}obre \macb{\st{los cuales} estos audios} se realizó una segmentación manual basada en símbolos de puntuación. 
 
 Para la selección de los audio libros, se ordenaron las grabaciones en orden ascendente considerando el tamaño del audio original en segundos, para posteriormente seleccionar 3 horas de locutores de género femenino y 3 horas del género masculino, garantizando de esta manera un balance de género y también la maximización de locutores diferentes. Cada archivo será identificado con un prefijo F o M que significa el género del locutor, separado por una línea baja \_ y el consecutivo asignado.
 
 Los archivos almacenados en Librivox usan el formato de compresión con pérdida MP3, para su tratamiento son transformados a formato sin compresión WAV utilizando el programa Sox \cite{Sox}.
 
-Se realizó de igual manera una descarga manual de los textos correspondientes a los audio libros seleccionados, generando archivos de texto plano cuya primera línea es el título del texto y el resto del archivo.
+Se realizó de igual manera una descarga manual de los textos correspondientes a los audio libros seleccionados, generando archivos de texto plano cuya primera línea es el título del texto y el resto del archivo. \macb{Es decir, una sola l\'inea?}
 
 Como parte del pre-procesamiento del texto, se utilizaron expresiones regulares para segmentar los textos descargados de internet por símbolos de puntuación, y generando un nuevo archivo de texto plano donde cada línea contiene un índice, y la declaración correspondiente al segmento del texto.
 
