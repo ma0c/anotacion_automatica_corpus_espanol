@@ -1,27 +1,38 @@
 \chapter{Introducción}
 
-\textcolor{red}{poner un textico acá de todo el viaje con esta tesis}
+El procesamiento de voz es un área de investigación activa que pertenece al procesamiento del lenguaje natural. Entre las tareas destacadas de esta área de investigación destacan la síntesis y el reconocimiento de voz, que han sido un problema abordado desde hace más de un siglo, con aproximaciones diversas que van desde el procesamiento de señales hasta las redes neuronales profundas. A lo largo de todas las décadas de investigación en este campo, se ha mostrado que las mejores aproximaciones para la resolución de tareas requieren un gran volumen de datos, el nombre que se le da a estas recopilaciones de datos es corpus. 
+
+Los corpus deben cumplir con características para poder ser usados en investigación, entre las que se encuentran género, dialecto y edad del locutor, las condiciones de grabación, ruido de ambiente, origen de la grabación, el lenguaje usado, y el tipo de distribución.
+
+La creación de corpus para abordar las distintas tareas en el procesamiento de voz es por lo general costosa, pues incluye la consecución de locutores, los recursos de hardware para realizar las grabaciones en condiciones apropiadas y el personal para el enriquecimiento de los recursos, como la segmentación, anotación y clasificación. Dado que este proceso es costoso, muchos recursos se distribuyen bajo licencias cerradas, lo que dificulta el acceso de los mismos.
+
+Este trabajo busca la creación de un corpus usando grabaciones previamente recolectadas y distribuidas bajo licencia abierta, utilizando mecanismos automáticos para la segmentación y anotación de los mismos.
 
 \section{Definición del problema}
 
-\textcolor{red}{Frasear mejor aca para dummies}
-
-Los recursos para la investigación de tecnologías del habla son de vital importancia para la generación y validación de nuevo conocimiento en el área. En la actualidad donde la investigación se ha decantado en su mayoría por el aprendizaje de máquina utilizando mecanismos de aprendizaje supervisado, semi supervisado y no supervisado \cite{Chiu2018} \cite{AmazonSemiSupervised}  \cite{ZeroResources} , la calidad de los datos usados para el entrenamiento, validación y pruebas definen en gran medida los resultados de la investigación.
-
-Recursos representativos para realizar tareas comunes como el reconocimiento automático del habla y la síntesis del habla son TIMIT \cite{PriceTheRecognition}, Switchboard \cite{Godfrey1992SWITCHBOARD:Development}, Fisher \cite{CieriTheSpeech-to-Text} y Libri Speech \cite{PanayotovLIBRISPEECH:BOOKS}, recursos anotados desde el nivel fonético hasta el nivel de declaración altamente citados en investigaciones relacionadas con tecnologías del habla para la lengua inglesa
+Los recursos para la investigación de tecnologías del habla son de vital importancia para la generación y validación de nuevo conocimiento en el área. En la actualidad donde la investigación se ha decantado en su mayoría por el aprendizaje de máquina utilizando mecanismos de aprendizaje supervisado, semi supervisado y no supervisado \cite{Chiu2018} \cite{AmazonSemiSupervised}  \cite{ZeroResources}, la calidad y tamaño de los corpus usados para el entrenamiento, validación y pruebas definen en gran medida los resultados de la investigación \cite{Hernandez-Mena2017AutomaticResources}.
 
 
-Aunque se ha probado el uso de recursos multilingues para tareas de reconocimiento de voz, la diferenciación en la articulación de los fonemas hace necesaria el uso de recursos enfocados en el español. \macb{Cu\'ales son los recursos multilingues? es sólo la fonolog\'ia lo que hace \'util tener recursos en espa\~nol?}
+Como la creación de corpus de es costosa, se propone utilizar grabaciones distribuidas bajo licencia libre y realizar el procesamiento requerido para formar un corpus para el procesamiento de voz.
 
-Para la lengua española, los recursos más representativos para realizar tareas relacionadas con procesamiento de voz son Albazyn \cite{CampilloAlbayzinEvaluation}, Fisher Spanish \cite{FischerSpa}, Call Friend \cite{CALLFRIENDSpa}, Call Home \cite{CALLHOMESpa}, DIMEx100\cite{Pineda2004DIMEx100:Spanish}, y mas recientemente Libri Speech español \cite{LibriVox-Spanish}.
+Se usarán las grabaciones del proyecto Librivox \cite{LibriVox}, una iniciativa que, por medio de voluntarios, graba audio libros que pertenecen al dominio público. En su mayoría, los audio libros se encuentran publicados en el proyecto Gutenberg \cite{gutenberg}. Cada libro es grabado por capítulo y cada capítulo es grabado por un solo locutor.
 
-
-
-El presente trabajo realiza una revisión detallada \macb{de} recursos abiertos para la ejecución de tareas de voz y propone la creación \macb{de} un nuevo recurso basado en grabaciones accesibles en la web de licencias abiertas\macb{\st{, utilizando}. Para ello se emplea} algoritmos de segmentación y alineamiento para la anotación a nivel de sentencia de un corpus de larga duración, gran vocabulario y de múltiples locutores.
+Dado que las grabaciones tienen una longitud de varios minutos, se realizará un proceso de segmentación donde a partir de cada grabación se obtienen trozos mas pequeños de tamaño conforme a otros corpus. Posteriormente se realizará un proceso de alineación sobre estos segmentos, donde se determinará a partir de la información acústica de cada segmento de grabación, la declaración correspondiente.
 
 
 \section{Justificación}
 
+En la literatura se encuentran recursos representativos reconocidos para realizar tareas comunes como el reconocimiento automático del habla y la síntesis del habla como TIMIT \cite{PriceTheRecognition}, Switchboard \cite{Godfrey1992SWITCHBOARD:Development}, Fisher \cite{CieriTheSpeech-to-Text} y Libri Speech \cite{PanayotovLIBRISPEECH:BOOKS}. Estos corpus se anotados a varios niveles, desde el nivel fonético, donde se describe los momentos en el tiempo donde inicia y termina un fonema; hasta el nivel de declaración donde solo se relaciona una frase, típicamente corta con su correspondiente grabación. Todos estos recursos son de lengua inglesa. En la tabla \ref{tab:english_corpora} se extendiende la información de estos recursos en inglés.
+
+\input{tablas/01_1_corpus_ingles}
+
+Existen recursos para la lengua española, los cuales se muestran en la tabla \ref{tab:spanish_corpora}, sin embargo estos recursos al compararse con los recursos de inglés se evidencia una diferencia en duración considerable.
+
+\input{tablas/01_2_cospus_espanol}
+
+Se observa en ambas tablas que la mayoría de recursos son de licencia cerrada, sin embargo se destaca el corpus Libri Speech \cite{LIBRISPEECH}, el cual recopila mas de 1000 horas y está distribuido bajo la licencia Creative Commons versión 4. Este corpus se ha convertido en un recurs
+
+El presente trabajo realiza una revisión detallada \macb{de} recursos abiertos para la ejecución de tareas de voz y propone la creación \macb{de} un nuevo recurso basado en grabaciones accesibles en la web de licencias abiertas\macb{\st{, utilizando}. Para ello se emplea} algoritmos de segmentación y alineamiento para la anotación a nivel de sentencia de un corpus de larga duración, gran vocabulario y de múltiples locutores.
 
 Existen múltiples factores importantes que influyen en los resultados de investigación con tareas de voz como el nivel de anotación de los recursos, la relación ruido señal, la variación de locutores, y el tamaño del vocabulario\macb{\st{, pero}. Sin embargo, } se ha mostrado que el tamaño del corpus es un factor que impacta directamente la precisión de las tareas. \macb{D\'nde se ha demostrado? Cu\'ales son los estudios, o estudios que muestren este efecto?. Citar ejemplos}
 
@@ -29,7 +40,7 @@ En la tabla \ref{tab:english_corpora} se presentan recursos representativos para
 
 \textcolor{red}{PONER QUE AQUI HAy ABIERTOS Y CERRADOS}
 
-\input{tablas/01_1_corpus_ingles}
+
 
 Se presenta en contraparte una lista de recursos para la lengua española, donde se ordenan los corpus por duración en horas y se evidencia que el tamaño de estos recursos es significativamente  menor a los de la lengua inglesa.
 
