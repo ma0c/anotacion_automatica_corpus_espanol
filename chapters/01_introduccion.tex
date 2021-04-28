@@ -13,7 +13,7 @@ Este trabajo busca la creación de un corpus usando grabaciones previamente reco
 Los recursos para la investigación de tecnologías del habla son de vital importancia para la generación y validación de nuevo conocimiento en el área. En la actualidad donde la investigación se ha decantado en su mayoría por el aprendizaje de máquina utilizando mecanismos de aprendizaje supervisado, semi supervisado y no supervisado \cite{Chiu2018} \cite{AmazonSemiSupervised}  \cite{ZeroResources}, la calidad y tamaño de los corpus usados para el entrenamiento, validación y pruebas definen en gran medida los resultados de la investigación \cite{Hernandez-Mena2017AutomaticResources}.
 
 
-Como la creación de corpus de es costosa, se propone utilizar grabaciones distribuidas bajo licencia libre y realizar el procesamiento requerido para formar un corpus para el procesamiento de voz.
+Como la creación de corpus de es costosa \cite{googleTTSLatinAmericanSpanishCorpus}, se propone utilizar grabaciones distribuidas bajo licencia libre y realizar el procesamiento requerido para formar un corpus para el procesamiento de voz.
 
 Se usarán las grabaciones del proyecto Librivox \cite{LibriVox}, una iniciativa que, por medio de voluntarios, graba audio libros que pertenecen al dominio público. En su mayoría, los audio libros se encuentran publicados en el proyecto Gutenberg \cite{gutenberg}. Cada libro es grabado por capítulo y cada capítulo es grabado por un solo locutor.
 
@@ -30,28 +30,35 @@ Existen recursos para la lengua española, los cuales se muestran en la tabla \r
 
 \input{tablas/01_2_cospus_espanol}
 
-Se observa en ambas tablas que la mayoría de recursos son de licencia cerrada, sin embargo se destaca el corpus Libri Speech \cite{LIBRISPEECH}, el cual recopila mas de 1000 horas y está distribuido bajo la licencia Creative Commons versión 4. Este corpus se ha convertido en un recurs
+Se observa en ambas tablas que la mayoría de recursos son de licencia cerrada, sin embargo se destaca el corpus Libri Speech \cite{LIBRISPEECH}, el cual recopila mas de 1000 horas y está distribuido bajo la licencia Creative Commons versión 4. Este corpus se ha convertido en un recurso usado como línea base en múltiples investigaciones \cite{libribox_benchmark1,libribox_benchmark2,libribox_benchmark3}. 
 
-El presente trabajo realiza una revisión detallada \macb{de} recursos abiertos para la ejecución de tareas de voz y propone la creación \macb{de} un nuevo recurso basado en grabaciones accesibles en la web de licencias abiertas\macb{\st{, utilizando}. Para ello se emplea} algoritmos de segmentación y alineamiento para la anotación a nivel de sentencia de un corpus de larga duración, gran vocabulario y de múltiples locutores.
+La presencia de este corpus, validada por investigaciones posteriores abre la puerta a desarrollos similares para otros lenguajes utilizando la misma fuente de datos pública Libri Vox. 
 
-Existen múltiples factores importantes que influyen en los resultados de investigación con tareas de voz como el nivel de anotación de los recursos, la relación ruido señal, la variación de locutores, y el tamaño del vocabulario\macb{\st{, pero}. Sin embargo, } se ha mostrado que el tamaño del corpus es un factor que impacta directamente la precisión de las tareas. \macb{D\'nde se ha demostrado? Cu\'ales son los estudios, o estudios que muestren este efecto?. Citar ejemplos}
-
-En la tabla \ref{tab:english_corpora} se presentan recursos representativos para la lengua inglesa, siendo estos corpus objeto de múltiples investigaciones. \macb{Sugiero que si no se tiene el n\'umero de palabras del vocabulario, es mejor retirar esa columna.}
-
-\textcolor{red}{PONER QUE AQUI HAy ABIERTOS Y CERRADOS}
+% Aunque  existen notables diferencias entre los corpus del español y del inglés, el lenguaje español no se considera un lenguaje con escasos recursos \macb{\st{, pues e}. E}xisten múltiples corpus, bancos de árboles, datos anotados y transcritos, diccionarios y gramáticas formales \cite{CavarGlobalGORILLA}. 
 
 
+\section{Objetivos}
 
-Se presenta en contraparte una lista de recursos para la lengua española, donde se ordenan los corpus por duración en horas y se evidencia que el tamaño de estos recursos es significativamente  menor a los de la lengua inglesa.
 
-\textcolor{red}{COLOCAR OBJETIVOS Y ALCANCE}
+\subsection{Objetivo general}
 
-\textcolor{red}{colocar que hay en cada capítulo}
+Implementar un alineador forzado con el fin de generar automáticamente un corpus para la lengua española de gran vocabulario y larga duración a partir de recursos existentes
 
-\input{tablas/01_2_cospus_espanol}
+\subsection{Objetivos específicos}
 
-Aunque \macb{\st{la brecha entre los lenguajes espa\~nol e ingl\'es es muy amplia} existen notables diferencias entre los corpus del espa\~nol y del ingl\'es}, el lenguaje español no se considera un lenguaje con escasos recursos\macb{\st{, pues e}. E}xisten múltiples corpus, bancos de árboles, datos anotados y transcritos, diccionarios y gramáticas formales \cite{CavarGlobalGORILLA}. 
+\begin{enumerate}
+    \item Estudiar los algoritmos para alineadores forzados y sus implementaciones en el estado del arte de forma que soporten la implementación de uno para la lengua española.
+    \item Recolectar recursos hablados existentes y de licencia abierta existentes para la lengua española.
+    \item Construir un corpus de prueba para medir el desempeño de alineadores forzados en Español.
+    \item Implementar un alineador forzado que anote a nivel de palabras un corpus de gran vocabulario y larga duración para la lengua española.
+    \item Diseñar de manera empírica un conjunto de pruebas con el fin de establecer el nivel de anotación del alineador
 
-Se ha mostrado de igual manera que la anotación manual de recursos es una tarea costosa \cite{googleTTSLatinAmericanSpanishCorpus}, y por esta razón propuestas de anotación automáticas son mas atractivas por la reducción de costos y esfuerzos empleadas en \macb{\st{para}} la generación de los recursos.
+\end{enumerate}
 
-Este trabajo utiliza recursos abiertos publicados bajo licencia Creative Commons en la plataforma Libri Vox \cite{LibriVox} donde voluntarios se coordinan para crear audio libros de textos en el dominio público y publicados en el proyecto Gutenberg \cite{gutenberg}. A la fecha existen mas de 600 libros publicados para el español, los cuales se usarán como insumo para la creación de un corpus abierto de larga duración, múltiples locutores anotado a nivel de sentencia.
+\section{Distribución del documento}
+
+En el capítulo 2 se muestra una recolección de los recursos existentes y abiertos para el español, realizando un análisis detallado de cada uno de ellos.
+
+En el capítulo 3 se diseñan los recursos de prueba para evaluar el rendimiento del alineador forzado propuesto.
+
+El capítulo 4 muestra múltiples experimentos para los procesos de segmentación y alineación sobre las grabaciones de Libri Vox
