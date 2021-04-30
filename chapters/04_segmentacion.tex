@@ -42,57 +42,54 @@ El criterio de silencio seleccionado como baja intensidad de múltiples segmento
 
 \section{Alineación basada en duración de fonemas}
 
-\textcolor{red}{WIP}
+La alineación consiste en, después de tener una segmentación por silencios en las grabaciones y una segmentación por símbolos de puntuación en la transcripción, encontrar la relación que existe entre los segmentos de audio y los de tokens del texto.
 
-Utilizando la segmentación basada en silencios, para determinar cuales son los textos correspondientes se realiza una alineación basada en la duración estimada de un segmento de texto y la duración de los segmentos calculados. Para esto se tomó la anotación fonética para determinar la duración promedio y la desviación estándar de la duración de cada fonema. \macb{(La redacci\'on de este p\'arrafo se puede mejorar empezando por definir cu\'al es el siguiente objetivo y cu\'al es el input de dicho proceso. Ahora est\'a un poco confuso.)} Dicha información se puede ver en la tabla \ref{tab:duracion_promedio_fonemas} \macb{(Es importante aclarar cu\'al est\'andar se est\'a usando para los s\'imbolos de los fonemas. Tal vez en el cap\'itulo 3.)}
+La primera aproximación ingenua que consiste en relacionar en orden los segmentos de voz y texto. El problema con esta aproximación consisten en que las pausas no necesariamente corresponden siempre a un símbolo de puntuación, pues en caso de oraciones largas, el locutor debe respirar, y en oraciones muy cortas, el locutor omite la pausa para dar continuidad a la lectura.
+
+Resaltando que existe igualmente un orden secuencial entre ambos segmentos, la aproximación basada en la duración de fonemas utiliza la duración promedio de fonemas extraída del corpus fonético de experimentación y reportada en la tabla \ref{tab:duracion_promedio_fonemas}. Con esta información y transformando las letras de cada token a su correspondiente fonema, se obtiene una duración estimada de cada token, la cual puede ser usada para alinear con mayor precisión.
+
 
 \input{tablas/04_02_duracion_promedio_fonemas}
 
-\section{Segmentación basada en información fonética de formantes en vocales}
-\macb{informaci\'on fon\'etica podr\'ia ser ambiguo. Se podr\'ia usar el t\'ermino caracter\'isticas acusticas.}
-\textcolor{red}{WIP}
+Este problema entonces se simplifica a uno de optimización donde dados dos arreglos numéricos, donde el primero representa la duración en segundos de cada segmento y el segundo la duración estimada de cada token, se debe encontrar una relación entre los índices de cada arreglo que minimice la diferencia de segundos entre los segmentos correspondientes.
 
-La manera de entender los sonidos del lenguaje hablado ocurre por \macb{\st{por}} la similaridad de los sonidos emitidos por cualquier locutor. Estas maneras de articular cada fonema permite que todos ellos tengan la misma una composición acústica similar. \macb{Revisar este p\'arrafo. No es claro.}
+\section{Segmentación basada en información acústica}
 
-Las vocales por ser sonidos de duración promedio mas alta y donde las características que las definen son pocas \macb{(Cu\'ales caracter\'isticas? Las vocales ocurren en el mismo espacio ac\'ustico que las consonantes.)}, únicamente la apertura de cuerdas bocales y la apertura de la boca, permiten que se caractericen utilizando una descomposición acústica. \macb{Revisar este p\'arrafo. Creo que aqu\'i estas hablando de la clasificaci\'on por manera de articulaci\'on. Para alguien que no est\'e familiarizado con el tema puede ser un poco confuso estos dos \'ultimos p\'arrafos. Se podr\'ia hacer una introducci\'on un poco m\'as clara sobre las posibles formas de clasificar los sonidos de un lenguaje, unidades contrastantes m\'inimas, fonemas.}
+Las grabaciones voz no son señales estacionarias, pero al segmentar en pequeños trozos de tamaño inferior al de la duración de los fonemas, estos segmentos cuando pertenecen a vocales y consonantes sonoras son estacionarios.
 
-Al descomponer cualquier señal utilizando la transformada de Fourier \macb{(ver equaci\'on \ref{eq:fourier}), se obtienen se\~nales ra\'iz de cada onda compleja. Con las se\~nales de voz, los coeficientes m\'aximos  en el orden ascendente de la frecuencia se denominan formantes, y el formante 1 (f1) y el formante 2 (f2) representan efectivamente el fen\'omeno efectuado por las cuerda vocales vibrando y la resonancia dad por la cavidad bucal.} \macb{(Los formantes son harm\'onicos, la captura de estos se da en se\~nales de cualquier tipo, sea de voz u otro fen\'onmeno f\'isico, por ejemplo las se\~nales generadas por instrumentos musicales. Todos los formantes F1,F2,F3, etc. corresponden al pulso excitativo de la glotis y la resonancia en el tracto vocal)}
+Si bien las características morfológicas de los locutores modifican su timbre y tono de voz, a nivel acústico, la dicción de cada fonema es similar. En las vocales, que son los fonemas con más energía, las partes de la anatomía responsables de diferenciar los sonidos son la apertura de la glotis y la apertura de la boca. Lo cual da la idea que una descomposición acústica podría identificar este fenómeno.
 
-\macb{edit\'e la equaci\'on con los comandos que creo son los indicados, revisar si es as\'i lo que se quiere.}
+Al descomponer cualquier señal utilizando la transformada de Fourier (ver equación \ref{eq:fourier}), se obtienen señales raíz de cada onda compleja. Con las señales de voz, los coeficientes máximos  en el orden ascendente de la frecuencia se denominan formantes, y el formante 1 (f1) y el formante 2 (f2) representan efectivamente el fenómeno efectuado por las cuerda vocales vibrando y la resonancia dad por la cavidad bucal. Los formantes son harmónicos, la captura de estos se da en señales de cualquier tipo, sea de voz u otro fenómeno acústico, como las señales generadas por instrumentos musicales. Todos los formantes F1,F2,F3, etc. corresponden al pulso excitativo de la glotis y la resonancia en el tracto vocal
+
 \begin{equation}
 \label{eq:fourier}    
 f(x) = \frac{1}{2} \, a_{0} + \sum_{n=1}^{\infty} \left[
    a_{n}\,\mathbf{cos} (n\,x) + b_{n} \,\mathbf{sin} (n\,x) \right]
 \end{equation}
 
-\macb{\st{Se obtienen se\~nales ra\'iz de cada onda compleja. Con las se\~nales de voz, los coeficientes m\'aximos  en el orden ascendente de la frecuencia se denominan formantes, y el formante 1 (f1) y el formante 2 (f2) representan efectivamente el fen\'omeno efectuado por las cuerda vocales vibrando y la resonancia dad por la cavidad bucal.}}
-
-\macb{\st{Para el idioma espa\~nol l}L}os formantes teóricos para \macb{las cinco vocales d}el español se muestra\macb{n} en la tabla \ref{tab:formantes_teoricos} \macb{tomada de [REF] %\cite{Bradlow1995}
-. \st{, los cuales fueron tomados a partir locutores con dialecto peninsular y donde se muestra la distribuci\'on voc\'alica incluyendo los dos primeros formantes %\cite{Bradlow1995}
-.} Dichos formantes fueron calculados promediando la medici\'on de formates F1 y F2 de varios locutores con dialecto peninsular.}
+Los formantes teóricos para las cinco vocales del español se muestran en la tabla \ref{tab:formantes_teoricos} tomada de \cite{Bradlow1995}. Dichos formantes fueron calculados promediando la medición de formantes F1 y F2 de varios locutores con dialecto peninsular.
 
 \input{tablas/04_03_formantes_vocales_teoricas}
 
-También se realizó una observación de las vocales calculando sus formantes basados en la información extra\macb{\'i}da de las palabras anotadas fonéticamente. Esta información se encuentra en la tabla \ref{tab:formantes_observador} \macb{(Falta explicaci\'on de c\'omo se calcularon esos formantes, con PRAAT? con alguna librer\'ia de python?)}
+También se realizó una observación de las vocales calculando sus formantes basados en la información extra\macb{\'i}da de las palabras anotadas fonéticamente. Esta información se encuentra en la tabla \ref{tab:formantes_observador}. Los formantes fueron calculados con Parselmouth \cite{parselmouth}.
 
 \input{tablas/04_04_formantes_observados}
 
-A partir de esta información se realizaron experimentos buscando la precisión en la identificación de las vocales\macb{\st{, tomando una}. Para ello se tom\'o la} distancia\macb{(te refieres a la norma L1?)} L1 de los dos primeros formantes \macb{\st{y},} aumentando un umbral definido fijo y \macb{\st{tambi\'en}} utilizando la desviación estándar sobre los formantes observados\macb{(Las enumeraciones se separan con comas o punto y comas. S\'olo hasta el final de la enumeraci\'on se usa la conjuci\'on `y')}. Adicionalmente a esto\macb{,}\macb{(Clausula introductoria va separada con coma.)} se entrenó un algoritmo de agrupación no supervizado\macb{,} K-means\macb{,} inicializando los centroides en los formantes observados \macb{en el corpus de prueba}. Los resultados se reportan en la tabla \ref{tab:resultados_vocales}
-
-\macb{(Qu\'e quiere decir Te\'orica m\'as X? X Hz? kHz? Explicarlo en el caption de la tabla ayuda a entender mejor la informaci\'on de la tabla. Tambi\'en, poner negrita en el mejor resultado, esto ayuda al lector a identificar r\'apidamente qu\'e funcion\'o mejor. Esto \'ultimo tenerlo en cuenta en todas las tablas de resultados, o donde se quiera guiar la atenci\'on del lector.)}
+A partir de esta información se realizaron experimentos buscando la precisión en la identificación de las vocales. Para ello se tomó la norma L1 de los dos primeros formantes, definiendo rango de aceptación, entre los 50Hz y 500Hz; y utilizando la desviación estándar de cada vocal como rango de aceptación. Adicionalmente a esto, se entrenó un algoritmo de agrupación no supervizado, K-means, inicializando los centroides en los formantes observados en el corpus de experimentación fonética. Los resultados se reportan en la tabla \ref{tab:resultados_vocales}
 
 \input{tablas/04_05_segmentación_vocalica}
 
-Para entender los bajos resultados presentados por la aproximación basada en los formantes observados y su desviación\macb{(Indicar resultado o ubicaci\'on en la tabla. Por ejemplo, 55.73\% de precisi\'on,)}, \macb{se realiz\'o un an\'alisis visual.\st{s}S}e graficó \macb{simultaneamente la onda, los formantes F1 y F2 donde la intensidad superaba los 60 decibeles, es decir, $I > 60 dB$, y los formantes F1 y F2 promedio y sus desviaciones observados en el corpus. \st{sobre grabaciones con contenido de s\'olo las vocales, graficando los formantes 1 y 2 en espacios donde la intensidad superaba los 60 decibeles y graficando tambi\'en los formantes observados y su desviaci\'on est\'andar de las vocales a en la figura} Las figureas [REF 4.2-4.3] muestran un ejemplo de dicho an\'alisis. Los puntos indican los formantes calculados, en rojo F2 y en az\'ul F1. (Y explicar las lineas rojas, amarilla, verde. Recomiendo que los formantes observados sean graficados con la desviaci\'on st\'andar en transparencia. Tambi\'en, los dos formantes observados deber\'ian tener color distinto entre ellos y posiblemente en la misma escala de los calculados.)} 
+Para entender los bajos resultados presentados por la aproximación basada en los formantes observados y su desviación (55.73\% de precisión), se realizó un análisis visual sobre grabaciones con las vocales que se extrajeron del Open Speech Corpus. Se graficó simultaneamente la onda, los formantes F1 y F2 donde la intensidad superaba los 60 decibeles, es decir, $I > 60 dB$, y los formantes F1 y F2 promedio y sus desviaciones observados en el corpus. Las figuras \ref{img:formantes_a} y \ref{img:formantes_e}  muestran un ejemplo de dicho análisis. Los puntos indican los formantes calculados, en rojo F2 y en azúl F1, en verde la señal, en amarillo la intensidad y en rojo los valores observados para los formantes esperados y su desvuación.
+
+% (Y explicar las lineas rojas, amarilla, verde. Recomiendo que los formantes observados sean graficados con la desviaci\'on st\'andar en transparencia. Tambi\'en, los dos formantes observados deber\'ian tener color distinto entre ellos y posiblemente en la misma escala de los calculados.)
 %\ref{img:formantes_a} y e en la figura \ref{img:formantes_e}
 
 % Ejemplo de cómo graficar la desviación estándar: https://i.stack.imgur.com/pDYIh.png
 
 
-\macb{(Es mejor usar el nombre de los corpus para saber con certeza a cu\'al te refieres, o asignar un identificador en el cap\'itulo 3 que sea usado a trav\'es de todo el documento.)}
-
 \begin{figure}[H]
-\caption{Formantes de vocal A\macb{usar notaci\'on fon\'etica, por ejemplo /a/ en SAMPA, la letra A en SAMPA es una vocal del ingl\'es, igualmente con E.}}
+\caption{Formantes de vocal A}
+% \macb{usar notaci\'on fon\'etica, por ejemplo /a/ en SAMPA, la letra A en SAMPA es una vocal del ingl\'es, igualmente con E.}
 \label{img:formantes_a}
 \includegraphics[width=\textwidth]{imagenes/04_02_a.png}
 \end{figure}
@@ -106,4 +103,5 @@ Para entender los bajos resultados presentados por la aproximación basada en lo
 % Esto debería estar arriba.
 % En ambas figuras se muestra en verde la onda, en azul el formante 1 en rojo el formante dos, en amarillo la intensidad cuyo valor se encuentra en el eje derecho y en rojo y azul claro los rangos esperados siendo la línea centra el formante observado promedio y las lineas adyacentes los valores de sumar y restar la desviación estándar.
 
-Como se observa en la grabación de la letra e \macb{C\'omo se observa esto? explicaci\'ion para alguien no familiarizado con se\~nales.}, hay un ambiente m\macb{\'a}s ruidoso, lo que hace que se capturen valores de formantes en lugares donde aún no hay señal de voz y aunque en los momentos donde la señal se estabiliza, los formantes tienden a acercarse a las bandas de frecuencia esperadas, esto no ocurre en todos los casos. \macb{Qu\'e quiere decir esta \'ultima frase?. Tambi\'en separar la oraci\'on en dos, ahora est\'a muy larga y dif\'icil de entender.}
+En la figura \ref{img:formantes_a} se observa que F2 representado por los puntos rojos está en los rangos esperados y que el F1 está cerca de los rangos esperados. En la figura \ref{img:formantes_e} se aprecia sobre la gráfica del a señal, que hay ruido de fondo, pues en los segmentos iniciales y los valores de amplitud se alejan del cero. Para esta grabación F1 se encuentra en los rangos de aceptación, pero F2 se aleja significativamente.
+
