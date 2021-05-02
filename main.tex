@@ -5,10 +5,12 @@
 \usepackage{svg}
 \usepackage{xcolor}
 \usepackage{graphicx}
+\usepackage{listingsutf8}
+\lstset{literate={ñ}{{\~n}}1}
 \usepackage{float}
-\usepackage{listings}
 \usepackage{tipa}
 \usepackage{lscape} 
+
 
 
 \usepackage{xcolor}
@@ -27,8 +29,6 @@
 
 \maketitle
 
-
-
 \include{chapters/00_abstract}
 
 \body
@@ -41,10 +41,12 @@
 
 
 \addcontentsline{toc}{chapter}{Bibliography}
-\bibliographystyle{plain}
+\bibliographystyle{apalike}
+% \setcitestyle{authoryear,open={((},close={))}}
+% \bibliographystyle{apalike}
 % \bibliographystyle{apacite}
 % \bibliography{bibliography/bibliography}
-\bibliography{referencias_ante_proyecto.bib,custom_references_ante_proyecto.bib,references_chapter_1.bib}
+\bibliography{custom_references.bib,references.bib}
 
 
 
