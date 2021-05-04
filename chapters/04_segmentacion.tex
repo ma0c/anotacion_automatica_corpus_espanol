@@ -40,11 +40,24 @@ El criterio de silencio seleccionado como baja intensidad de múltiples segmento
 \input{tablas/04_01_resultados_segmentacion_silencio}
 
 
-\section{Alineación basada en duración de fonemas}
+\section{Alineación ingenua}
 
 La alineación consiste en, después de tener una segmentación por silencios en las grabaciones y una segmentación por símbolos de puntuación en la transcripción, encontrar la relación que existe entre los segmentos de audio y los de tokens del texto.
 
-La primera aproximación ingenua que consiste en relacionar en orden los segmentos de voz y texto. El problema con esta aproximación consisten en que las pausas no necesariamente corresponden siempre a un símbolo de puntuación, pues en caso de oraciones largas, el locutor debe respirar, y en oraciones muy cortas, el locutor omite la pausa para dar continuidad a la lectura.
+La primera aproximación ingenua que consiste en relacionar en orden los segmentos de voz y texto, asumiendo que los signos de puntuación tienen siempre una ocurrencia acústica representada como silencio, y por consiguiente, al segmentar el texto por signos de puntuación existe una relación uno a uno con cada segmento delimitado por silencios.
+
+Para la evaluación de de este modelo se usa el indicador WER, del inglés Word Error Rate, el cual utilizando parámetros de sustitución (S), eliminación (E) e inserción (I) de la distancia de edición Levenstein \cite{Levenshtein_SPD66} y la totalidad de palabras (N) se obtiene la relación mostrada en la ecuación \ref{eq:wer}
+
+\begin{equation}
+    \label{eq:wer}
+    WER = \frac{S + E + I}{N}
+\end{equation}
+
+\section{Alineación basada en duración de fonemas}
+
+\textcolor{red}{CORREGIR}
+
+El problema con esta aproximación consisten en que las pausas no necesariamente corresponden siempre a un símbolo de puntuación, pues en caso de oraciones largas, el locutor debe respirar, y en oraciones muy cortas, el locutor omite la pausa para dar continuidad a la lectura.
 
 Resaltando que existe igualmente un orden secuencial entre ambos segmentos, la aproximación basada en la duración de fonemas utiliza la duración promedio de fonemas extraída del corpus fonético de experimentación y reportada en la tabla \ref{tab:duracion_promedio_fonemas}. Con esta información y transformando las letras de cada token a su correspondiente fonema, se obtiene una duración estimada de cada token, la cual puede ser usada para alinear con mayor precisión.
 
@@ -75,7 +88,7 @@ También se realizó una observación de las vocales calculando sus formantes ba
 
 \input{tablas/04_04_formantes_observados}
 
-A partir de esta información se realizaron experimentos buscando la precisión en la identificación de las vocales. Para ello se tomó la norma L1 de los dos primeros formantes, definiendo rango de aceptación, entre los 50Hz y 500Hz; y utilizando la desviación estándar de cada vocal como rango de aceptación. Adicionalmente a esto, se entrenó un algoritmo de agrupación no supervizado, K-means, inicializando los centroides en los formantes observados en el corpus de experimentación fonética. Los resultados se reportan en la tabla \ref{tab:resultados_vocales}
+A partir de esta información se realizaron experimentos buscando la precisión en la identificación de las vocales. Para ello se tomó la norma L1 \cite{manhatattan_distance} de los dos primeros formantes, definiendo rango de aceptación, entre los 50Hz y 500Hz; y utilizando la desviación estándar de cada vocal como rango de aceptación. Adicionalmente a esto, se entrenó un algoritmo de agrupación no supervizado, K-means, inicializando los centroides en los formantes observados en el corpus de experimentación fonética. Los resultados se reportan en la tabla \ref{tab:resultados_vocales}
 
 \input{tablas/04_05_segmentación_vocalica}
 
