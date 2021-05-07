@@ -53,14 +53,21 @@ Para la evaluación de de este modelo se usa el indicador WER, del inglés Word 
     WER = \frac{S + E + I}{N}
 \end{equation}
 
+Calculando el WER para la anotación ingénua se obtiene el siguiente resultado
+
+
+\begin{equation}
+    WER_{ingenuo} = 89.58
+\end{equation}
 \section{Alineación basada en duración de fonemas}
 
-\textcolor{red}{CORREGIR}
-
-El problema con esta aproximación consisten en que las pausas no necesariamente corresponden siempre a un símbolo de puntuación, pues en caso de oraciones largas, el locutor debe respirar, y en oraciones muy cortas, el locutor omite la pausa para dar continuidad a la lectura.
+El problema con la alineación ingénua consiste en que las pausas no necesariamente corresponden siempre a un símbolo de puntuación, pues en caso de oraciones largas, el locutor debe respirar, y en oraciones muy cortas, el locutor omite la pausa para dar continuidad a la lectura.
 
 Resaltando que existe igualmente un orden secuencial entre ambos segmentos, la aproximación basada en la duración de fonemas utiliza la duración promedio de fonemas extraída del corpus fonético de experimentación y reportada en la tabla \ref{tab:duracion_promedio_fonemas}. Con esta información y transformando las letras de cada token a su correspondiente fonema, se obtiene una duración estimada de cada token, la cual puede ser usada para alinear con mayor precisión.
 
+\begin{equation}
+    WER_{duracion fonemas} = ??
+\end{equation}
 
 \input{tablas/04_02_duracion_promedio_fonemas}
 
@@ -88,11 +95,15 @@ También se realizó una observación de las vocales calculando sus formantes ba
 
 \input{tablas/04_04_formantes_observados}
 
-A partir de esta información se realizaron experimentos buscando la precisión en la identificación de las vocales. Para ello se tomó la norma L1 \cite{manhatattan_distance} de los dos primeros formantes, definiendo rango de aceptación, entre los 50Hz y 500Hz; y utilizando la desviación estándar de cada vocal como rango de aceptación. Adicionalmente a esto, se entrenó un algoritmo de agrupación no supervizado, K-means, inicializando los centroides en los formantes observados en el corpus de experimentación fonética. Los resultados se reportan en la tabla \ref{tab:resultados_vocales}
+A partir de esta información de la tabla \ref{tab:formantes_observador} se realizaron experimentos buscando la precisión en la identificación de las vocales. Para ello se tomó la norma L1 \cite{manhatattan_distance} de los dos primeros formantes, definiendo rango de aceptación, entre los 50Hz y 500Hz; y utilizando la desviación estándar de cada vocal como rango de aceptación. Adicionalmente a esto, se entrenó un algoritmo de agrupación no supervizado, K-means, inicializando los centroides en los formantes observados en el corpus de experimentación fonética.
+
+Estos experimentos se pusieron a prueba en todo el corpus de experimentación fonética, de donde se extrajeron los segmentos correspondientes a vocales y se evaluó la precisión de cada aproximación.
+
+Los resultados se reportan en la tabla \ref{tab:resultados_vocales}.
 
 \input{tablas/04_05_segmentación_vocalica}
 
-Para entender los bajos resultados presentados por la aproximación basada en los formantes observados y su desviación (55.73\% de precisión), se realizó un análisis visual sobre grabaciones con las vocales que se extrajeron del Open Speech Corpus. Se graficó simultaneamente la onda, los formantes F1 y F2 donde la intensidad superaba los 60 decibeles, es decir, $I > 60 dB$, y los formantes F1 y F2 promedio y sus desviaciones observados en el corpus. Las figuras \ref{img:formantes_a} y \ref{img:formantes_e}  muestran un ejemplo de dicho análisis. Los puntos indican los formantes calculados, en rojo F2 y en azúl F1, en verde la señal, en amarillo la intensidad y en rojo los valores observados para los formantes esperados y su desvuación.
+Para entender los bajos resultados presentados por la aproximación basada en los formantes observados y su desviación (50.36\% de precisión), se realizó un análisis visual sobre grabaciones con las vocales que se extrajeron del Open Speech Corpus. Se graficó simultaneamente la onda, los formantes F1 y F2 donde la intensidad superaba los 60 decibeles, es decir, $I > 60 dB$, y los formantes F1 y F2 promedio y sus desviaciones observados en el corpus. Las figuras \ref{img:formantes_a}, \ref{img:formantes_e}, \ref{img:formantes_i}, \ref{img:formantes_o} y \ref{img:formantes_u} muestran un ejemplo de dicho análisis. Los puntos indican los formantes calculados, F1 en azul y F2 en rojo, las líneas azul y roja representan los valores promedios para los formantes 1 y 2 respectivamente, con una franja del mismo color y en leve transparencia representando los rangos aceptados para cada formante considerando la desviación estándar, en verde la señal, en amarillo la intensidad.
 
 % (Y explicar las lineas rojas, amarilla, verde. Recomiendo que los formantes observados sean graficados con la desviaci\'on st\'andar en transparencia. Tambi\'en, los dos formantes observados deber\'ian tener color distinto entre ellos y posiblemente en la misma escala de los calculados.)
 %\ref{img:formantes_a} y e en la figura \ref{img:formantes_e}
@@ -113,8 +124,44 @@ Para entender los bajos resultados presentados por la aproximación basada en lo
 \includegraphics[width=\textwidth]{imagenes/04_02_e.png}
 \end{figure}
 
+\begin{figure}[H]
+\caption{Formantes de vocal I}
+\label{img:formantes_i}
+\includegraphics[width=\textwidth]{imagenes/04_02_i.png}
+\end{figure}
+
+\begin{figure}[H]
+\caption{Formantes de vocal O}
+\label{img:formantes_o}
+\includegraphics[width=\textwidth]{imagenes/04_02_o.png}
+\end{figure}
+
+\begin{figure}[H]
+\caption{Formantes de vocal U}
+\label{img:formantes_u}
+\includegraphics[width=\textwidth]{imagenes/04_02_u.png}
+\end{figure}
+
 % Esto debería estar arriba.
 % En ambas figuras se muestra en verde la onda, en azul el formante 1 en rojo el formante dos, en amarillo la intensidad cuyo valor se encuentra en el eje derecho y en rojo y azul claro los rangos esperados siendo la línea centra el formante observado promedio y las lineas adyacentes los valores de sumar y restar la desviación estándar.
 
-En la figura \ref{img:formantes_a} se observa que F2 representado por los puntos rojos está en los rangos esperados y que el F1 está cerca de los rangos esperados. En la figura \ref{img:formantes_e} se aprecia sobre la gráfica del a señal, que hay ruido de fondo, pues en los segmentos iniciales y los valores de amplitud se alejan del cero. Para esta grabación F1 se encuentra en los rangos de aceptación, pero F2 se aleja significativamente \cite{Abdel-Hamid2012}.
+En las gráficas se observa que en los rangos donde hay mas energía, los formantes se estabilizan cerca de ciertos valores, sin embargo no siempre el valor de estabilización corresponde a los rangos cercanos al formante promedio más o menos su desviación estándar.
 
+Considerando que en los valores de los formantes y su rango de aceptación no genera los resultados esperados, se realizan experimentos con árboles de decisión.
+
+Para estos experimentos, se tomaron los mismos valores de los formantes y la intensidad usando también valores de los formantes 3, 4 y 5, que enriquecen la información acústica extraída de las grabaciones.
+
+Los conjuntos de entrenamiento y pruebas se extrajeron del corpus de experimentación fonética, realizando una partición de 90\% para entrenamiento y 10\% para pruebas. Se realizó una segmentación por ventanas de tiempo de 60ms y se contó la cantidad de ventanas por cada fonema y sobre estos valores se realizó la partición.
+
+Como los árboles de decisión son sensibles a la cantidad de grupos a clasificar, se realizaron experimentos transformando la anotación fonética de cada grabación. Las transformaciones usadas se muestran en la tabla \ref{tab:transformacion_fonetica_arboles}
+
+\input{tablas/04_06_transformacion_fonetica}
+
+Los resultados a los experimento se muestran a continuación en la tabla \ref{tab:resultados_arboles}
+
+\input{tablas/04_07_resultados_arboles}
+
+
+\begin{equation}
+    WER_{informacion acustica} = ??
+\end{equation}
