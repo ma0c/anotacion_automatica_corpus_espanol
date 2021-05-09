@@ -53,25 +53,40 @@ Para la evaluación de de este modelo se usa el indicador WER, del inglés Word 
     WER = \frac{S + E + I}{N}
 \end{equation}
 
-Calculando el WER para la anotación ingénua se obtiene el siguiente resultado
+Si los valores esperados y calculados difieren en su totalidad, es posible que el WER tenga valores superiores a 1, lo que indica una alineación completamente equivocada.
 
+Como el proceso de alineación busca encontrar la similaridad de las anotaciones en los segmentos, se define un Align Error Rate, compuesto de la suma ponderada de cada WER en un segmento por la cantidad de palabras esperadas en el segmento, como se muestra en la ecuación \ref{eq:aer}
 
 \begin{equation}
-    WER_{ingenuo} = 89.58
+    \label{eq:aer}
+    AER = \sum_{i=0}^{n}{WER_i * \frac{W_i}{W}}
 \end{equation}
+
+Donde $n$ es el número de segmentos en la grabación, $W$ representa el número de palabras en la transcripción de la grabación, $W_i$ el numero de palabras en el respectivo segmento y $WER_i$ el WER del respectivo segmento
+
+Calculando el AER para la anotación ingenua se obtiene el siguiente resultado, expresado en valor porcentual.
+
+\begin{equation}
+    AER_{ingenuo} = 89.58
+\end{equation}
+
+Donde se observa que al ser un valor muy alto, dando la idea que muchos segmentos se encuentran desalineados
+
 \section{Alineación basada en duración de fonemas}
 
 El problema con la alineación ingénua consiste en que las pausas no necesariamente corresponden siempre a un símbolo de puntuación, pues en caso de oraciones largas, el locutor debe respirar, y en oraciones muy cortas, el locutor omite la pausa para dar continuidad a la lectura.
 
 Resaltando que existe igualmente un orden secuencial entre ambos segmentos, la aproximación basada en la duración de fonemas utiliza la duración promedio de fonemas extraída del corpus fonético de experimentación y reportada en la tabla \ref{tab:duracion_promedio_fonemas}. Con esta información y transformando las letras de cada token a su correspondiente fonema, se obtiene una duración estimada de cada token, la cual puede ser usada para alinear con mayor precisión.
 
-\begin{equation}
-    WER_{duracion fonemas} = ??
-\end{equation}
+
 
 \input{tablas/04_02_duracion_promedio_fonemas}
 
 Este problema entonces se simplifica a uno de optimización donde dados dos arreglos numéricos, donde el primero representa la duración en segundos de cada segmento y el segundo la duración estimada de cada token, se debe encontrar una relación entre los índices de cada arreglo que minimice la diferencia de segundos entre los segmentos correspondientes.
+
+\begin{equation}
+    AER_{duracion fonemas} = 12.5
+\end{equation}
 
 \section{Segmentación basada en información acústica}
 
@@ -163,5 +178,5 @@ Los resultados a los experimento se muestran a continuación en la tabla \ref{ta
 
 
 \begin{equation}
-    WER_{informacion acustica} = ??
+    AER_{informacion acustica} = ??
 \end{equation}

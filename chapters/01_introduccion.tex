@@ -1,8 +1,8 @@
 \chapter{Introducción}
 
-El procesamiento de voz es un área de investigación activa que pertenece al procesamiento del lenguaje natural. Entre las tareas destacadas de esta área de investigación destacan la síntesis y el reconocimiento de voz, que han sido un problema abordado desde hace más de un siglo, con aproximaciones diversas que van desde el procesamiento de señales hasta las redes neuronales profundas. A lo largo de todas las décadas de investigación en este campo, se ha mostrado que las mejores aproximaciones para la resolución de tareas requieren un gran volumen de datos, el nombre que se le da a estas recopilaciones de datos es corpus. 
+El procesamiento de voz es un área de investigación activa que \macb{\st{pertenece al procesamiento} combina aspectos del procesamiento de se\~nales y estudio} del lenguaje natural. Entre las tareas destacadas de esta área de investigación destacan la síntesis y el reconocimiento de voz, que han sido un problema abordado desde hace más de un siglo, con aproximaciones diversas que van desde el procesamiento de señales hasta las redes neuronales profundas. \macb{\st{A lo largo de todas las} En las \'ultimas décadas de investigación en este campo\st{, se ha mostrado que las mejores aproximaciones para la resoluci\'on de tareas requieren un gran volumen de datos, el nombre que se le da a estas recopilaciones de datos es corpus.} se han logrado mejores resultados en diversas tareas como la s\'intesis de voz haciendo uso de gran volumen de datos.}
 
-Los corpus deben cumplir con características para poder ser usados en investigación, entre las que se encuentran género, dialecto y edad del locutor, las condiciones de grabación, ruido de ambiente, origen de la grabación, el lenguaje usado, y el tipo de distribución.
+Los corpus \macb{o colleci\'on de datos} deben cumplir con características para poder ser usados en investigación, entre las que se encuentran género, dialecto y edad del locutor, las condiciones de grabación, ruido de ambiente, origen de la grabación, el lenguaje usado, y el tipo de distribución.
 
 La creación de corpus para abordar las distintas tareas en el procesamiento de voz es por lo general costosa, pues incluye la consecución de locutores, los recursos de hardware para realizar las grabaciones en condiciones apropiadas y el personal para el enriquecimiento de los recursos, como la segmentación, anotación y clasificación. Dado que este proceso es costoso, muchos recursos se distribuyen bajo licencias cerradas, lo que dificulta el acceso de los mismos.
 
@@ -22,11 +22,11 @@ Dado que las grabaciones tienen una longitud de varios minutos, se realizará un
 
 \section{Justificación}
 
-En la literatura se encuentran recursos representativos reconocidos para realizar tareas comunes como el reconocimiento automático del habla y la síntesis del habla como, TIMIT \cite{PriceTheRecognition}, Darpa Resource Management \cite{Lucke1992ExpandingCorpus}, Switchboard \cite{Godfrey1992SWITCHBOARD:Development}, Call Home  \cite{Fu-HuaLiuSpeechCorpus},  Cambridge Read News \cite{RobinsonWSJCAM0:RECOGNITION}, Aurora Digits \cite{EvansEfficientCorpus}, Fisher \cite{CieriTheSpeech-to-Text} y Libri Speech \cite{LIBRISPEECH}. Estos corpus se anotados a varios niveles, desde el nivel fonético, donde se describe los momentos en el tiempo donde inicia y termina un fonema; hasta el nivel de declaración donde solo se relaciona una frase, típicamente corta con su correspondiente grabación. Todos estos recursos son de lengua inglesa. En la tabla \ref{tab:english_corpora} se extendiende la información de estos recursos en inglés.
+En la literatura se encuentran recursos representativos reconocidos para realizar tareas comunes como el reconocimiento automático del habla y la síntesis del habla como, TIMIT \cite{PriceTheRecognition}, Darpa Resource Management \cite{Lucke1992ExpandingCorpus}, Switchboard \cite{Godfrey1992SWITCHBOARD:Development}, Call Home  \cite{Fu-HuaLiuSpeechCorpus},  Cambridge Read News \cite{RobinsonWSJCAM0:RECOGNITION}, Aurora Digits \cite{EvansEfficientCorpus}, Fisher \cite{CieriTheSpeech-to-Text} y Libri Speech \cite{LIBRISPEECH}. Estos corpus se anotados a varios niveles, desde el nivel fonético, donde se describe los momentos en el tiempo donde inicia y termina un fonema; hasta el nivel de declaración donde s\'olo se relaciona una frase típicamente corta con su correspondiente grabación. Todos estos recursos son de lengua inglesa. En la tabla \ref{tab:english_corpora} se extendiende la información de estos recursos en inglés.
 
 \input{tablas/01_1_corpus_ingles}
 
-Existen recursos para el español como Call Friend \cite{CALLFRIENDSpa}, Call Home \cite{CALLHOMESpa}, DIMEx100 \cite{Pineda2004DIMEx100:Spanish}, Heróico \cite{heroico}, Voxforfe \cite{Voxforge.org}, Fisher Spanish \cite{FischerSpa}, Albazín \cite{CampilloAlbayzinEvaluation} y CIEMPIESS \cite{Hernandez-MenaCIEMPIESS:Corpus}, los cuales se muestran en la tabla \ref{tab:spanish_corpora}, sin embargo estos recursos al compararse con los recursos de inglés se evidencia una diferencia en duración considerable.
+Existen recursos para el español como Call Friend \cite{CALLFRIENDSpa}, Call Home \cite{CALLHOMESpa}, DIMEx100 \cite{Pineda2004DIMEx100:Spanish}, Heróico \cite{heroico}, Voxforfe \cite{Voxforge.org}, Fisher Spanish \cite{FischerSpa}, Albazín \cite{CampilloAlbayzinEvaluation} y CIEMPIESS \cite{Hernandez-MenaCIEMPIESS:Corpus}, los cuales se muestran en la tabla \ref{tab:spanish_corpora}, sin embargo \macb{\st{estos recursos} al comparar\st{se con los} estos recursos con aquellos en\st{de}} inglés se evidencia una diferencia en duración considerable.
 
 \input{tablas/01_2_cospus_espanol}
 
@@ -54,11 +54,13 @@ Implementar un alineador forzado con el fin de generar automáticamente un corpu
     \item Diseñar de manera empírica un conjunto de pruebas con el fin de establecer el nivel de anotación del alineador
 
 \end{enumerate}
-
-\section{Distribución del documento}
+% MACB cambié distribución por estructura y agregué frase de las conclusiones.
+\section{Estructura del documento}
 
 En el capítulo 2 se muestra una recolección de los recursos existentes y abiertos para el español, realizando un análisis detallado de cada uno de ellos.
 
 En el capítulo 3 se diseñan los recursos de prueba para evaluar el rendimiento del alineador forzado propuesto.
 
-El capítulo 4 muestra múltiples experimentos para los procesos de segmentación y alineación sobre las grabaciones de Libri Vox
+El capítulo 4 muestra múltiples experimentos para los procesos de segmentación y alineación sobre las grabaciones de Libri Vox.
+
+Finalmente, en el capítulo 5 se concluye el proyecto y se discuten posibles trabajos futuros.
