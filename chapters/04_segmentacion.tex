@@ -10,7 +10,7 @@ Las segmentación basada en silencio es una respuesta natural al problema de com
 
 Para identificar el proceso de segmentación por silencios, es necesario entender cómo se almacenan las señales de voz digitalmente y cómo se puede procesar este tipo de datos.
 
-La manera mas sencilla de representar digitalmente una señal de voz es haciendo el uso de la Modulación por Impulsos Codificados o PCM por sus siglas en inglés, donde por medio de un transductor análogo, se capturan las variaciones en la presión del aire y se registran como un rango de valores normalizado. El senso de la señal se hace periódicamente a una frecuencia determinada generando de esta manera una secuencia de valores que representa la señal. El proceso de representar la presión del aire en un segmento de tiempo se denomina cuantización, y para señales de audio se utilizan valores normalizados entre -127 y 128 representados por 8 bits a 16000 Hz de frecuencia.
+La manera m\'as sencilla de representar digitalmente una señal de voz es haciendo el uso de la Modulación por Impulsos Codificados o PCM por sus siglas en inglés, donde por medio de un transductor análogo, se capturan las variaciones en la presión del aire y se registran como un rango de valores normalizado. El senso de la señal se hace periódicamente a una frecuencia determinada generando de esta manera una secuencia de valores que representa la señal. El proceso de representar la presión del aire en un segmento de tiempo se denomina cuantización, y para señales de audio se utilizan valores normalizados entre -127 y 128 representados por 8 bits a 16000 Hz de frecuencia.
 
 En al figura \ref{img:pcm} se muestra la visualización de una grabación correspondiente a la palabra agua, extraída del corpus Open Speech Corpus de palabaras, en su longitud original y aumentada en un 500\% y 1000\% usando Audacity \cite{audacity}
 
@@ -35,7 +35,7 @@ Utilizando esta idea es posible tomar cualquier señal de voz, segmentarla cada 
 
 Con base en las anotaciones del corpus de experimentación fonética se determinó que la duración promedio de cada consonante plosiva es inferior a los 100ms. También, extrayendo información del corpus de pruebas se determinó que los espacios de silencio son de aproximadamente 500ms. Con esta información se decidió utilizar segmentos 250ms de longitud y desplazamiento de 100ms. Se determinan como silencios los conjuntos de cinco o más segmentos consecutivos de intensidad baja.
 
-El criterio de silencio seleccionado como baja intensidad de múltiples segmentos consecutivos plantea retos con respecto al valor concreto de energía para determinar silencio o señal. Considerando que los locutores no grabaron a un volúmen estándar y que la relación ruido señal varía en todas las grabaciones es distinta, se propusieron dos aproximaciones para determinar los segmentos de silencio, la primera normalizando los valores de la señal y definiendo un umbral fijo de intensidad en proporción al valor mas alto de la grabación, considerando valores de 0.3, 0.15 y 0.15 que representan umbrales de intensidad del 30\%, 15\%, y 5\%. También se experimentó utilizando algoritmos de agrupamiento con dos centroides iniciales en 0 y la intensidad máxima. Los resultados se presentan en la tabla \ref{tab:resultados_segmentacion_silencios}.
+El criterio de silencio seleccionado como baja intensidad de múltiples segmentos consecutivos plantea retos con respecto al valor concreto de energía para determinar silencio o señal. Considerando que los locutores no grabaron a un volúmen estándar y que la relación ruido señal varía en todas las grabaciones es distinta, se propusieron dos aproximaciones para determinar los segmentos de silencio, la primera normalizando los valores de la señal y definiendo un umbral fijo de intensidad en proporción al valor mas alto de la grabación, considerando valores de 0.3, 0.15 y 0.05 que representan umbrales de intensidad del 30\%, 15\%, y 5\%. También se experimentó utilizando algoritmos de agrupamiento con dos centroides iniciales en 0 y la intensidad máxima. Los resultados se presentan en la tabla \ref{tab:resultados_segmentacion_silencios}.
 
 \input{tablas/04_01_resultados_segmentacion_silencio}
 
@@ -57,20 +57,36 @@ Si los valores esperados y calculados difieren en su totalidad, es posible que e
 
 Como el proceso de alineación busca encontrar la similaridad de las anotaciones en los segmentos, se define un Align Error Rate, compuesto de la suma ponderada de cada WER en un segmento por la cantidad de palabras esperadas en el segmento, como se muestra en la ecuación \ref{eq:aer}
 
+% \macb{Esta m\'etrica penaliza mucho m\'as las eliminaciones, si un segmento deb\'ia tener 3 palabras, pero resultaron 6, el WER (que es al menos 3 puntos de eliminaci\'on) va a costar el doble. Sin embargo no hay una motivaci\'on clara de porqu\'e se deber\'ia penalizar m\'as el costo de eliminaci\'on. Si por el contrario solo hay una palabra cuando deber\'ian haber 3, el WER ser\'a s\'olo de 0.33. Mi sugerencia es manejar una ponderaci\'on m\'as general, ponderando la sumatoria de WER por cada segmento con el n\'umero total de palabras en todos los segmentos. Sugerencia: $AER = \frac{\sum{WER_i}}{\sum{N_i}}$}
+
+
+
 \begin{equation}
     \label{eq:aer}
     AER = \sum_{i=0}^{n}{WER_i * \frac{W_i}{W}}
 \end{equation}
 
-Donde $n$ es el número de segmentos en la grabación, $W$ representa el número de palabras en la transcripción de la grabación, $W_i$ el numero de palabras en el respectivo segmento y $WER_i$ el WER del respectivo segmento
+Donde $n$ es el número de segmentos en la grabación, $W$ representa el número de palabras en la transcripción de la grabación, $W_i$ el numero de palabras en el respectivo segmento y $WER_i$ el WER del respectivo segmento.
 
 Calculando el AER para la anotación ingenua se obtiene el siguiente resultado, expresado en valor porcentual.
 
 \begin{equation}
-    AER_{ingenuo} = 89.58
+    AER_{ingenuo} = 79.13
 \end{equation}
 
-Donde se observa que al ser un valor muy alto, dando la idea que muchos segmentos se encuentran desalineados
+En al figura \ref{img:aer_ingenuo} se muestra gráficamente los resultados de cada AER por grabación evaluada, donde se observa que en la mayoría de casos, los valores AER son altos, aunque en algunas grabaciones de corta duración las pausas corresponden a signos de puntuación, estas fenómeno no representa una regla.
+
+\begin{figure}[H]
+\caption{Resultados de la alineación ingénua}
+% \macb{usar notaci\'on fon\'etica, por ejemplo /a/ en SAMPA, la letra A en SAMPA es una vocal del ingl\'es, igualmente con E.}
+\label{img:aer_ingenuo}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{imagenes/04_01_aer_ingenuo.png}
+\end{center}
+\end{figure}
+
+%Donde se observa que al ser un valor muy alto, dando la idea que muchos segmentos se encuentran desalineados
+
 
 \section{Alineación basada en duración de fonemas}
 
@@ -82,19 +98,32 @@ Resaltando que existe igualmente un orden secuencial entre ambos segmentos, la a
 
 \input{tablas/04_02_duracion_promedio_fonemas}
 
-Este problema entonces se simplifica a uno de optimización donde dados dos arreglos numéricos, donde el primero representa la duración en segundos de cada segmento y el segundo la duración estimada de cada token, se debe encontrar una relación entre los índices de cada arreglo que minimice la diferencia de segundos entre los segmentos correspondientes.
+Este problema entonces se simplifica a uno de optimización donde dados dos arreglos numéricos, donde el primero representa la duración en segundos de cada segmento y el segundo la duración estimada de cada token, se debe encontrar una relación entre los índices de cada arreglo que minimice la diferencia de segundos entre los segmentos correspondientes. 
 
-\begin{equation}
-    AER_{duracion fonemas} = 12.5
-\end{equation}
+Con dicha estrategia se obtiene un AER de 58.21\%.
+
+En la imagen \ref{img:aer_duracion} se muestran los resultados individuales de cada grabación. De esta manera se observa un conjunto de grabaciones de baja duración, inferior a los 80 segundos en las cuales el AER es del 10.83\%, en las grabaciones con duración superior el AER es de 94.68\%, el cual representa el mismo fenómeno de la anotación ingénua, pues la elección erronea de un segmento propaga el error en los segmentos siguientes.
+
+\begin{figure}[H]
+\caption{Resultados de la alineación por duración de fonemas}
+% \macb{usar notaci\'on fon\'etica, por ejemplo /a/ en SAMPA, la letra A en SAMPA es una vocal del ingl\'es, igualmente con E.}
+\label{img:aer_duracion}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{imagenes/04_03_aer_duracion_fonemas.png}
+\end{center}
+\end{figure}
+
+%\begin{equation}
+%    AER_{duracion fonemas} = 12.5
+%\end{equation}
 
 \section{Segmentación basada en información acústica}
 
 Las grabaciones voz no son señales estacionarias, pero al segmentar en pequeños trozos de tamaño inferior al de la duración de los fonemas, estos segmentos cuando pertenecen a vocales y consonantes sonoras son estacionarios.
 
-Si bien las características morfológicas de los locutores modifican su timbre y tono de voz, a nivel acústico, la dicción de cada fonema es similar. En las vocales, que son los fonemas con más energía, las partes de la anatomía responsables de diferenciar los sonidos son la apertura de la glotis y la apertura de la boca. Lo cual da la idea que una descomposición acústica podría identificar este fenómeno.
+Si bien las características morfológicas de los locutores modifican su timbre y tono de voz, a nivel acústico, la dicción de cada fonema es similar. En las vocales, que son los fonemas con más energía, las partes de la anatomía responsables de diferenciar los sonidos son la apertura de la glotis, la posici\'on de la lengua y la apertura de la boca. Lo cual da la idea que una descomposición acústica podría identificar este fenómeno.
 
-Al descomponer cualquier señal utilizando la transformada de Fourier (ver equación \ref{eq:fourier}), se obtienen señales raíz de cada onda compleja. Con las señales de voz, los coeficientes máximos  en el orden ascendente de la frecuencia se denominan formantes, y el formante 1 (f1) y el formante 2 (f2) representan efectivamente el fenómeno efectuado por las cuerda vocales vibrando y la resonancia dad por la cavidad bucal. Los formantes son harmónicos, la captura de estos se da en señales de cualquier tipo, sea de voz u otro fenómeno acústico, como las señales generadas por instrumentos musicales. Todos los formantes F1,F2,F3, etc. corresponden al pulso excitativo de la glotis y la resonancia en el tracto vocal
+Al descomponer cualquier señal utilizando la transformada de Fourier (ver equación \ref{eq:fourier}), se obtienen señales raíz de cada onda compleja. Con las señales de voz, los coeficientes máximos  en el orden ascendente de la frecuencia se denominan formantes, y el formante 1 (F1) y el formante 2 (F2) representan efectivamente el fenómeno efectuado por las cuerda vocales vibrando y la resonancia dada por la cavidad bucal. Los formantes son harmónicos, la captura de estos se da en señales de cualquier tipo, sea de voz u otro fenómeno acústico, como las señales generadas por instrumentos musicales. Todos los formantes F1,F2,F3, etc. corresponden al pulso excitativo de la glotis y la resonancia en el tracto vocal.
 
 \begin{equation}
 \label{eq:fourier}    
@@ -106,7 +135,7 @@ Los formantes teóricos para las cinco vocales del español se muestran en la ta
 
 \input{tablas/04_03_formantes_vocales_teoricas}
 
-También se realizó una observación de las vocales calculando sus formantes basados en la información extra\macb{\'i}da de las palabras anotadas fonéticamente. Esta información se encuentra en la tabla \ref{tab:formantes_observador}. Los formantes fueron calculados con Parselmouth \cite{parselmouth}.
+También se realizó una observación de las vocales calculando sus formantes basados en la información extra\'ida de las palabras anotadas fonéticamente. Esta información se encuentra en la tabla \ref{tab:formantes_observador}. Los formantes fueron calculados con Parselmouth \cite{parselmouth}.
 
 \input{tablas/04_04_formantes_observados}
 
@@ -118,7 +147,7 @@ Los resultados se reportan en la tabla \ref{tab:resultados_vocales}.
 
 \input{tablas/04_05_segmentación_vocalica}
 
-Para entender los bajos resultados presentados por la aproximación basada en los formantes observados y su desviación (50.36\% de precisión), se realizó un análisis visual sobre grabaciones con las vocales que se extrajeron del Open Speech Corpus. Se graficó simultaneamente la onda, los formantes F1 y F2 donde la intensidad superaba los 60 decibeles, es decir, $I > 60 dB$, y los formantes F1 y F2 promedio y sus desviaciones observados en el corpus. Las figuras \ref{img:formantes_a}, \ref{img:formantes_e}, \ref{img:formantes_i}, \ref{img:formantes_o} y \ref{img:formantes_u} muestran un ejemplo de dicho análisis. Los puntos indican los formantes calculados, F1 en azul y F2 en rojo, las líneas azul y roja representan los valores promedios para los formantes 1 y 2 respectivamente, con una franja del mismo color y en leve transparencia representando los rangos aceptados para cada formante considerando la desviación estándar, en verde la señal, en amarillo la intensidad.
+Para entender los bajos resultados presentados por la aproximación basada en los formantes observados y su desviación (50.36\% de precisión), se realizó un análisis visual sobre grabaciones con las vocales que se extrajeron del Open Speech Corpus. Se graficó simultaneamente la onda, los formantes F1 y F2 donde la intensidad superaba los 60 decibeles, es decir, $I > 60 dB$, y los formantes F1 y F2 promedio y sus desviaciones observados en el corpus. Las figuras \ref{img:formantes_a}, \ref{img:formantes_e}, \ref{img:formantes_i}, \ref{img:formantes_o} y \ref{img:formantes_u} muestran ejemplos de dicho análisis. Los puntos indican los formantes calculados, F1 en azul y F2 en rojo, las líneas azul y roja representan los valores promedios para los formantes 1 y 2 respectivamente, con una franja del mismo color y en leve transparencia representando los rangos aceptados para cada formante considerando la desviación estándar, en verde la señal, y en amarillo la intensidad.
 
 % (Y explicar las lineas rojas, amarilla, verde. Recomiendo que los formantes observados sean graficados con la desviaci\'on st\'andar en transparencia. Tambi\'en, los dos formantes observados deber\'ian tener color distinto entre ellos y posiblemente en la misma escala de los calculados.)
 %\ref{img:formantes_a} y e en la figura \ref{img:formantes_e}
@@ -130,31 +159,41 @@ Para entender los bajos resultados presentados por la aproximación basada en lo
 \caption{Formantes de vocal A}
 % \macb{usar notaci\'on fon\'etica, por ejemplo /a/ en SAMPA, la letra A en SAMPA es una vocal del ingl\'es, igualmente con E.}
 \label{img:formantes_a}
-\includegraphics[width=\textwidth]{imagenes/04_02_a.png}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{imagenes/04_02_a.png}
+\end{center}
 \end{figure}
 
 \begin{figure}[H]
 \caption{Formantes de vocal E}
 \label{img:formantes_e}
-\includegraphics[width=\textwidth]{imagenes/04_02_e.png}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{imagenes/04_02_e.png}
+\end{center}
 \end{figure}
 
 \begin{figure}[H]
 \caption{Formantes de vocal I}
 \label{img:formantes_i}
-\includegraphics[width=\textwidth]{imagenes/04_02_i.png}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{imagenes/04_02_i.png}
+\end{center}
 \end{figure}
 
 \begin{figure}[H]
 \caption{Formantes de vocal O}
 \label{img:formantes_o}
-\includegraphics[width=\textwidth]{imagenes/04_02_o.png}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{imagenes/04_02_o.png}
+\end{center}
 \end{figure}
 
 \begin{figure}[H]
 \caption{Formantes de vocal U}
 \label{img:formantes_u}
-\includegraphics[width=\textwidth]{imagenes/04_02_u.png}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{imagenes/04_02_u.png}
+\end{center}
 \end{figure}
 
 % Esto debería estar arriba.
@@ -166,9 +205,9 @@ Considerando que en los valores de los formantes y su rango de aceptación no ge
 
 Para estos experimentos, se tomaron los mismos valores de los formantes y la intensidad usando también valores de los formantes 3, 4 y 5, que enriquecen la información acústica extraída de las grabaciones.
 
-Los conjuntos de entrenamiento y pruebas se extrajeron del corpus de experimentación fonética, realizando una partición de 90\% para entrenamiento y 10\% para pruebas. Se realizó una segmentación por ventanas de tiempo de 60ms y se contó la cantidad de ventanas por cada fonema y sobre estos valores se realizó la partición.
+Los conjuntos de entrenamiento y pruebas se extrajeron del corpus de experimentación fonética, realizando una partición de 90\% para entrenamiento y 10\% para pruebas. Esta segmentación se realizó creando ventanas de tiempo de 60ms. Se contó la ocurrencia de cada fonema en las ventanas y sobre el total de apariciones de fonemas en las ventanas se determinó la proporción 90\%-10\% para los conjuntos de entrenamiento y pruebas.
 
-Como los árboles de decisión son sensibles a la cantidad de grupos a clasificar, se realizaron experimentos transformando la anotación fonética de cada grabación. Las transformaciones usadas se muestran en la tabla \ref{tab:transformacion_fonetica_arboles}
+Como los árboles de decisión son sensibles a la cantidad de grupos a clasificar, se realizaron experimentos transformando la anotación fonética de cada grabación. Las transformaciones usadas se muestran en la tabla \ref{tab:transformacion_fonetica_arboles}.
 
 \input{tablas/04_06_transformacion_fonetica}
 
@@ -176,7 +215,18 @@ Los resultados a los experimento se muestran a continuación en la tabla \ref{ta
 
 \input{tablas/04_07_resultados_arboles}
 
+Utilizando el clasificador de vocales extremas, se realizó el cálculo del AER, haciendo una transformación de los tokens al diccionario fonético y posteriormente evaluando el WER del texto esperado con respecto al predicho por el clasificador.
 
-\begin{equation}
-    AER_{informacion acustica} = ??
-\end{equation}
+Como el clasificador retorna un posible fonema por cada segmento de duración de 60ms, se comprimió el resultado predicho agrupando todos los fonemas adyacentes en uno solo. Considerando de igual manera que la duración promedio de las vocales evaluadas es cercana a los 150ms con desviación de 50ms, los grupos con menos de 4 fonemas adyacentes se eliminan, pues no representan ninguna vocal.
+
+Realizando estas adaptaciones, el valor de AER de la anotación usando información fonética fue: 89.56\% y los resultados individuales se muestran en la figura \ref{img:aer_vocales_externas}.
+
+\begin{figure}[H]
+\caption{Resultados de la alineación usando información fonética}
+\label{img:aer_vocales_externas}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{imagenes/04_04_aer_vocales_externas.png}
+\end{center}
+\end{figure}
+
+El principal problema con esta aproximación es que, al transformar el texto a esta representación fonética, toda la información de las consonantes y dos vocales se pierda, reduciendo el tamaño del texto y haciendo que cada error le de un valor mas alto a cada WER local. En algunos casos, al finalizar la transformación del texto, se encontraron escenarios donde en un token no existía ninguna vocal externa, dejando este segmento de varios segundos como un solo fonema. Adicional a esto, la propagación de los errores a segmentos adyacentes sigue presente.

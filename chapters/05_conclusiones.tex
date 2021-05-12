@@ -2,18 +2,18 @@
 
 El presente trabajo exploró las tareas de segmentación y alineación del procesamiento de voz, reconociendo proponiendo aproximaciones computacionales apoyadas en el procesamiento digital de señales, la fonología y las ciencias de la computación para su resolución.
 
-En los últimos tres años el incremento de recursos de licencia abierta en español para el procesamiento de voz ha aumentado considerablemente, mostrando la relevancia de estos recursos en la investigación.
+Tras explorar las publicaciones recientes, se encontró que en los últimos 5 años la cantidad de recursos abiertos publicados para el procesamiento de voz en español creció considerablemente con respecto a los recursos existentes y publicados hasta esa fecha, mostrando la relevancia que tiene esta área de investigación. Igual mente se corrobora que el proceso de anotación de recursos manual es costoso y que otras aproximaciones como las del crowd-sourcing o la anotación automática o semi automática de recursos existentes y de licencia abierta, como audio libros o sesiones del parlamento son soluciones viables para la creación de nuevos recursos.
 
-Aproximaciones automáticas y colaborativas se han propuesto con éxito para la creación de recursos de voz.
+A pesar del crecimiento de los recursos abiertos para español, los recursos anotados a nivel fonéticos aún son escasos y la anotación manual de recursos existentes a este nivel, si bien es provechosa, es significativamente mas costosa en tiempo y esfuerzo que la anotación a nivel de palabra o declaración.
 
-Fuentes de datos de voz abiertas, como audio libros y grabaciones de sesiones parlamentarias, han sido usadas para la creación de corpus de voz.
+A la hora de segmentar audios, el análisis de energía por segmentos cortos en la señal permite separar el audio considerando las pausas naturales en los locutores, y el uso de un umbral del 15\% sobre la amplitud máxima de la señal mostró tener mejores resultados que umbrales calculados dinámicamente.
 
-Los recursos anotados fonéticamente permiten un análisis detallado de la información acústica de las grabaciones para obtener información relevante en el análisis de grabaciones de voz.
+Con respecto a la tarea de alineación automática, se verificó que los signos de puntuación no representan necesariamente pausas en las grabaciones de voz correspondientes, aunque en algunos casos aislados y existe una correspondencia directa, esto no es la generalidad. 
 
-La creación manual de recursos de habla es costosa y requiere tiempo de personal entrenado para la garantizar la calidad de los recursos.
+Al extender las característica de las grabaciones y realizando estimaciones de la duración esperada a partir del texto correspondiente a la grabación, la anotación automática mejora y para grabaciones cortas, menores a los 80 segundos, solo esta información es suficiente para anotar con un alto grado de confianza.
 
-El uso de recursos existentes acelera el desarrollo de nuevos recursos, usando los primeros como insumo para la creación de más recursos.
+Para finalizar, el análisis fonético usando técnicas de análisis de frecuencia en cortos periodos de tiempo, permite extraer información relevante para la alineación automática, y aunque el análisis exclusivo con los primeros formantes de una señal no provee suficiente información acústica para diferenciar todas las consonantes de español, permite caracterizar muy bien las vocales, considerando la variabilidad de dialectos y timbres inherentes a los locutores; sin embargo esta información es insuficiente para por si sola mejorar los resultados de alineación. Esto también corrobora la complejidad de la tarea de reconocimiento automático de la voz, que en la actualidad requiere mecanismos intensivos y con grandes volúmenes de datos para obtener buenos resultados.
 
-La segmentación de grabaciones de voz usando análisis de frecuencia en cortos periodos de tiempo y calculando la energía de cada segmento y definiendo un umbral mínimo con respecto a la energía máxima representa las pausas naturales en las grabaciones de voz
+Las aproximaciones propuestas en este trabajo muestran una alternativa para la creación de recursos cuando de antemano no se tiene la cantidad de datos requerida por sistemas exhaustivos.
 
-Usando información fonética y acústica comunes a un lenguaje es posible obtener resultados satisfactorios para las tareas de alineación, sin la necesidad de usar algoritmos que requieren grandes volúmenes de datos.
+Como trabajo futuro, se propone realizar combinaciones entre las aproximaciones propuestas usando como base la alineación por duración promedio de fonemas y la verificación posterior identificando las vocales del segmento en cuestión.
