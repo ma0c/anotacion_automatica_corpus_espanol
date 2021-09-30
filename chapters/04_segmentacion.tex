@@ -6,13 +6,13 @@ El procesamiento de grabaciones del dominio público para la creación de recurs
 
 \section{Segmentación basada en silencio}
 
-Las segmentación basada en silencio es una respuesta natural al problema de como segmentar señales de voz, pues existe una correspondencia directa entre símbolos de puntuación y pausas en la voz. De igual manera en una señal de voz, los locutores requieren pausas para tomar aire, lo que permite que exista una cadencia en la señal y espacios donde realizar los cortes.
+Las segmentación basada en silencio es una respuesta natural al problema de cómo segmentar señales de voz, pues existe una correspondencia directa entre símbolos de puntuación y pausas en la voz. De igual manera en una señal de voz, los locutores requieren pausas para tomar aire, lo que permite que exista una cadencia en la señal y espacios donde realizar los cortes.
 
 Para identificar el proceso de segmentación por silencios, es necesario entender cómo se almacenan las señales de voz digitalmente y cómo se puede procesar este tipo de datos.
 
 La manera m\'as sencilla de representar digitalmente una señal de voz es haciendo el uso de la Modulación por Impulsos Codificados o PCM por sus siglas en inglés, donde por medio de un transductor análogo, se capturan las variaciones en la presión del aire y se registran como un rango de valores normalizado. El senso de la señal se hace periódicamente a una frecuencia determinada generando de esta manera una secuencia de valores que representa la señal. El proceso de representar la presión del aire en un segmento de tiempo se denomina cuantización, y para señales de audio se utilizan valores normalizados entre -127 y 128 representados por 8 bits a 16000 Hz de frecuencia.
 
-En al figura \ref{img:pcm} se muestra la visualización de una grabación correspondiente a la palabra agua, extraída del corpus Open Speech Corpus de palabaras, en su longitud original y aumentada en un 500\% y 1000\% usando Audacity \cite{audacity}
+En la figura \ref{img:pcm} se muestra la visualización de una grabación correspondiente a la palabra agua, extraída del corpus Open Speech Corpus de palabaras, en su longitud original y aumentada en un 500\% y 1000\% usando Audacity \cite{audacity}
 
 \begin{figure}[H]
 \caption{Representación visual de una señal de voz}
@@ -29,7 +29,7 @@ Definiremos intensidad como la sumatoria de las energías en un periodo de tiemp
 I = \sum{x^2}  
 \end{equation}
 
-Esto nos daría un indicador de toda la señal, sin embargo, es útil realizar este análisis por pequeños segmentos del audio para identificar en conjunto cuales son los puntos donde la intensidad baja representa un espacio de silencio. Estos segmentos por lo general se definen en espacios de 25ms solapados cada 10ms \cite{Jurafsky2000SpeechRecognition}, lo cual da la idea de una señal continua, donde cada segmento comparte información con el anterior. 
+Esto nos daría un indicador de toda la señal, sin embargo, es útil realizar este análisis por pequeños segmentos del audio para identificar en conjunto cuáles son los puntos donde la intensidad baja representa un espacio de silencio. Estos segmentos por lo general se definen en espacios de 25ms solapados cada 10ms \cite{Jurafsky2000SpeechRecognition}, lo cual da la idea de una señal continua, donde cada segmento comparte información con el anterior. 
 
 Utilizando esta idea es posible tomar cualquier señal de voz, segmentarla cada 25ms y encontrar los segmentos consecutivos donde la intensidad sea baja o cercana a cero y estos segmentos consecutivos representarían pausas de silencio. Algunas consideraciones a tomar al usar esta aproximación es que incluso en medio de las señales de voz, existen subsegmentos donde la intensidad es baja, por ejemplo en la pronunciación de consonantes plosivas, como la b, c, d, g, p y t existe una interrupción momentánea y completa del flujo de aire, causando momentáneamente segmentos de silencio.
 
@@ -44,9 +44,9 @@ El criterio de silencio seleccionado como baja intensidad de múltiples segmento
 
 La alineación consiste en, después de tener una segmentación por silencios en las grabaciones y una segmentación por símbolos de puntuación en la transcripción, encontrar la relación que existe entre los segmentos de audio y los de tokens del texto.
 
-La primera aproximación ingenua que consiste en relacionar en orden los segmentos de voz y texto, asumiendo que los signos de puntuación tienen siempre una ocurrencia acústica representada como silencio, y por consiguiente, al segmentar el texto por signos de puntuación existe una relación uno a uno con cada segmento delimitado por silencios.
+La primera aproximación ingenua consiste en relacionar en orden los segmentos de voz y texto, asumiendo que los signos de puntuación tienen siempre una ocurrencia acústica representada como silencio, y por consiguiente, al segmentar el texto por signos de puntuación existe una relación uno a uno con cada segmento delimitado por silencios.
 
-Para la evaluación de de este modelo se usa el indicador WER, del inglés Word Error Rate, el cual utilizando parámetros de sustitución (S), eliminación (E) e inserción (I) de la distancia de edición Levenstein \cite{Levenshtein_SPD66} y la totalidad de palabras (N) se obtiene la relación mostrada en la ecuación \ref{eq:wer}
+Para la evaluación de este modelo se usa el indicador WER, del inglés Word Error Rate, el cual utilizando parámetros de sustitución (S), eliminación (E) e inserción (I) de la distancia de edición Levenstein \cite{Levenshtein_SPD66} y la totalidad de palabras (N) se obtiene la relación mostrada en la ecuación \ref{eq:wer}
 
 \begin{equation}
     \label{eq:wer}
@@ -74,7 +74,7 @@ Calculando el AER para la anotación ingenua se obtiene el siguiente resultado, 
     AER_{ingenuo} = 79.13
 \end{equation}
 
-En al figura \ref{img:aer_ingenuo} se muestra gráficamente los resultados de cada AER por grabación evaluada, donde se observa que en la mayoría de casos, los valores AER son altos, aunque en algunas grabaciones de corta duración las pausas corresponden a signos de puntuación, estas fenómeno no representa una regla.
+En la figura \ref{img:aer_ingenuo} se muestra gráficamente los resultados de cada AER por grabación evaluada, donde se observa que en la mayoría de casos, los valores AER son altos, aunque en algunas grabaciones de corta duración las pausas corresponden a signos de puntuación, estos fenómenos no representa una regla.
 
 \begin{figure}[H]
 \caption{Resultados de la alineación ingénua}
@@ -123,7 +123,7 @@ Las grabaciones voz no son señales estacionarias, pero al segmentar en pequeño
 
 Si bien las características morfológicas de los locutores modifican su timbre y tono de voz, a nivel acústico, la dicción de cada fonema es similar. En las vocales, que son los fonemas con más energía, las partes de la anatomía responsables de diferenciar los sonidos son la apertura de la glotis, la posici\'on de la lengua y la apertura de la boca. Lo cual da la idea que una descomposición acústica podría identificar este fenómeno.
 
-Al descomponer cualquier señal utilizando la transformada de Fourier (ver equación \ref{eq:fourier}), se obtienen señales raíz de cada onda compleja. Con las señales de voz, los coeficientes máximos  en el orden ascendente de la frecuencia se denominan formantes, y el formante 1 (F1) y el formante 2 (F2) representan efectivamente el fenómeno efectuado por las cuerda vocales vibrando y la resonancia dada por la cavidad bucal. Los formantes son harmónicos, la captura de estos se da en señales de cualquier tipo, sea de voz u otro fenómeno acústico, como las señales generadas por instrumentos musicales. Todos los formantes F1,F2,F3, etc. corresponden al pulso excitativo de la glotis y la resonancia en el tracto vocal.
+Al descomponer cualquier señal utilizando la transformada de Fourier (ver equación \ref{eq:fourier}), se obtienen señales raíz de cada onda compleja. Con las señales de voz, los coeficientes máximos  en el orden ascendente de la frecuencia se denominan formantes, y el formante 1 (F1) y el formante 2 (F2) representan efectivamente el fenómeno efectuado por las cuerdas vocales vibrando y la resonancia dada por la cavidad bucal. Los formantes son harmónicos, la captura de estos se da en señales de cualquier tipo, sea de voz u otro fenómeno acústico, como las señales generadas por instrumentos musicales. Todos los formantes F1,F2,F3, etc. corresponden al pulso excitativo de la glotis y la resonancia en el tracto vocal.
 
 \begin{equation}
 \label{eq:fourier}    
@@ -201,9 +201,7 @@ Para entender los bajos resultados presentados por la aproximación basada en lo
 
 En las gráficas se observa que en los rangos donde hay mas energía, los formantes se estabilizan cerca de ciertos valores, sin embargo no siempre el valor de estabilización corresponde a los rangos cercanos al formante promedio más o menos su desviación estándar.
 
-Considerando que en los valores de los formantes y su rango de aceptación no genera los resultados esperados, se realizan experimentos con árboles de decisión.
-
-Para estos experimentos, se tomaron los mismos valores de los formantes y la intensidad usando también valores de los formantes 3, 4 y 5, que enriquecen la información acústica extraída de las grabaciones.
+Considerando que en los valores de los formantes y su rango de aceptación no genera los resultados esperados, se realizan experimentos con árboles de decisión. Para estos experimentos, se tomaron los mismos valores de los formantes y la intensidad usando también valores de los formantes 3, 4 y 5, que enriquecen la información acústica extraída de las grabaciones.
 
 Los conjuntos de entrenamiento y pruebas se extrajeron del corpus de experimentación fonética, realizando una partición de 90\% para entrenamiento y 10\% para pruebas. Esta segmentación se realizó creando ventanas de tiempo de 60ms. Se contó la ocurrencia de cada fonema en las ventanas y sobre el total de apariciones de fonemas en las ventanas se determinó la proporción 90\%-10\% para los conjuntos de entrenamiento y pruebas.
 
@@ -211,7 +209,7 @@ Como los árboles de decisión son sensibles a la cantidad de grupos a clasifica
 
 \input{tablas/04_06_transformacion_fonetica}
 
-Los resultados a los experimento se muestran a continuación en la tabla \ref{tab:resultados_arboles}
+Los resultados de los experimentos se muestran a continuación en la tabla \ref{tab:resultados_arboles}
 
 \input{tablas/04_07_resultados_arboles}
 
@@ -229,4 +227,4 @@ Realizando estas adaptaciones, el valor de AER de la anotación usando informaci
 \end{center}
 \end{figure}
 
-El principal problema con esta aproximación es que, al transformar el texto a esta representación fonética, toda la información de las consonantes y dos vocales se pierda, reduciendo el tamaño del texto y haciendo que cada error le de un valor mas alto a cada WER local. En algunos casos, al finalizar la transformación del texto, se encontraron escenarios donde en un token no existía ninguna vocal externa, dejando este segmento de varios segundos como un solo fonema. Adicional a esto, la propagación de los errores a segmentos adyacentes sigue presente.
+El principal problema con esta aproximación es que, al transformar el texto a esta representación fonética, toda la información de las consonantes y dos vocales se pierde, reduciendo el tamaño del texto y haciendo que cada error le dé un valor más alto a cada WER local. En algunos casos, al finalizar la transformación del texto, se encontraron escenarios donde en un token no existía ninguna vocal externa, dejando este segmento de varios segundos como un solo fonema. Adicional a esto, la propagación de los errores a segmentos adyacentes sigue presente.
