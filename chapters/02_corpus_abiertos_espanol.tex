@@ -1,5 +1,3 @@
-
-
 \chapter{Revisión de recursos abiertos para el español}
 
 La investigación en tecnologías del habla depende fuertemente en recursos de lenguaje de alta calidad y gran tamaño diseñados para la lengua específica. Los recursos abiertos de este tipo son más escasos en comparación con recursos de pago y la creación de dichos recursos para tareas como reconocimiento y síntesis de voz es costosa, por lo que muchos investigadores optan por crear conjuntos de datos pequeños y enfocados a su investigación.
@@ -109,3 +107,65 @@ Considerando que el corpus es grabado y validado por voluntarios, las condicione
 Vox Populli \cite{voxpopulli} es un corpus publicado por Facebook anotando automáticamente las grabaciones y traducciones realizadas en el parlamento europeo. El corpus está separado en 16 lenguajes, con 160 horas de grabaciones anotadas a nivel de declaración de 305 locutores distintos y 4400 horas no anotadas para el idioma español. 
 
 El procesamiento de las horas anotadas consistió en el uso de las transcripciones manuales de las sesiones. Como estas transcripciones tenían problemas de alineación, sobre cada audio, que corresponde a un párrafo se realizó una segmentación por silencios de duración máxima de 20 segundos. La duración aproximada de cada párrafo original es de 197 segundos. Los nuevos subsegmentos fueron anotados automáticamente con un software de reconocimiento automático de voz. Se comparó el resultado obtenido por el software reconocimiento automático de voz con la anotación esperada en la transcripción manual y los resultados individuales con precisión superior al 80\% fueron conservados.
+
+
+
+\section{Herramientas existentes para la anotación automática}
+% \section{Existing tools}
+
+Muchos Alineadores Forzados de código abierto utilizan investigación teórica para materializar la alineación de recursos existentes. Basada en la categorización mencionada previamente, se agrupan alineadores existentes en las siguientes categorías
+
+\begin{itemize}
+    \item Pliegues Dinámicos Temporales
+    \item Modelos Ocultos de Markov
+    \item Redes Neuronales Artificiales
+\end{itemize}
+% Open source forced aligners uses theoretical research to create tools to materialize alignment on existing resources. Based on previously mentioned categorization the existing aligners are grouped in the categories: Dynamic Time Warping, Hidden Markov Models and Artifical Neural Networks.
+
+\subsection{Pliegues Dinámicos Temporales}
+% \subsection{Dynamic Time Warping}
+
+Para DTW la idea principal es generar señales de voz artificiales utilizando software de tipo grafema a fonema, también conocido como texto a vos (Text To Speech TTS), y luego aliear la señal de entrada con la generada artificialmente.
+
+% For DTW the main idea is to generate an artificial speech using Grapheme to Phoneme  software and then align the input speech with the artificially generated wave
+
+\textbf{Aeneas}.
+
+Aneneas \cite{aeneas} es un software desarrollado por Alberto Pettarin para Read Beyond, un software de audio libros, liberado bajo licencia GNU Affero General Public Licence versión 3 (AGPL v3) en 2015, con varias actualizaciones hasta 2017. Para la generación de la señal artificial, Aeneas usa eSpeak \cite{espeak}, otro software licenciado bajo la licencia GNU Public Licence (GPL) por the Free Software Foundation. eSpeak en su versión original soporta más de 28 lenguajes, incluyendo Inglés y Español
+% Aeneas \cite{aeneas} uses espeak \cite{espeak} to generate the base generates speech wave. Then align the input word using dynamic programming.
+
+\subsection{Modelos Ocultos de Markov}
+% \subsection{Hidden Markov Models}
+
+Los Modelos Ocultos de Markov usan una serie de algoritmos para parametrizar los modelos, entre los cuales se destacan el algoritmo de Viterbi para la decodificación \cite{Forney1973TheAlgorithm} y el algoritmo Baum-Welch para la estimación inicial de parámetros.
+
+Este conjunto de algoritmos son implementados por paquetes especializados para el reconocimiento automático del habla, como  HTK \cite{Young1994ThePhilosophy}, Julius \cite{LeeEurospeechEngine} y CMU Sphinx \cite{Lee1990AnSystem}. Estas implementaciones abiertas de algoritmos son usadas por algunas herramientas mostradas a continuación.
+% Work with HMM uses a basic set of algorithms where the Viterbi algorithm \cite{Forney1973TheAlgorithm} and the Baum Welch Algorithm. These set of algorithms are implemented for ASR in frameworks and toolkits like HTK \cite{Young1994ThePhilosophy}, Julius \cite{LeeEurospeechEngine} and CMU Sphinx \cite{Lee1990AnSystem}.
+
+\textbf{MAUS}
+El Segmentador Automático de Munich (Munich AUtomatic Segmentation) desarrollado por el Instituto de Fonética y procesamiento de señales de la Universidad de Munich está construido usando herramientas de decodificación de HTK y BALLON un sistema de grafemas a fonemas también desarrollado por la  universidad de Munich. Este paquete fue desarrollado en 1994 por Uwe Reichel y Florian Schiel licenciado para propósitos no comerciales y académicos. \cite{WesenickAPPLYINGPRONUNCIATION}. 
+% The Munich Automatic Segmentation \cite{WesenickAPPLYINGPRONUNCIATION} is a build on top of HTK and BALLON a Grapheme to Phoneme Suite created by Uwe Reichel and uses a hybrid approach between DTW and HMM
+
+\textbf{SPPAS}
+SPPAS es un anotador automático y analizador de habla es una herramienta de computación científica desarrollada para proveer un análisis fonético robusto y confiable \cite{Bigi2016ASPPAS}. Fue creada por Brigitte Bigi  en el Laboratorio del habla y la lengua (Laboratoire Parole et Langage) de Francia, licenciado con la licencia GPL v3, utiliza Julius para el procesamiento de los Modelos Ocultos de Markov.
+% SPPAS \cite{Bigi2016ASPPAS} is a suite for automated for automated annotation and speech analysis created by Brigitte Bigi at Laboratoire Parole et Langage in France and uses Julius for HMM processing and Viterbi Algorithm
+
+\textbf{Prosodylab Aligner}
+Prosodylab Aligner \cite{Gorman2011Prosodylab-aligner:Speech} fue creado en el Laboratorio de Prosodia (Prosody Lab) en la Universidad de Mcgill en Canada, por Kyle Gorman y está compuesta de una serie de herramientas y scripts para crear alineaciones usando HTK usando monófonos para entrenar sus modelos.
+% Prosodylab Aligner \cite{Gorman2011Prosodylab-aligner:Speech} was created at Prosody Lab in Mcgill University by Kyle Gorman and are composed by a set of tools of scripts to create alignment using HTK as backend using mono-phones to train its models
+
+\subsection{Redes Neuronales Artificiales}
+% \subsection{Artificial Neural Networks}
+
+Los anotadores de código abierto basados en redes neuronales utilizan Kaldi \cite{Povey_ASRU2011}, un paquete diseñado por Daniel Povey en el instituto universitario John Hopkings, y licenciado bajo la licencia Apache 2.
+% For ANN the Kaldi toolkit \cite{Povey_ASRU2011} is used to improve development times.   
+
+\textbf{Gentle Forced Aligner}
+
+Gentle \cite{gentle} es un alineador forzado construido a partir de un modelo de bigramas y conceptos de programación dinámica para alinear el audio.
+% Gentle \cite{gentle} is a FA build on top of Kaldi. The main approach is to use a web server to evaluate an input speech. The model uses dynamic programming to align audio using a bigram model
+
+\textbf{The Montreal Forced Aligner}
+
+El Alineador Forzado de Montreal, fue creado en la Universidad de Mcgill en el laboratorio de prosidia \cite{McAuliffe2017MontrealKaldi}, licenciado con la licencia MIT  como una versión mejorada de Prosylab Aligner, utilizando el corpus GlobalPhone  para crear modelos trifónicos que mejoran el rendimiento con respecto al alineador anterior.
+% The Montreal Forced Aligner \cite{McAuliffe2017MontrealKaldi} was created at Prosody Lab in Mcgill University as the evolution for Prosodylab Aligner. It uses Kaldi as backend and Globalphone to create a triphone model that improves performance comparing Prosodylab Aligner
