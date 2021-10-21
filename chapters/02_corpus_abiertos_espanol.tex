@@ -45,7 +45,7 @@ Los corpus Heroico y USMA combinados tienen 13 horas de audio, y parte del corpu
 
 \subsection{Proyecto CIEMPIESS}
 
-El Corpus de Investigación en Español de México del Posgrado de Ingeniería Eléctrica y Servicio Social de la Universidad Nacional Autónoma de México CIEMPIES-UNAM es un proyecto iniciado en 2012 con el objetivo de desarrollar y compartir herramientas gratuitas y de código abierto para el procesamiento del habla en el idioma español. El proyecto no se limita a la creación de corpus sino a la investigación en tecnologías de habla aplicadas al idioma español \cite{CIEMPIESS-Webpage}. Para la anotación de corpus, el proyecto CIEMPIESS utiliza estudiantes de pregrado para realizar anotaciones manuales. Toda la segmentación y anotación se realiza utilizando herramientas de código abierto. Adicionalmente, el corpus final es distribuido bajo la licencia abierta Creative Commons Share A Like versión 4. Este proyecto ha publicado varios corpus a lo largo de los años, incluido el corpus original de CIEMPIESS \cite {CIEMPIESS}, CIEMPIESS Light \cite {CIEMPIESS-LIGHT}, CIEMPIESS Balance \cite {CIEMPIESS-BALANCE}, CIEMPIESS Experimentation \cite {CIEMPIESS-Experimentation} y LibriVoxSpanish \cite {LibriVox-Spanish} que se describen a continuación.
+El Corpus de Investigación en Español de México del Posgrado de Ingeniería Eléctrica y Servicio Social de la Universidad Nacional Autónoma de México CIEMPIES-UNAM es un proyecto iniciado en 2012 con el objetivo de desarrollar y compartir herramientas gratuitas y de código abierto para el procesamiento del habla en el idioma español. El proyecto no se limita a la creación de corpus sino a la investigación en tecnologías de habla aplicadas al idioma español \cite{CIEMPIESS-Webpage}. Para la anotación de corpus, el proyecto CIEMPIESS utiliza estudiantes de pregrado para realizar anotaciones manuales. Toda la segmentación y anotación manual se realiza utilizando herramientas de código abierto. Adicionalmente, el corpus final es distribuido bajo la licencia abierta Creative Commons Share A Like versión 4. El mismo proyecto distribuye herramientas para la utilzación de sus corpus para HTK\cite{Young1994ThePhilosophy} y Sphinx \cite{Lee1990AnSystem} . Este proyecto ha publicado varios corpus a lo largo de los años, incluido el corpus original de CIEMPIESS \cite {CIEMPIESS}, CIEMPIESS Light \cite {CIEMPIESS-LIGHT}, CIEMPIESS Balance \cite {CIEMPIESS-BALANCE}, CIEMPIESS Experimentation \cite {CIEMPIESS-Experimentation} y LibriVoxSpanish \cite {LibriVox-Spanish} que se describen a continuación.
 
 \subsubsection{CIEMPIESS}
 
@@ -110,22 +110,24 @@ El procesamiento de las horas anotadas consistió en el uso de las transcripcion
 
 
 
-\section{Herramientas existentes para la anotación automática}
+\section{Herramientas abiertas para la anotación automática}
 % \section{Existing tools}
 
-Muchos Alineadores Forzados de código abierto utilizan investigación teórica para materializar la alineación de recursos existentes. Basada en la categorización mencionada previamente, se agrupan alineadores existentes en las siguientes categorías
+Las herramientas de código abierto para la anotación automática o Alineación Forzada, utilizan técnicas tomadas del procesamiento digital de señales y el aprendizaje supervisado. Basada en estas características, las herramientas de código abierto para la anotación automática se agrupan en las siguientes categorías.
 
 \begin{itemize}
     \item Pliegues Dinámicos Temporales
     \item Modelos Ocultos de Markov
     \item Redes Neuronales Artificiales
 \end{itemize}
+
+En las siguientes secciones se mencionarán las herramientas existentes  agrupadas por su categoría
 % Open source forced aligners uses theoretical research to create tools to materialize alignment on existing resources. Based on previously mentioned categorization the existing aligners are grouped in the categories: Dynamic Time Warping, Hidden Markov Models and Artifical Neural Networks.
 
 \subsection{Pliegues Dinámicos Temporales}
 % \subsection{Dynamic Time Warping}
 
-Para DTW la idea principal es generar señales de voz artificiales utilizando software de tipo grafema a fonema, también conocido como texto a vos (Text To Speech TTS), y luego aliear la señal de entrada con la generada artificialmente.
+Los pliegues dinámicos temporales, conocidos por sus siglas en inglés DTW Dynamic Time Warping \cite{Sakoe1978DynamicRecognition} representan un conjunto de técnicas basadas en programación dinámica para encontrar la distancia mínima entre dos señales. Esto se logra generando artificialmente una señal que corresponda a la anotación del texto y consecuentemente realizar una alineación entre la señal grabada.
 
 % For DTW the main idea is to generate an artificial speech using Grapheme to Phoneme  software and then align the input speech with the artificially generated wave
 

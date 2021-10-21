@@ -33,10 +33,10 @@
 % The Feature Extraction (FE) process is usually called Front End because is the first step of Speech Recognition, its labor is to enhance the speech, removing distortions noise and transforming the wave in a representation that can be used from the Acoustic Model (AM), the AM estimates the probability for the transformed audio input given a known context and returns a score for the variable-length, the Language Model (LM) estimates the probability of a hypothesized word sequence; this approach uses N-grams with a very large collection of text, finally the Hypothesis Search merges the output of the AM and the LM. 
 % Forced Alignment (FA) can be used inside the AM before begin the model training as used for CMU Sphinx \cite{Lee1990AnSystem}
 
-Alineamiento Forzado (Forced Alignment FA) es un conjunto de técnicas para identificar los intervalos de tiempo entre los cuales una unidad de habla ocurre.
+La anotación automática o alineamiento forzado, son un conjunto de técnicas utilizadas para identificar los intervaloso de tiempos entre los cuales unidades fonéticas ocurren.
 % Forced Alignment is a set of techniques to identify time intervals where speech units occur in transcribed speech. 
 
-Para el análisis del habla, una unidad de habla es el segmento más pequeño en el cual está dividida la anotación de una señal; esta puede ser a nivel de declaración, la cual se define como el espacio de sonidos entre dos silencios, palabras o fonemas. Para el reconocimiento automático de la voz (Automatic Speech Recognition ASR), se usa generalmente una declaración para el entrenamiento y prueba de los algoritmos, sin embargo para el proceso de alineación forzada, se usa el nivel de fonemas.
+En el análisis del habla, una unidad de habla es el segmento más pequeño en el cual está dividida la anotación de una señal; esta puede ser a nivel de declaración, la cual se define como el espacio de sonidos entre dos silencios, nivel de palabras o fonemas donde se identifican los límites del tiempo entre la ocurrencia de la palabra o fonema. Para el reconocimiento automático de la voz, se usa generalmente una declaración para el entrenamiento y prueba de los algoritmos, sin embargo para el proceso de anotación automática, un nivel de anotación a nivel de fonemas da mas precisión para el análisis individual de cada parte del habla.
 % For speech analysis, a speech unit can be utterances, the speech audio between two silences, words or phonemes. Automatic Speech Recognition (ASR) generally uses utterance for its algorithms, however FA require a more fine grained annotation, usually at phoneme level.
 
 \begin{figure}[H]
@@ -51,15 +51,34 @@ En la figura \ref{img:alignment} se muestra un espectrograma de frecuencia que r
 
 \section{Representación fonética}
 
+Se define fonema como la unidad fonológica básica, que describe una interacción específica del aparato fonador. De esta manera las posibles combinaciones finitas que puede ejecutar el ser humano para emitir sonidos de voz quedan acotadas por estas representaciones, y a su vez son clasificadas en función de la cercanía de las interacciones.
+
+Al ser el lenguaje hablado un subconjunto de las señales auditivas percibas por el oído como variación en la presión del aire, los primeros fonemas que destacan son aquellos que modifican directamente esta presión del aire. El aparato fonador utiliza los pulmones y el diafragma para expulsar aire, luego utiliza las cuerdas vocales, y la boca para modificar esta presión generando variaciones en los sonidos percibidos. Estos sonidos primarios son llamados vocales y se pueden caracterizar por la apertura de la boca y el lugar de resonancia de la señal. Se puede observar un diagrama del aparato fonador en la figura \ref{img:aparato_fonador} tomada de la conferencia Hablemos de Voz \cite{hableomsDeVoz}.
+
+\begin{figure}[H]
+\caption{Aparato Fonador.}
+\label{img:aparato_fonador}
+\centering
+\includegraphics[width=12cm]{imagenes/03_02_aparato_fonador.png}
+\end{figure}
+
 Desde 1888, el Alfabeto Fonético Internacional (International Phonetic Alphabet IPA) es el métido estándar para representar y clasificar fonemas, indicando con un alto nivel de precisión las variaciones en la manera de articulación o la localización vocal de las modulaciones. Pequeñas variaciones en los fonemas son llamadas alófonos y pueden aumentar el nivel de anotación  \cite{IPAAlphabet}, pero en la práctica no son usados.
 % Since 1888 the International Phonetic Alphabet (IPA) is the standard method to represent and classify phonemes, indicating with a high level of precision small variations of the manner of articulation or location of vocal tract modulations. Little variations on phonemes are called allophones and can improve the level of annotation \cite{IPAAlphabet}, but is not used in practice.
 
 Las vocales son caracterizadas por la posición de la lengua y el tamaño de la abertura de la boca, teniendo diferentes representaciones, que se pueden observar en el cuadro \ref{tab:ipa_table_vowels}. 
 % Vowels are characterized by the position of the tongue and the wideness of the mouth having different representations variating the position as shown in Table \ref{tab:ipa_table_vowels}. 
 
-Las consonantes están clasificadas en dos segmentos: las pulmónicas, que requieren aire saliendo de los pulmónes y las no pulmónicas, donde no sale aire. En ambas las modificaciones en el tracto bucal definen el sonido. Las consonantes están divididas en dentales, coronales, dorsales y laríngeas, las cuales a su vez están subdivididas en otros sub segmentos. También la manera de articular define el sonido producido, siendo las maneras de articular: plosivas, nasales, oclusivas, fricativas, aproximantes, eyectivas o implosivas.
 
-Vea la clasificación de las consonantes en los cuadros \ref{tab:ipa_table_pulmonic_consonants} y \ref{tab:ipa_table_non_pulmonic_consonants}.
+
+Además de estas alteraciones principales en las perturbaciones del aire, existen otros sonidos que interrumpen el flujo de aire emitido por el diafragma. Estos sonidos son denominados consonantes y son clasificados por su lugar de articulación y el tipo de articulación. El IPA también define una clasificación para las consonantes, la cual puede observarse en la tabla \ref{tab:ipa_table_pulmonic_consonants} y la tabla \ref{tab:ipa_table_non_pulmonic_consonants}
+
+\input{tablas/03_03_ipa_vocales}
+
+\input{tablas/03_04_pulmonares}
+
+\input{tablas/03_05_ipa_no_pulmonares}
+
+
 % Consonants are classified in pulmonic and non-pulmonic, where modifications on superior vocal tract define the sound. All consonants are segmented in labial which subdivides in bi-labial labio-dental and labio-lingual; coronal divided into dental, alveolar, post-alveolar and retroflex; dorsal divided into palatal, velar, uvular; and laryngeal, divided in  pharyngeal and glottal; each classification can have a relationship with an articulation manner which is plosive, nasal, thrill, tap, flap, fricative, approximant, ejective, click or implosives. 
 
 La representación del Alfabeto Fonético Internacional para las vocales está mostrado en el cuadro \ref{tab:ipa_table_vowels}, donde se clasifican los sonidos por su centro silábico y la apertura del tracto bucal.
@@ -73,7 +92,12 @@ La representación del Alfabeto Fonético Internacional para las vocales está m
 Cada idioma utiliza un subconjunto de los fonemas definidos en este alfabeto fonético.
 % Each language uses a subset of phonemes to define its own pronunciation.
 
-Cada palabra de cualquier idioma tiene una y solo una representación fonética, y la relación entre la palabra y esta representación es llamada diccionario fonético. Además de esta representación, son necesarias otras características para representar una señal hablada, como el silencio, los murmullos y otros sonidos que no representan palabras pero añaden información a la grabación del audio.
+
+El español utiliza solamente ciertos fonemas del IPA, y la representación de este subconjunto se define como alfabeto fonético para el español. Dado que el IPA contiene símbolos por fuera de unicode, el tratamiento computacional de los alfabetos fonéticos genera problemas; por lo cual existen adecuaciones del mismo a unicode, como es el caso de SAMPA \cite{SAMPA}. 
+
+Otros diccionarios fonéticos para el español han sido propuestos, como es el caso de MEXBET \cite{mexbet}, un alfabeto fonético para el español representable en unicode. En la tabla \ref{tab:mexbet} se muestra MEXBET, segmentado por el tipo de articulación y el modo de articulación, relacionandolo con el símbolo correspondiente del IPA en paréntesis
+
+\input{tablas/03_06_mexbet}
 % Every language's word has only one phonetic representation and the relation between each word and its phonetic representation are called a phonetic dictionary. Besides the phonetic representation of each phoneme other features are needed to represent speech phenomenons like silence, mumbling and other inaudible sounds that can be perceived in a speech recording.
 
 \section{Representación Digital}
@@ -136,6 +160,10 @@ Generar una señal artificial a partir de la representación fonética de la se�
 Alinear una onda usando Modelos Ocultos de Markov requiere un modelo pre existente que defina los estados ocultos de cada modelo de Markov. Esta estimación inicial se realiza por medio del algoritmo Baum-Welch \cite{RabinerARecognition} el cual define unos valores iniciales que pueden ser aleatorios y los modifica en cada iteración hasta tener una configuración apropiada para las etiquetas y los estados usando un algoritmo de maximización de expectativa (Expectation Maximation EM). La generación de este modelo permite definir una matriz de costos que se puede optimizar por medio del algoritmo de Viterbi para encontrar la secuencia de etiquetas más probable para la entrada data. En el caso de las señales habladas, la entrada está representada por una secuencia de vectores con características de cada ventana de señal y la salida es su correspondiente secuencia de fonemas.
 % Aligning a wave using HMMs requires a preexisting model that defines the hidden states of the markov models. This estimation usually uses a Baum-Welch algorithm, where a set of values are proposed for the hidden layer usually randomly and maximized using an Expectation-Maximization algorithm. This model then allows to use the Viterbi algorithm to find a maximum sequence of probability of hidden states for a new sequence, where the sequence is a speech vector and the hidden state represents the phonemes.
 
+
+
+En la figura \ref{img:hmm} se muestra una posible configuración de estados que representan fonemas y la secuencia de vectores extraídos de la señal hablada
+
 \begin{figure}[H]
 
 \centering
@@ -143,8 +171,6 @@ Alinear una onda usando Modelos Ocultos de Markov requiere un modelo pre existen
 \label{img:hmm}
 \includegraphics[scale=0.50]{imagenes/hmm.png}
 \end{figure}
-
-En la figura \ref{img:hmm} se muestra una posible configuración de estados que representan fonemas y la secuencia de vectores extraídos de la señal hablada
 
 \subsection{Redes Neuronales Artificiales}
 

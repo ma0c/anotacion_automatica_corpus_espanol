@@ -215,6 +215,16 @@ Los resultados de los experimentos se muestran a continuación en la tabla \ref{
 
 Utilizando el clasificador de vocales extremas, se realizó el cálculo del AER, haciendo una transformación de los tokens al diccionario fonético y posteriormente evaluando el WER del texto esperado con respecto al predicho por el clasificador.
 
+En la imagen \ref{img:decision_tree} se visualiza el árbol de decisión usado para obtener los resultados del experimento, donde se tiene un árbol de 7 niveles, las características usadas para la separación de este árbol fueron las 5 primeras formantes y la intensidad.
+
+\begin{figure}[H]
+\caption{Árbol de decisión de vocales externas}
+\label{img:decision_tree}
+\begin{center}
+\includegraphics[width=1.1\textwidth,angle=90]{imagenes/external_vowels.png}
+\end{center}
+\end{figure}
+
 Como el clasificador retorna un posible fonema por cada segmento de duración de 60ms, se comprimió el resultado predicho agrupando todos los fonemas adyacentes en uno solo. Considerando de igual manera que la duración promedio de las vocales evaluadas es cercana a los 150ms con desviación de 50ms, los grupos con menos de 4 fonemas adyacentes se eliminan, pues no representan ninguna vocal.
 
 Realizando estas adaptaciones, el valor de AER de la anotación usando información fonética fue: 89.56\% y los resultados individuales se muestran en la figura \ref{img:aer_vocales_externas}.
@@ -228,3 +238,17 @@ Realizando estas adaptaciones, el valor de AER de la anotación usando informaci
 \end{figure}
 
 El principal problema con esta aproximación es que, al transformar el texto a esta representación fonética, toda la información de las consonantes y dos vocales se pierde, reduciendo el tamaño del texto y haciendo que cada error le dé un valor más alto a cada WER local. En algunos casos, al finalizar la transformación del texto, se encontraron escenarios donde en un token no existía ninguna vocal externa, dejando este segmento de varios segundos como un solo fonema. Adicional a esto, la propagación de los errores a segmentos adyacentes sigue presente.
+
+\section{Comparación de técnicas}
+
+En este capítulo de discutieron tres aproximaciones para realizar una anotación automática de corpus extraídos de audiolibros, usando una segmentación automática basada en silencios y un umbral de ruido del 15\%, el cual da una precisión del 83.26\% la cual hace que sea bastante atractiva como herramienta de segmentación en comparación con una segmentación manual.
+
+Con respecto a la anotación, los mejores resultados se obtuvieron a partir de la segmentación basada en duración promedio de fonemas. Para el caso puntual de los audiolibros donde la lectura es continua y hay una cadencia constante, esta técnica obtuvo buenos resultados, sin embargo, en el corpus escogido, existen distintos tipos de textos, y tipos de lectura, y textos donde el locutor enfatice mas las pausas, como en los textos líricos, esta aproximación basada en duración promedio de fonemas empeora los resultados. En casos, donde los textos son cortos y los locutores no tienen espacios para variar su cadencia, esta técnica muestra mejores resultados
+
+La anotación basada en fonemas, aunque presenta una alta precisión a la hora de identificar características aisladas, no puede transferir esta precisión a la anotación del texto completo. Usando el clasificador con mejores resultados, que contempla solo vocales externas y no vocales, existen pequeños espacios de tiempo, donde las características no son estables y se genera un cambio de unidad fonética, que afecta los resultados. De igual manera, palabras que incluyen fonemas adyacentes con la misma categoría, como consonantes adyacentes o hiatos, deforman las palabras a un punto donde no hay información suficiente para determinar los límites en el tiempo.
+
+Con estos resultados, el corpus generado por la técnica basada en fonemas, que tuvo un mejor AER, presentaba muchos errores. Realizando verificaciones manuales de los segmentos generados para grabaciones de mas de 100 segundos, se observaron desalineaciones que se propagaban hasta el final del texto, haciendo que los resultados no fueran apropiados para su publicación, pues el error es muy alto.
+
+En comparación con herramientas existentes y abiertas, las técnicas exploradas en este trabajo no ofrecen ninguna ventaja. 
+
+Es válido aclarar que muchas de las herramientas en el estado del arte utilizan modelos acústicos pre-generados y que son aveces usados en tareas de reconocimiento de voz. Es usual encontrar modelos que fueron generados por corpus que no son de licencia abierta, o no están disponibles, dando un poco de ventaja a la herramienta. Existen también herramientas de código abierto que usan herramientas pagas de terceros, y reportan mejores resultados. 

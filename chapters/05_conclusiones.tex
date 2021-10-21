@@ -16,7 +16,15 @@ Para finalizar, el análisis fonético usando técnicas de análisis de frecuenc
 
 Las aproximaciones propuestas en este trabajo muestran una alternativa para la creación de recursos cuando de antemano no se tiene la cantidad de datos requerida por sistemas exhaustivos.
 
+\section{Trabajos futuros}
+
+
 Como trabajo futuro, se propone realizar combinaciones entre las aproximaciones propuestas usando como base la alineación por duración promedio de fonemas y la verificación posterior identificando las vocales del segmento en cuestión.
 
+Considerando que la alineación de resultados usada en este trabajo asumía la presencia de todos los segmentos en la anotación automática, los errores en la alineación al comienzo del texto se propagan hasta el final, perjudicando la precisión. Una alternativa para esto es ampliar la búsqueda de los mejores resultados asumiendo que hay segmentos no encontrados y permitiendo que el error se propague por mas segmentos.
 
-\section{Trabajos futuros}
+También, dejando el precendente de los corpus existentes y abiertos, queda abierta una puerta para la creación de un multicorpus, donde se congregue todos los datos de los corpus abiertos y se homogenice la presentación, generando un corpus con independiente de locutor, con múltiples dialectos, de larga duración y gran vocabulario.
+
+Queda abierta la puerta a la exploración de otras técnicas del aprendizaje automático diferentes a los árboles de decisión en donde se explore si con la información acústica de los primeros formantes se pueden obtener preciones más altas. De igual manera, explorar si las técnicas exploradas en este trabajo pueden ser usadas con otros métodos de extracción de características donde se incluya más información acústica.
+
+
